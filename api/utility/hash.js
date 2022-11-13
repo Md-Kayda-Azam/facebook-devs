@@ -1,11 +1,12 @@
 import bcrypt from "bcryptjs"
 
+
 /**
- * Create a Hash password
+ * Create a hash password
+ * @param {*} password 
+ * @returns 
  */
-
 export const hashPassword = (password) => {
-
 
     // salt gen
     const salt = bcrypt.genSaltSync(12);
@@ -19,8 +20,10 @@ export const hashPassword = (password) => {
 
 /**
  * password match
+ * @param {*} password 
+ * @param {*} hash 
+ * @returns 
  */
-
 export const varifyPassword = (password, hash) => {
 
     return bcrypt.compareSync(password, hash);

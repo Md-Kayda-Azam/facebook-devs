@@ -4,11 +4,18 @@ import nodemailer from 'nodemailer'
 
 /**
  * Send Account Activation
+ * @param {*} to 
+ * @param {*} data 
  */
 
 export const sendActivationLink = async ( to, data) => {
 
-    // create trams transport
+
+
+
+    try {
+
+            // create trams transport
     let transport = nodemailer.createTransport({
         host : process.env.MAIL_HOST,
         port : process.env.MAIL_PORT,
@@ -19,9 +26,6 @@ export const sendActivationLink = async ( to, data) => {
     })
 
 
-
-    try {
-
         // send activation mail 
     await transport.sendMail({
             from : `Facebook pro <${process.env.MAIL_ID}>`,
@@ -29,59 +33,54 @@ export const sendActivationLink = async ( to, data) => {
             to : to,
             text : 'check your link',
             html : `
-            <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-            <html xmlns="http://www.w3.org/1999/xhtml">
-            <head>
-                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                <title>Contact Form 7 Email Add on</title>
-            </head>
-            <body style="margin: 0; padding: 0;">
-                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background: #f2f2f2;" background-color="#f2f2f2">
-                    <tbody>
-                        <tr>
-                            <td align="center" style="padding: 30px 0 30px 0;">
-                                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background: #ffffff; max-width: 600px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; overflow: hidden; font-family: Verdana, Geneva, sans-serif;" background-color="#ffffff">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <table width="100%" cellpadding="0" cellspacing="0">
-                                                    <tr>
-                                                        <td align="center" height="520" bgcolor="#8d89c9" style="background-image: url(https://buenosdiasmiamor.com/wp-content/plugins/cf7-email-add-on/admin/assets/images/gradient-img2.png); background-color: #8d89c9; background-repeat: repeat-x; height: 520px;">
-                                                            <img src="https://buenosdiasmiamor.com/wp-content/plugins/cf7-email-add-on/admin/assets/images/thank-you-img.png" alt="" style="display: block;">
-                                                            <p style="font-family: Verdana, Geneva, sans-serif; font-size: 35px; font-weight: 700; color: #ffffff; margin: 0 0 10px 0;">Welcome ${data.name}</p>
-                                                            <p style="font-family: Verdana, Geneva, sans-serif; max-width: 90%; font-size: 18px; color: #ffffff; margin: 0 auto 26px;">
-                                                                We have received your message and would like to thank you for writing to us. If your inquiry is urgent, please call us to talk to one of our staff members. Otherwise, we will reply by email as soon as possible.
-                                                            </p>
-                                                            <a href="${data.link}" style="font-family: Verdana, Geneva, sans-serif; display: inline-block; width: 160px; height: 50px; font-size: 14px; color: #8a89cb; text-decoration: none; text-transform: uppercase; font-weight: 700; background: url() no-repeat; text-align: center;">
-                                                                <img src="https://buenosdiasmiamor.com/wp-content/plugins/cf7-email-add-on/admin/assets/images/send-btn.png" style="display: block;" alt="Contact us">
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="center" style="padding: 0px 0 30px 0;">
-                                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; overflow: hidden; font-family: Verdana, Geneva, sans-serif;">
-                                    <tbody>
-                                        <tr>
-                                            <td style="text-align: center; font-size: 12px; color: #666666; text-transform: uppercase; font-family: Verdana, Geneva, sans-serif;">
-                                                © 2022 <a href="[_url]" target="_blank" style="color: #666666; text-decoration: none;">Powered by</a>. Contact Form 7 Email Addon.
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </body>
-            </html>
-           
+            
+            <body style="padding:0;margin:0;"> <center class="wrapper" style="width:100%;table-layout:fixed;background-color:#ddd;padding-top:30px;padding-bottom:30px;"> <table class="main" style="background-color:#fff;color:rgb(37, 36, 36);width:100%;max-width:600px;margin:0 auto;border-spacing:0;font-family:sans-serif;padding: 20px;"> <!-- Header section --> <tr> <td height="16" style="padding:0;background-color: #fff;" class="header-section"> <table width="100%" style="border-spacing:0;"> <tr> <td class="two-collum" style="padding:0;text-align:left;"> <table width="100%" style="border-spacing:0;border-bottom: 1px solid #ddd;"> <tr> <td class="colum1" style="padding:0;width:100%;max-width:80px;height:100%;display:inline-block;vertical-align:top;"> <a href="http://localhost:3000/" style="text-decoration:none;"> <img style="border:0;padding-top: 10px;" width="50"  src="https://i.ibb.co/YQDGnfX/Facebook-logo.png" alt="Facebook-logo" border="0"> </a> </td> <td class="colum2" style="padding:0;width:100%;max-width:400px;display:inline-block;vertical-align:top;"> <h4 style="color: #2377f2;" class="header-tittle">Action required: Confirm Your Facebook Account</h4> </td> </tr> </table> </td> </tr> </table> </td> </tr> <!-- body Section --> <tr> <td class="body-section" style="padding:0;background-color: #fff;"> <table width="100%" style="border-spacing:0;padding: 0 10px;"> <tr> <td class="recever-name" style="padding:0;"> <p style="color: rgb(35, 35, 35);">Hi, ${data.name}</p> </td> </tr> </table> </td> </tr> <tr> <td class="body-section" style="padding:0;background-color: #fff;"> <table width="100%" style="border-spacing:0;padding: 0 10px;"> <tr> <td class="message-name" style="padding:0;"> <p style="color: rgb(35, 35, 35); margin: 0;">You recently Registered for Facebook Pro, To complete your Facebook Pro registration, please  confirm your account</p> </td> </tr> </table> </td> </tr> <tr> <td class="body-section" style="padding:0;background-color: #fff;"> <table width="100%" style="border-spacing:0;padding: 30px 10px;"> <tr> <td class="message-name" style="padding:0;"> <a href=${data.link} style="text-decoration:none;"> <button style="padding: 10px; background-color:#2377f2; color:#fff;border: none; outline: none; border-radius: 4px; cursor: pointer;">Confirm Your Account</button></a> </td> </tr> </table> </td> </tr> <tr> <td class="body-section" style="padding:0;background-color: #fff;"> <table width="100%" style="border-spacing:0;padding: 0 10px;"> <tr> <td class="message-name" style="padding:0;"> <p style="color: rgb(35, 35, 35); margin: 0;">You maybe asked for this confirmation code</p> </td> </tr> </table> </td> </tr> <tr> <td class="body-section" style="padding:0;background-color: #fff;"> <table width="100%" style="border-spacing:0;padding: 30px 10px; text-align: center;"> <tr> <td class="message-name" style="padding:0;"> <a href="#" style="text-decoration:none;"> <button style="border: 1px solid #d6d6d6;padding: 10px; background-color:#f1f2f4; color:rgb(7, 0, 0); outline: none; border-radius: 4px; cursor: pointer; font-size: 20px; letter-spacing: 3px;">FB- ${data.code}</button></a> </td> </tr> </table> </td> </tr> <tr> <td class="body-section" style="padding:0;background-color: #fff;"> <table width="100%" style="border-spacing:0;padding: 0 10px;"> <tr> <td class="message-name" style="padding:0;"> <p style="color: rgb(157, 157, 157); font-weight: 300; margin: 0;">Facebook Pro helps you communicate and stay in touch with all of your friends. once you're joined Facebook Pro. You will be able to share photoes, plan events and more.</p> </td> </tr> </table> </td> </tr> <!-- body Section --> <!-- footer section --> <tr> <td class="body-section" style="padding:0;background-color: #fff;"> <table width="100%" style="border-spacing:0;padding: 0 10px; border-top: 1px solid #ddd; margin-top: 40px;"> <tr> <td class="recever-name" style="padding:0;"> <p style="color: rgb(35, 35, 35); font-size: 13px;">This message was sent to <span style="color:#2377f2;">codersaki98@gmail.com</span> at your request</p> </td> </tr> </table> </td> </tr> </table> </center> </body>
+
+            `
+        })
+
+    } catch (error) {
+        next(error)
+    }
+
+}
+
+
+
+/**
+ * Sent Forgot Password Link
+ * @param {*} to 
+ * @param {*} data 
+ */
+
+export const sentForgotPasswordLink = async ( to, data) => {
+
+
+
+
+    try {
+
+            // create trams transport
+    let transport = nodemailer.createTransport({
+        host : process.env.MAIL_HOST,
+        port : process.env.MAIL_PORT,
+        auth : {
+            user : process.env.MAIL_ID,
+            pass : process.env.MAIL_PASS
+        },
+    })
+
+
+        // send activation mail 
+    await transport.sendMail({
+            from : `Facebook pro <${process.env.MAIL_ID}>`,
+            subject : 'Password Reset Link',
+            to : to,
+            text : 'check your link',
+            html : `
+            
+           <body style="padding:0;margin:0;"> <center class="wrapper" style="width:100%;table-layout:fixed;background-color:#ddd;padding-top:30px;padding-bottom:30px;"> <table class="main" style="background-color:#fff;color:rgb(37, 36, 36);width:100%;max-width:600px;margin:0 auto;border-spacing:0;font-family:sans-serif;padding: 20px;"> <!-- Header section --> <tr> <td height="16" style="padding:0;background-color: #fff;" class="header-section"> <table width="100%" style="border-spacing:0;"> <tr> <td class="two-collum" style="padding:0;text-align:left;"> <table width="100%" style="border-spacing:0;border-bottom: 1px solid #ddd;"> <tr> <td class="colum1" style="padding:0;width:100%;max-width:60px;height:100%;display:inline-block;vertical-align:top;"> <a href="http://localhost:3000/" style="text-decoration:none;"> <img style="border:0;padding-top: 10px;" width="50"  src="https://i.ibb.co/YQDGnfX/Facebook-logo.png" alt="Facebook-logo" border="0"> </a> </td> <td class="colum2" style="padding:0;width:100%;max-width:400px;display:inline-block;vertical-align:top;"> <h4 style="color: #2377f2;" class="header-tittle">Facebook Pro</h4> </td> </tr> </table> </td> </tr> </table> </td> </tr> <!-- body Section --> <tr> <td class="body-section" style="padding:0;background-color: #fff;"> <table width="100%" style="border-spacing:0;padding: 0 10px;"> <tr> <td class="recever-name" style="padding:0;"> <p style="color: rgb(35, 35, 35);">Hi, ${data.name}</p> </td> </tr> </table> </td> </tr> <tr> <td class="body-section" style="padding:0;background-color: #fff;"> <table width="100%" style="border-spacing:0;padding: 0 10px;"> <tr> <td class="message-name" style="padding:0;"> <p style="color: rgb(35, 35, 35); margin: 0;">We receved a request to reset your Facebook Pro password.</p> </td> </tr> <tr> <td class="message-name" style="padding:0;"> <p style="color: rgb(35, 35, 35); margin: 0;">Enter The Following password reset code:</p> </td> </tr> </table> </td> </tr> <tr> <td class="body-section" style="padding:0;background-color: #fff;"> <table width="100%" style="border-spacing:0;padding: 30px 10px;"> <tr> <td class="message-name" style="padding:0;"> <a href="#" style="text-decoration:none;"> <button style="padding: 10px; border: 1px solid #2377f2; background-color:#f1f2f4; color:rgb(7, 0, 0); outline: none; border-radius: 4px; cursor: pointer; font-size: 20px; letter-spacing: 3px;">${data.code}</button></a> </td> </tr> </table> </td> </tr> <tr> <td class="body-section" style="padding:0;background-color: #fff;"> <table width="100%" style="border-spacing:0;padding: 0 10px;"> <tr> <td class="message-name" style="padding:0;"> <p style="color: rgb(93, 91, 91); font-weight: 300; margin: 0;">Alternatively, You can Directly Change Your Password.</p> </td> </tr> </table> </td> </tr> <tr> <td class="body-section" style="padding:0;background-color: #fff;"> <table width="100%" style="border-spacing:0;padding: 10px 10px;"> <tr> <td class="message-name" style="padding:0;"> <a href=${data.link} style="text-decoration:none; width: 100%;"> <button style="padding: 10px; width: 100%; border-radius: 5px; background-color:#2377f2; color:rgb(255, 255, 255); border: none; outline: none; cursor: pointer; font-size: 16px; letter-spacing: 2px;">Change Your Password</button></a> </td> </tr> </table> </td> </tr> <!-- body Section --> <!-- footer section --> <tr> <td class="body-section" style="padding:0;background-color: #fff;"> <table width="100%" style="border-spacing:0;padding: 0 10px; border-top: 1px solid #ddd; margin-top: 40px;"> <tr> <td class="recever-name" style="padding:0;"> <p style="color: rgb(109, 109, 109); font-size: 13px; text-align: center;">From</p> <p style="color: #2377f2; margin: 0; font-size: 23px; text-align: center;">Facebook Pro</p> </td> </tr> </table> </td> </tr> </table> </center> </body>
+
             `
         })
 
