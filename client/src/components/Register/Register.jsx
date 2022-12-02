@@ -113,17 +113,16 @@ const Register = ({ setRegister }) => {
         ...prevState,
         [fieldName]: false,
       }));
+      setValidateFocus((prevState) => ({
+        ...prevState,
+        [fieldName]: true,
+      }));
     } else {
     }
-    setValidateFocus((prevState) => ({
-      ...prevState,
-      [fieldName]: true,
-    }));
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
     if (
       !input.fname ||
       !input.sname ||
@@ -138,7 +137,7 @@ const Register = ({ setRegister }) => {
           {
             first_name: input.fname,
             sur_name: input.sname,
-            email: input.emailormobile,
+            auth: input.emailormobile,
             password: input.password,
             birth_day: input.day,
             birth_month: input.month,

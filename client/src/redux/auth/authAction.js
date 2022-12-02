@@ -81,7 +81,7 @@ export const activationByOtp =
 export const resendLink = (email, navigate) => async (dispatch) => {
   try {
     const activate = await axios
-      .post("/api/v1/user/resend-activate", { email: email })
+      .post("/api/v1/user/resend-activate", { auth: email })
       .then((res) => {
         createToast(res.data.message, "success");
         navigate("/activation");
