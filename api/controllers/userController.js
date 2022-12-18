@@ -49,7 +49,7 @@ export const register = async (req, res, next) => {
       }
     } else if (isMobile(auth)) {
       mobileData = auth;
-      const mobileCheck = await User.findOne({ email: auth });
+      const mobileCheck = await User.findOne({ mobile: auth });
       if (mobileCheck) {
         return next(createError(400, "Mobile already axists!"));
       }
@@ -133,7 +133,15 @@ export const register = async (req, res, next) => {
   }
 };
 
-/// resend activation
+/**
+ * @access public
+ * @route /api/v1/user/resend-activate
+ * @method post
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
 export const resendActivation = async (req, res, next) => {
   const { auth } = req.body;
 
@@ -254,32 +262,48 @@ export const resendActivation = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     // get login form data
-    const { email, password } = req.body;
-
-    // User email axists validate
-    const loginUser = await User.findOne({ email: email });
-
-    // validation form
-    if (!email || !password) {
-      next(createError(400, "All fields are requored!"));
-    } else if (!loginUser) {
-      next(createError(400, "Login user not found"));
-    } else if (!isEmail(email)) {
-      next(createError(400, "Invalid email address"));
-    } else {
-      // password verify
-      if (!varifyPassword(password, loginUser.password)) {
-        next(createError(400, "Wrong password"));
+    const { auth, password } = req.body;
+    if (isEmail(auth)) {
+      // check email user
+      const emailCheck = await User.findOne({ email: auth });
+      if (!emailCheck) {
+        return next(createError(400, "Email user not found"));
       } else {
-        // create token
-        const token = createToken({ id: loginUser._id }, "365d");
+        // check password
+        const userPassword = varifyPassword(password, emailCheck.password);
 
+        if (!userPassword) {
+          return next(createError(400, "Password not match"));
+        }
+
+        const token = createToken({ id: emailCheck._id }, "365d");
         res.status(200).cookie("authToken", token).json({
           message: "User Login Successful",
-          user: loginUser,
+          user: emailCheck,
           token: token,
         });
       }
+    } else if (isMobile(auth)) {
+      const mobileCheck = await User.findOne({ mobile: auth });
+      if (!mobileCheck) {
+        return next(createError(400, "Mobile user not found"));
+      } else {
+        // check password
+        const userPassword = varifyPassword(password, mobileCheck.password);
+
+        if (!userPassword) {
+          return next(createError(400, "Password not match"));
+        }
+        const token = createToken({ id: mobileCheck._id }, "365d");
+
+        res.status(200).cookie("authToken", token).json({
+          message: "User Login Successful",
+          user: mobileCheck,
+          token: token,
+        });
+      }
+    } else {
+      return next(createError(400, "Invalid Mobile or Email"));
     }
   } catch (error) {
     next(error);
@@ -507,6 +531,266 @@ export const passwordResetAction = async (req, res, next) => {
           });
         }
       }
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @access public
+ * @route /api/v1/user/find-user-account
+ * @method Post
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+export const findUserAccount = async (req, res, next) => {
+  const { auth } = req.body;
+  try {
+    // initial auth value
+    let mobileData = null;
+    let emailData = null;
+
+    if (isEmail(auth)) {
+      emailData = auth;
+      const emailCheck = await User.findOne({ email: auth });
+      if (!emailCheck) {
+        return next(createError(400, "Email user not found"));
+      } else {
+        res
+          .status(200)
+          .cookie(
+            "findUser",
+            JSON.stringify({
+              name: emailCheck.first_name + "  " + emailCheck.sur_name,
+              photo: emailCheck.profile_photo,
+              email: emailCheck.email,
+            }),
+            {
+              expires: new Date(Date.now() + 1000 * 60 * 15),
+            }
+          )
+          .json({
+            user: emailCheck,
+          });
+      }
+    } else if (isMobile(auth)) {
+      mobileData = auth;
+      const mobileCheck = await User.findOne({ mobile: auth });
+      if (!mobileCheck) {
+        return next(createError(400, "Mobile user not found"));
+      } else {
+        res
+          .status(200)
+          .cookie(
+            "findUser",
+            JSON.stringify({
+              name: mobileCheck.first_name + "  " + mobileCheck.sur_name,
+              photo: mobileCheck.profile_photo,
+              mobile: mobileCheck.mobile,
+            }),
+            {
+              expires: new Date(Date.now() + 1000 * 60 * 15),
+            }
+          )
+          .json({
+            user: mobileCheck,
+          });
+      }
+    } else {
+      return next(createError(400, "Invalid Mobile or Email"));
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @access public
+ * @route /api/v1/user/resend-activate
+ * @method post
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
+export const sendPasswordResetOtp = async (req, res, next) => {
+  const { auth } = req.body;
+
+  // initial auth value
+  let emailData = null;
+  let emailCheck;
+  let mobileData = null;
+  let mobileCheck;
+
+  if (isEmail(auth)) {
+    emailData = auth;
+    emailCheck = await User.findOne({ email: auth });
+  } else if (isMobile(auth)) {
+    mobileData = auth;
+    mobileCheck = await User.findOne({ mobile: auth });
+  } else {
+    return next(createError(400, "Invalid Mobile or Email"));
+  }
+
+  try {
+    // verify activation code
+    let activationcode = getRandom(100000, 999999);
+
+    // check activation code
+    const checkCode = await User.findOne({ access_token: activationcode });
+
+    // check code
+    if (checkCode) {
+      activationcode = getRandom(100000, 999999);
+    }
+
+    if (mobileData) {
+      // create activation OTP
+
+      sendOTP(
+        mobileCheck.mobile,
+        `Hi ${mobileCheck.first_name} ${mobileCheck.sur_name}, Your account activation OTP is ${activationcode})`
+      );
+
+      // resend a code
+      await User.findByIdAndUpdate(mobileCheck._id, {
+        access_token: activationcode,
+      });
+
+      // send respone
+      res
+        .status(200)
+        .cookie("otp", mobileCheck.mobile, {
+          expires: new Date(Date.now() + 1000 * 60 * 15),
+        })
+        .json({
+          message: "New OTP send Successful",
+        });
+    }
+
+    if (emailData) {
+      // create activation token
+      const activationToken = createToken({ id: emailCheck._id }, "30d");
+
+      sendActivationLink(emailCheck.email, {
+        name: emailCheck.first_name + " " + emailCheck.sur_name,
+        link: `${
+          process.env.APP_URL + ":" + process.env.SERVER_PORT
+        }/api/v1/user/activate/${activationToken}`,
+        code: activationcode,
+      });
+
+      // resend a code
+      await User.findByIdAndUpdate(emailCheck._id, {
+        access_token: activationcode,
+      });
+
+      // send respone
+      res
+        .status(200)
+        .cookie("otp", emailCheck.email, {
+          expires: new Date(Date.now() + 1000 * 60 * 15),
+        })
+        .json({
+          message: "Activation link send",
+        });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * check password reset opt
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
+export const checkPasswordResetOtp = async (req, res, next) => {
+  try {
+    const { code, auth } = req.body;
+
+    if (isEmail(auth)) {
+      const userData = await User.findOne().where("email").equals(auth);
+
+      if (!userData) {
+        return next(createError(400, "Invalid user request"));
+      }
+      if (userData) {
+        if (userData.access_token != code) {
+          return next(createError(400, "Invalid OTP code"));
+        } else if (userData.access_token == code) {
+          return res
+            .cookie("cpid", userData._id.toString(), {
+              expires: new Date(Date.now() + 1000 * 60 * 15),
+            })
+            .cookie("cpcode", code, {
+              expires: new Date(Date.now() + 1000 * 60 * 15),
+            })
+            .status(200)
+            .json({
+              message: "You can change your password",
+            });
+        }
+      }
+    } else if (isMobile(auth)) {
+      const userData = await User.findOne().where("mobile").equals(auth);
+
+      if (!userData) {
+        return next(createError(400, "Invalid user request"));
+      } else {
+        if (userData.access_token != code) {
+          return next(createError(400, "Invalid OTP code"));
+        } else if (userData.access_token == code) {
+          return res
+            .cookie("cpid", userData._id.toString(), {
+              expires: new Date(Date.now() + 1000 * 60 * 15),
+            })
+            .cookie("cpcode", code, {
+              expires: new Date(Date.now() + 1000 * 60 * 15),
+            })
+            .status(200)
+            .json({
+              message: "You can change your password",
+            });
+        }
+      }
+    }
+  } catch (error) {}
+};
+
+/**
+ * Password Reset
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+export const passwordReset = async (req, res, next) => {
+  try {
+    const { id, code, password } = req.body;
+
+    const userData = await User.findOne().and([
+      { _id: id },
+      { access_token: code },
+    ]);
+
+    if (!userData) {
+      return next(createError(400, "Password change request faild"));
+    } else {
+      await User.findByIdAndUpdate(id, {
+        password: hashPassword(password),
+        access_token: null,
+      });
+
+      return res
+        .clearCookie("cpcode")
+        .clearCookie("cpid")
+        .clearCookie("otp")
+        .status(200)
+        .json({ message: "Password changed successful" });
     }
   } catch (error) {
     next(error);

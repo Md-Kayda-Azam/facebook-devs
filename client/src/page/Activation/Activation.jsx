@@ -1,15 +1,21 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import Cookie from "js-cookie";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { activationByOtp, resendLink } from "../../redux/auth/authAction";
+import {
+  activationByOtp,
+  checkPasswordResendCode,
+  resendLink,
+} from "../../redux/auth/authAction";
 import createToast from "../../utility/toast";
 import ResetHeader from "../../components/ResetHeader/ResetHeader";
 
 const Activation = () => {
+  const { type } = useParams();
+
   // dispatch
   const dispatch = useDispatch();
   // code state
@@ -57,6 +63,26 @@ const Activation = () => {
 
     dispatch(resendLink(activationEmail, navigate));
   };
+
+  /**
+   * password reset
+   * @param {*} e
+   */
+  const handlePasswordReset = (e) => {
+    if (!code) {
+      createToast("All frields are required", "warn");
+    } else {
+      dispatch(
+        checkPasswordResendCode(
+          {
+            code: code,
+            auth: Cookie.get("otp"),
+          },
+          navigate
+        )
+      );
+    }
+  };
   useEffect(() => {
     if (!activationEmail) {
       navigate("/login");
@@ -93,7 +119,13 @@ const Activation = () => {
                 <a onClick={handleActivationCancel} className="cancel" href="#">
                   Cancel
                 </a>
-                <a onClick={handleCodeContinue} className="continue" href="#">
+                <a
+                  onClick={
+                    type == "account" ? handleCodeContinue : handlePasswordReset
+                  }
+                  className="continue"
+                  href="#"
+                >
                   Continue
                 </a>
               </div>

@@ -8,6 +8,10 @@ import {
   forgotPassword,
   passwordResetAction,
   resendActivation,
+  findUserAccount,
+  sendPasswordResetOtp,
+  checkPasswordResetOtp,
+  passwordReset,
 } from "../controllers/userController.js";
 
 /// init routers
@@ -22,6 +26,10 @@ router.post("/code-activate/", activateAccountByCode);
 router.post("/resend-activate/", resendActivation);
 router.post("/forgot-password/", forgotPassword);
 router.post("/forgot-password/:token", passwordResetAction);
+router.post("/find-user-account", findUserAccount);
+router.post("/send-password-reset-otp", sendPasswordResetOtp);
+router.post("/check-password-reset-otp", checkPasswordResetOtp);
+router.post("/user-password-reset", passwordReset);
 
 // export default router
 export default router;

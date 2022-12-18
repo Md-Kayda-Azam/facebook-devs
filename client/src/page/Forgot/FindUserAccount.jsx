@@ -1,9 +1,38 @@
+import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import ResetHeader from "../../components/ResetHeader/ResetHeader";
+import createToast from "../../utility/toast";
 
-const Forgot = () => {
+const FindUserAccount = () => {
+  const [auth, setAuth] = useState("");
+
+  const navigate = useNavigate();
+  // handle input change
+  const handleInputChange = (e) => {
+    setAuth(e.target.value);
+  };
+
+  const handleFindUser = (e) => {
+    e.preventDefault();
+    if (!auth) {
+      createToast("Input fields is reqired");
+    } else {
+      axios
+        .post("/api/v1/user/find-user-account", {
+          auth,
+        })
+        .then((res) => {
+          navigate("/find-account");
+        })
+        .catch((error) => {
+          createToast(error.response.data.message);
+        });
+    }
+  };
+
   return (
     <>
       <ResetHeader />
@@ -20,6 +49,9 @@ const Forgot = () => {
               </p>
               <div className="code-box">
                 <input
+                  name="auth"
+                  value={auth}
+                  onChange={handleInputChange}
                   className="w-100"
                   type="text"
                   placeholder="Email address or mobile number"
@@ -32,7 +64,13 @@ const Forgot = () => {
                 <Link className="cancel" to="/login">
                   Cancel
                 </Link>
-                <a className="continue" href="#">
+                <a
+                  type="submit"
+                  onClick={handleFindUser}
+                  href="#"
+                  className="continue"
+                  to="/find-account"
+                >
                   Search
                 </a>
               </div>
@@ -45,4 +83,4 @@ const Forgot = () => {
   );
 };
 
-export default Forgot;
+export default FindUserAccount;

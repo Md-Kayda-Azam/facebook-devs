@@ -105,7 +105,7 @@
 }
 
 body {
-  font-family: "Segoe UI Light";
+  font-family: "Segoe UI Light" !important;
 }
 
 html {
@@ -819,7 +819,7 @@ Components
 }
 
 .fb-home-timeline {
-  width: 675px;
+  width: 550px;
 }
 
 .create-post {
@@ -1204,6 +1204,7 @@ Components
 
 .fb-user-item .user-menu-dropdown .user-menu-list ul li a {
   display: flex;
+  font-family: inherit;
   gap: 10px;
   padding: 10px;
   border-radius: 4px;

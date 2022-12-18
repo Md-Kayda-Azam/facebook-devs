@@ -1,7 +1,14 @@
 import createToast from "../../utility/toast";
 import axios from "axios";
-import { REAGISTER_FAILED, REAGISTER_SUCCESS } from "./actionType";
+import {
+  LOGIN_USER_FAILED,
+  LOGIN_USER_REQUREST,
+  LOGIN_USER_SUCCESS,
+  REAGISTER_FAILED,
+  REAGISTER_SUCCESS,
+} from "./actionType";
 import Cookie from "js-cookie";
+import { LOADER_START } from "../TopLoadingBar/loaderType";
 
 /**
  * user register
@@ -32,7 +39,7 @@ export const userRegister =
           });
           e.target.reset();
           setRegister(false);
-          navigate("/activation");
+          navigate("/activation/account");
         })
         .catch((error) => {
           createToast(error.response.data.message, "error");
@@ -60,7 +67,7 @@ export const activationByOtp =
   ({ code, email }, navigate) =>
   async (dispatch) => {
     try {
-      const activate = await axios
+      await axios
         .post("/api/v1/user/code-activate", {
           code: code,
           email: email,
@@ -78,18 +85,113 @@ export const activationByOtp =
     }
   };
 
+/**
+ * reset link
+ * @param {*} email
+ * @param {*} navigate
+ * @returns
+ */
 export const resendLink = (email, navigate) => async (dispatch) => {
   try {
-    const activate = await axios
+    await axios
       .post("/api/v1/user/resend-activate", { auth: email })
       .then((res) => {
         createToast(res.data.message, "success");
-        navigate("/activation");
+        navigate("/activation/account");
       })
       .catch((error) => {
         createToast(error.response.data.message);
       });
   } catch (error) {
     createToast(error.response.data.message);
+  }
+};
+
+/**
+ * check password
+ * @param {*} data
+ * @param {*} navigate
+ * @returns
+ */
+export const checkPasswordResendCode = (data, navigate) => async (dispatch) => {
+  try {
+    await axios
+      .post("/api/v1/user/check-password-reset-otp", {
+        auth: data.auth,
+        code: data.code,
+      })
+      .then((res) => {
+        createToast(res.data.message, "success");
+        navigate("/change-password");
+      })
+      .catch((error) => {
+        createToast(error.response.data.message);
+      });
+  } catch (error) {
+    createToast(error.response.data.message);
+  }
+};
+
+/**
+ * change pasword
+ * @param {*} data
+ * @param {*} navigate
+ * @returns
+ */
+export const changePassowrd = (data, navigate) => async (dispatch) => {
+  try {
+    await axios
+      .post("/api/v1/user/user-password-reset", {
+        id: data.id,
+        code: data.code,
+        password: data.password,
+      })
+      .then((res) => {
+        createToast(res.data.message, "success");
+        navigate("/login");
+      })
+      .catch((error) => {
+        createToast(error.response.data.message);
+      });
+  } catch (error) {
+    createToast(error.respone.data.message);
+  }
+};
+
+/**
+ * user login
+ * @param {*} data
+ * @param {*} navigate
+ * @returns
+ */
+export const userLogin = (data, navigate) => async (dispatch) => {
+  try {
+    dispatch({
+      type: LOGIN_USER_REQUREST,
+    });
+    await axios
+      .post("/api/v1/user/login", {
+        auth: data.auth,
+        password: data.password,
+      })
+      .then((res) => {
+        createToast(res.data.message, "success");
+        navigate("/");
+        dispatch({
+          type: LOGIN_USER_SUCCESS,
+          payload: res.data.user,
+        });
+        dispatch({
+          type: LOADER_START,
+        });
+      })
+      .catch((error) => {
+        createToast(error.response.data.message);
+        dispatch({
+          type: LOGIN_USER_FAILED,
+        });
+      });
+  } catch (error) {
+    createToast(error.respone.data.message);
   }
 };
