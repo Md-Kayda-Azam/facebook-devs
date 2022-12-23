@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Footer from "../../components/Footer/Footer";
-import ResetHeader from "../../components/ResetHeader/ResetHeader";
+import Footer from "../../../components/Footer/Footer";
+import ResetHeader from "../../../components/ResetHeader/ResetHeader";
 import { useDispatch } from "react-redux";
-import createToast from "../../utility/toast";
-import { changePassowrd } from "../../redux/auth/authAction";
+import createToast from "../../../utility/toast";
+import { changePassowrd } from "../../../redux/auth/authAction";
 import Cookies from "js-cookie";
 
 const Password = () => {

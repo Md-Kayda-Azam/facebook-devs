@@ -4,10 +4,10 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Footer from "../../components/Footer/Footer";
-import ResetHeader from "../../components/ResetHeader/ResetHeader";
-import { hideEmailOrMobile } from "../../utility/helper";
-import createToast from "../../utility/toast";
+import Footer from "../../../components/Footer/Footer";
+import ResetHeader from "../../../components/ResetHeader/ResetHeader";
+import { hideEmailOrMobile } from "../../../utility/helper";
+import createToast from "../../../utility/toast";
 
 const ResetPassword = () => {
   const navigate = useNavigate();

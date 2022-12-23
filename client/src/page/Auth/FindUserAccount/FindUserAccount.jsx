@@ -2,9 +2,9 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Footer from "../../components/Footer/Footer";
-import ResetHeader from "../../components/ResetHeader/ResetHeader";
-import createToast from "../../utility/toast";
+import Footer from "../../../components/Footer/Footer";
+import ResetHeader from "../../../components/ResetHeader/ResetHeader";
+import createToast from "../../../utility/toast";
 
 const FindUserAccount = () => {
   const [auth, setAuth] = useState("");

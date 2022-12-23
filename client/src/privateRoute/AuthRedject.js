@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 const AuthRedject = ({ children }) => {
   const { loginState } = useSelector((state) => state.auth);
 
-  return loginState ? children : <Navigate to="/login" />;
+  return loginState ? <Navigate to="/" /> : children;
 };
 
 export default AuthRedject;

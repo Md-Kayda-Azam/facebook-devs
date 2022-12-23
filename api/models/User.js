@@ -40,6 +40,16 @@ const userSchema = mongoose.Schema(
       type: String,
       enum: ["Male", "Female", "Custom"],
     },
+    gender_custom: {
+      type: String,
+      trim: true,
+      default: null,
+    },
+    gender_pronoun: {
+      type: String,
+      trim: true,
+      default: null,
+    },
     birth_day: {
       type: String,
       trim: true,

@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import faveIcon from "../../_assets/icons/favicon.ico";
 import user from "../../_assets/images/user.webp";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Avatar from "../Avatar/Avatar";
+import { userLogout } from "../../redux/auth/authAction";
 
 const HomeHeader = () => {
   const [userMenu, setUserMenu] = useState(false);
   const { user } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  const handleUserLogout = (e) => {
+    e.preventDefault();
+    dispatch(userLogout());
+  };
 
   return (
     <>
@@ -214,7 +222,7 @@ const HomeHeader = () => {
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a onClick={handleUserLogout} href="#">
                         <div className="user-menu-icon"></div>
                         <div className="user-menu-item">
                           <span>Logout</span>

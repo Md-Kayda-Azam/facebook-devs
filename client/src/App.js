@@ -5,18 +5,32 @@ import Auth from "./page/Auth/Auth";
 import Profile from "./page/Profile/Profile";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Activation from "./page/Activation/Activation";
-import FindUserAccount from "./page/Forgot/FindUserAccount";
-import ResetPassword from "./page/FindAccount/ResetPassword";
-import Password from "./page/Password/Password";
+import Activation from "./page/Auth/Activation/Activation";
+import FindUserAccount from "./page/Auth/FindUserAccount/FindUserAccount";
+import ResetPassword from "./page/Auth/ResetPassword/ResetPassword";
+import Password from "./page/Auth/Password/Password";
 import LoadingTopBar from "react-top-loading-bar";
 import { useDispatch, useSelector } from "react-redux";
 import { LOADER_END } from "./redux/TopLoadingBar/loaderType";
 import AuthRedject from "./privateRoute/AuthRedject";
+import { useEffect } from "react";
+import { tokenUser } from "./redux/auth/authAction";
+import AuthRedirect from "./privateRoute/AuthRedirect";
+import Cookies from "js-cookie";
+import LoginPage from "./page/Auth/LoginPage/LoginPage";
+import RegisterPage from "./page/Auth/RegisterPage/RegisterPage";
 
 function App() {
   const loader = useSelector((state) => state.loader);
   const loaderDispatch = useDispatch();
+  const tokenDispatch = useDispatch();
+  const token = Cookies.get("authToken");
+
+  useEffect(() => {
+    if (token) {
+      tokenDispatch(tokenUser(token));
+    }
+  }, [token]);
 
   return (
     <>
@@ -38,16 +52,9 @@ function App() {
         theme="light"
       />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <AuthRedject>
-              {" "}
-              <Home />
-            </AuthRedject>
-          }
-        />
-        <Route path="/login" element={<Auth />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/activation/:type" element={<Activation />} />
         <Route path="/forgot-password" element={<FindUserAccount />} />

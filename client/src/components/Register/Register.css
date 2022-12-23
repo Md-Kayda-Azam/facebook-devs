@@ -1,0 +1,172 @@
+/** @format */
+
+.reg-form-inline label {
+  width: 49%;
+  position: relative;
+  display: inline-block;
+}
+.reg-form-inline label input {
+  width: 100%;
+}
+
+.tooltipBox {
+  position: relative;
+  width: 100%;
+}
+.toolTip {
+  visibility: hidden;
+  opacity: 0;
+
+  position: absolute;
+  background: #be4b49;
+  right: calc(100% + 13px);
+  color: white;
+  display: block;
+  border-radius: 3px;
+  border: 0 #be4b49;
+  font-size: 13px;
+  max-width: 300px;
+  width: 70%;
+  padding: 13px;
+}
+
+.toolTip.birth-date {
+  top: 18px;
+}
+
+.toolTip.surnametool {
+  opacity: 1;
+  bottom: calc(-100% - 12px);
+  left: 0;
+  z-index: 999;
+}
+
+.toolTip::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: -8px;
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-left: 9px solid #be4b49;
+  border-bottom: 9px solid transparent;
+}
+.toolTip.surnametool::after {
+  content: "";
+  position: absolute;
+  bottom: calc(-100% + 10px);
+  left: 15px;
+  z-index: 999;
+  top: -18px;
+  right: -8px;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-bottom: 9px solid #be4b49;
+  border-right: 9px solid transparent;
+}
+
+.w-100 {
+  width: 100%;
+}
+.toolTipVisible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.reg-form input.borderRed {
+  border: red 1px solid;
+}
+
+.exclamation {
+  visibility: hidden;
+  opacity: 0;
+  content: url("../../_assets/icons/781548.png");
+  position: absolute;
+  z-index: 1;
+  left: 95%;
+  bottom: 13px;
+  color: white;
+  font-size: 13px;
+  background-color: red;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  border-radius: 50%;
+}
+.exclamation.birth-date {
+  left: 96%;
+  bottom: 37px;
+}
+.exclamation.true {
+  visibility: visible;
+  opacity: 1;
+}
+.exclamation.exc50 {
+  left: 90%;
+}
+
+.reg-form-select select.w-100 {
+  width: 100%;
+}
+.pronoun-txt {
+  font-size: 14px;
+  margin-top: 2px;
+  margin-bottom: 1px;
+  color: #777;
+}
+.input-title {
+  font-size: 14px;
+  color: #777;
+  position: relative;
+}
+
+.titleClick {
+  color: #be4b49;
+  height: 100px;
+  width: 100px;
+  background-image: url("../../_assets/icons/1stp2ug3.bmp");
+  background-position: 0px -60px;
+  background-size: auto;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  cursor: pointer;
+  border-radius: 50%;
+  opacity: 0.8;
+  margin-left: 4px;
+  position: relative;
+}
+.info-tooltip {
+  position: absolute;
+  right: 50px;
+  top: 0px;
+  width: 400px;
+  background: white;
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 2px;
+  z-index: 2;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 10px rgba(0, 0, 0, 0.35);
+}
+.titleClick input {
+  height: 0;
+  width: 0;
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+}
+
+.title-name {
+  z-index: -1;
+  position: relative;
+}
+
+.reg-form-select select.borderRed {
+  border: red 1px solid;
+}
+.reg-form-select.border-error label {
+  border: 1px solid red;
+}

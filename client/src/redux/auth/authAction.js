@@ -6,6 +6,10 @@ import {
   LOGIN_USER_SUCCESS,
   REAGISTER_FAILED,
   REAGISTER_SUCCESS,
+  TOKEN_USER_FAILED,
+  TOKEN_USER_REQUREST,
+  TOKEN_USER_SUCCESS,
+  USER_LOGOUT,
 } from "./actionType";
 import Cookie from "js-cookie";
 import { LOADER_START } from "../TopLoadingBar/loaderType";
@@ -194,4 +198,57 @@ export const userLogin = (data, navigate) => async (dispatch) => {
   } catch (error) {
     createToast(error.respone.data.message);
   }
+};
+
+/**
+ * Token user /////me
+ * @param {*} token
+ * @returns
+ */
+export const tokenUser = (token) => async (dispatch) => {
+  try {
+    dispatch({
+      type: TOKEN_USER_REQUREST,
+    });
+    await axios
+      .get("/api/v1/user/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        createToast(res.data.message, "success");
+        // navigate("/");
+        dispatch({
+          type: TOKEN_USER_SUCCESS,
+          payload: res.data.user,
+        });
+        dispatch({
+          type: LOADER_START,
+        });
+      })
+      .catch((error) => {
+        createToast(error.response.data.message);
+        dispatch({
+          type: TOKEN_USER_FAILED,
+        });
+        dispatch(userLogin());
+      });
+  } catch (error) {
+    createToast(error.respone.data.message);
+    dispatch({
+      type: TOKEN_USER_FAILED,
+    });
+    dispatch(userLogin());
+  }
+};
+
+export const userLogout = () => (dispatch) => {
+  dispatch({
+    type: LOADER_START,
+  });
+  Cookie.remove("authToken");
+  dispatch({
+    type: USER_LOGOUT,
+  });
 };

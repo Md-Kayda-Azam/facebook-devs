@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Footer from "../../components/Footer/Footer";
+import Footer from "../../../components/Footer/Footer";
 import Cookie from "js-cookie";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -9,9 +9,9 @@ import {
   activationByOtp,
   checkPasswordResendCode,
   resendLink,
-} from "../../redux/auth/authAction";
-import createToast from "../../utility/toast";
-import ResetHeader from "../../components/ResetHeader/ResetHeader";
+} from "../../../redux/auth/authAction";
+import createToast from "../../../utility/toast";
+import ResetHeader from "../../../components/ResetHeader/ResetHeader";
 
 const Activation = () => {
   const { type } = useParams();
