@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Avatar from "../Avatar/Avatar";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const { user } = useSelector((state) => state.auth);
@@ -9,19 +10,19 @@ const Sidebar = () => {
       <div className="fb-home-body-sidebar">
         <ul>
           <li>
-            <a href="#">
+            <Link to="/profile">
               <div className="body-icon">
                 <Avatar />
               </div>
               <span>{`${user.first_name} ${user.sur_name}`}</span>
-            </a>
+            </Link>
           </li>
 
           <li>
-            <a href="#">
+            <Link to="/friends">
               <div className="body-icon"></div>
               <span>Friends</span>
-            </a>
+            </Link>
           </li>
 
           <li>

@@ -1,6 +1,7 @@
 import {
   LOGIN_USER_FAILED,
   LOGIN_USER_SUCCESS,
+  PROFILE_UPDATE_SAUCCESS,
   REAGISTER_FAILED,
   REAGISTER_REQUREST,
   REAGISTER_SUCCESS,
@@ -64,6 +65,14 @@ const authReducer = (state = initialState, { type, payload }) => {
         ...state,
         user: null,
         loginState: false,
+      };
+    case PROFILE_UPDATE_SAUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...payload,
+        },
       };
 
     default:

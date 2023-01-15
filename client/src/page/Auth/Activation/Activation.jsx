@@ -5,6 +5,7 @@ import Cookie from "js-cookie";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import FontAwesomeIcon from "react-fontawesome";
 import {
   activationByOtp,
   checkPasswordResendCode,
@@ -15,7 +16,9 @@ import ResetHeader from "../../../components/ResetHeader/ResetHeader";
 
 const Activation = () => {
   const { type } = useParams();
-
+  const [show, setShow] = useState({
+    type: "",
+  });
   // dispatch
   const dispatch = useDispatch();
   // code state
@@ -37,14 +40,16 @@ const Activation = () => {
   const handleActivationCancel = (e) => {
     e.preventDefault();
     Cookie.remove("otp");
-    navigate("/login");
+    navigate("/");
   };
   // handle  code continue
   const handleCodeContinue = (e) => {
     e.preventDefault();
     if (!code) {
       createToast("OTP code required", "warn");
-    } else {
+      setShow({ type: "InvalidCode" });
+    }
+    if (code) {
       dispatch(
         activationByOtp(
           {
@@ -54,6 +59,8 @@ const Activation = () => {
           navigate
         )
       );
+    } else {
+      setShow({ type: "InvalidCode" });
     }
   };
 
@@ -71,6 +78,7 @@ const Activation = () => {
   const handlePasswordReset = (e) => {
     if (!code) {
       createToast("All frields are required", "warn");
+      setShow({ type: "codeEmpty" });
     } else {
       dispatch(
         checkPasswordResendCode(
@@ -99,6 +107,18 @@ const Activation = () => {
               <span className="title">Enter security code</span>
             </div>
             <div className="reset-body">
+              {show.type === "InvalidCode" && (
+                <div className="code-fields">
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                  <p>Please enter your valid code</p>
+                </div>
+              )}
+              {show.type === "codeEmpty" && (
+                <div className="code-fields">
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                  <p>Please enter your code</p>
+                </div>
+              )}
               <p>
                 Please check your emails for a message with your code. Your code
                 is 6 numbers long.

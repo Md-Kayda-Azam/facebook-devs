@@ -4,17 +4,21 @@ import HomeHeader from "../../components/HomeHeader/HomeHeader";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Timeline from "../../components/Timeline/Timeline";
 import Auth from "../Auth/Auth";
+import Home from "./Home";
 
-const Home = () => {
+const MainHome = () => {
+  const { loginState } = useSelector((state) => state.auth);
   return (
     <>
-      <HomeHeader />
-      <div className="fb-home-body">
-        <Sidebar />
-        <Timeline />
-      </div>
+      {loginState ? (
+        <>
+          <Home/>
+        </>
+      ) : (
+        <Auth />
+      )}
     </>
   );
 };
 
-export default Home;
+export default MainHome;

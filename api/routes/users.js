@@ -12,6 +12,7 @@ import {
   sendPasswordResetOtp,
   checkPasswordResetOtp,
   passwordReset,
+  userProfileUpdate,
 } from "../controllers/userController.js";
 
 /// init routers
@@ -21,6 +22,7 @@ const router = express.Router();
 router.post("/login", login);
 router.post("/register", register);
 router.get("/me", loggedInUser);
+router.put("/profile-update/:id", userProfileUpdate);
 router.get("/activate/:token", activateAccount);
 router.post("/code-activate/", activateAccountByCode);
 router.post("/resend-activate/", resendActivation);

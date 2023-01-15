@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import createToast from "../../utility/toast";
 import { userLogin } from "../../redux/auth/authAction";
 import { useDispatch } from "react-redux";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { AiOutlineEye } from "react-icons/ai";
 
 const Login = ({ setRegister }) => {
   const naviagte = useNavigate();
@@ -20,6 +22,10 @@ const Login = ({ setRegister }) => {
       [e.target.name]: e.target.value,
     }));
   };
+
+  /// hide show password
+  const [changePassword, setChangePassword] = useState(true);
+  const changeIcon = changePassword === true ? false : true;
 
   // handle user login
   const handleUserLogin = (e) => {
@@ -51,9 +57,18 @@ const Login = ({ setRegister }) => {
               name="password"
               value={input.password}
               onChange={handleInputChange}
-              type="password"
+              type={changePassword ? "password" : "text"}
               placeholder="Password"
+              id="input-show-hide"
             />
+            <span
+              className="icon"
+              onClick={() => {
+                setChangePassword(changeIcon);
+              }}
+            >
+              {changeIcon ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+            </span>
           </div>
           <div className="auth-form">
             <button type="submit">Log In</button>

@@ -7,8 +7,13 @@ import { useDispatch } from "react-redux";
 import createToast from "../../../utility/toast";
 import { changePassowrd } from "../../../redux/auth/authAction";
 import Cookies from "js-cookie";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { AiOutlineEye } from "react-icons/ai";
 
 const Password = () => {
+  /// hide show password
+  const [changePassword, setChangePassword] = useState(true);
+  const changeIcon = changePassword === true ? false : true;
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,18 +53,28 @@ const Password = () => {
               </p>
               <div class="code-box">
                 <input
+                  id="new-password"
                   class="w-100"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  type="text"
+                  type={changePassword ? "password" : "text"}
                   placeholder="New password"
                 />
+                <span
+                  id="new-password-icon"
+                  className="icon"
+                  onClick={() => {
+                    setChangePassword(changeIcon);
+                  }}
+                >
+                  {changeIcon ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                </span>
               </div>
             </div>
             <div class="reset-footer">
               <a href="#"></a>
               <div class="reset-btns">
-                <Link class="cancel" to="/login">
+                <Link class="cancel" to="/">
                   Skip
                 </Link>
                 <a class="continue" onClick={handlePasswordChange} href="#">

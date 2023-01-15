@@ -406,7 +406,7 @@ const Register = ({ setRegister }) => {
                       onBlur={tollBlurHandle}
                       className="border-red"
                       onChange={handleInputChange}
-                      value="Famale"
+                      value="Female"
                       type="radio"
                       name="gender"
                     />

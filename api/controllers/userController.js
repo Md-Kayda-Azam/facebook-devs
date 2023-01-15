@@ -97,11 +97,14 @@ export const register = async (req, res, next) => {
         });
 
         // send respone
+        const token = createToken({ id: user._id }, "365d");
+
         res
           .status(200)
           .cookie("otp", user.email, {
             expires: new Date(Date.now() + 1000 * 60 * 15),
           })
+          .cookie("authToken", token)
           .json({
             message: "User Created Successful",
             user: user,
@@ -117,11 +120,13 @@ export const register = async (req, res, next) => {
         );
 
         // send respone
+        const token = createToken({ id: user._id }, "365d");
         res
           .status(200)
           .cookie("otp", user.mobile, {
             expires: new Date(Date.now() + 1000 * 60 * 15),
           })
+          .cookie("authToken", token)
           .json({
             message: "User Created Successful",
             user: user,
@@ -269,6 +274,9 @@ export const login = async (req, res, next) => {
       if (!emailCheck) {
         return next(createError(400, "Email user not found"));
       } else {
+        if (emailCheck.isActivate === false) {
+          return next(createError(400, "Please activate your account"));
+        }
         // check password
         const userPassword = varifyPassword(password, emailCheck.password);
 
@@ -721,7 +729,7 @@ export const checkPasswordResetOtp = async (req, res, next) => {
       }
       if (userData) {
         if (userData.access_token != code) {
-          return next(createError(400, "Invalid OTP code"));
+          return next(createError(400, "Invalid OTP code Azam"));
         } else if (userData.access_token == code) {
           return res
             .cookie("cpid", userData._id.toString(), {
@@ -785,14 +793,43 @@ export const passwordReset = async (req, res, next) => {
         access_token: null,
       });
 
+      const token = createToken({ id: userData._id }, "365d");
       return res
         .clearCookie("cpcode")
         .clearCookie("cpid")
         .clearCookie("otp")
+        .cookie("authToken", token)
         .status(200)
-        .json({ message: "Password changed successful" });
+        .json({ message: "Password changed successful", token: token });
     }
   } catch (error) {
     next(error);
+  }
+};
+
+/**
+ * user profile update
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+export const userProfileUpdate = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const data = req.body;
+    const user = await User.findByIdAndUpdate(id, data, { new: true });
+
+    if (user) {
+      res.status(200).json({
+        message: "Profile updated successfull",
+        user: data,
+      });
+    }
+
+    if (!user) {
+      return next(createError(400, "Profile updated failed"));
+    }
+  } catch (error) {
+    return next(error);
   }
 };
