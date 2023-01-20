@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { profileUpdate } from "../../../redux/auth/authAction";
+import ClickUpdate from "../../ClickUpdate/ClickUpdate";
 import Fbcard from "../../Fbcard/Fbcard";
 import FbModal from "../../FbModal/FbModal";
 
@@ -14,6 +15,14 @@ const ProfileIntro = () => {
   const [bio, setBio] = useState(user.bio ? user.bio : "");
   const [remain, setRemain] = useState(101 - bio.length);
   const [saveBtn, setSaveBtn] = useState(true);
+
+  const [catShow, setCatShow] = useState(false);
+  const [cat, setCat] = useState(user.category ? user.category : "");
+
+  const [jobShow, setJobShow] = useState(false);
+  const [job, setJob] = useState(user.work ? user.work : []);
+  const [position, setPosition] = useState("");
+  const [company, setCompany] = useState("");
 
   const [editDetails, setEditDetails] = useState(false);
 
@@ -37,6 +46,40 @@ const ProfileIntro = () => {
   const handleBioUpdate = (e) => {
     e.preventDefault();
     dispatch(profileUpdate({ bio }, user._id, setBioshow));
+  };
+
+  // handle Cat show
+  const handleCatShow = (e) => {
+    e.preventDefault();
+    setCatShow(true);
+  };
+  // handle Cat show
+  const handleCatUpdate = (e) => {
+    e.preventDefault();
+    dispatch(profileUpdate({ category: cat }, user._id, setCatShow));
+  };
+
+  // handle job show
+  const handleJobShow = (e) => {
+    e.preventDefault();
+    setJobShow(!jobShow);
+  };
+  // handle job show
+  const handleWorkSave = (e) => {
+    e.preventDefault();
+    dispatch(
+      profileUpdate(
+        { work: [...user.work, { position, company }] },
+        user._id,
+        setJobShow
+      )
+    );
+  };
+
+  /// handle work delete
+  const handleWorkDel = (company) => {
+    const filterWork = user.work.filter((data) => data.company !== company);
+    dispatch(profileUpdate({ work: filterWork }, user._id, setJobShow));
   };
   return (
     <>
@@ -108,19 +151,22 @@ const ProfileIntro = () => {
                   alt=""
                 />
                 <span>
-                  <span className="bold-text">Profile</span> · Entrepreneur
+                  <span className="bold-text">Profile</span> ·
+                  {user.category ? user.category : ""}
                 </span>
               </li>
-              <li>
-                <img
-                  src="https://static.xx.fbcdn.net/rsrc.php/v3/yp/r/Q9Qu4uLgzdm.png"
-                  alt=""
-                />
-                <span>
-                  Works at{" "}
-                  <span className="bold-text">Full Stack Web Development</span>
-                </span>
-              </li>
+              {user.work.map((data, index) => (
+                <li key={index}>
+                  <img
+                    src="https://static.xx.fbcdn.net/rsrc.php/v3/yp/r/Q9Qu4uLgzdm.png"
+                    alt=""
+                  />
+                  <span>
+                    {data.position} at{" "}
+                    <span className="bold-text"> {data.company}</span>
+                  </span>
+                </li>
+              ))}
               <li>
                 <img
                   src="https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/jV4o8nAgIEh.png"
@@ -210,22 +256,177 @@ const ProfileIntro = () => {
             </ul>
             {editDetails && (
               <FbModal title="Edit details" closePopup={setEditDetails}>
-                <h4>Md Kayda Azam</h4>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Excepturi molestias voluptates temporibus placeat. Neque
-                  expedita nisi vitae ad ducimus dolorum sequi eius modi, labore
-                  eos eligendi repellendus harum quae odio voluptas dicta
-                  praesentium ipsam quam mollitia rem molestiae cumque accusamus
-                  accusantium. Velit earum quam reiciendis? Quod ratione nisi
-                  temporibus veritatis harum, quo tempore natus. Ea rem
-                  provident, saepe possimus adipisci a! Soluta veniam sed,
-                  eveniet nesciunt corrupti accusantium quia cumque nostrum
-                  vitae facilis dolorum autem voluptate vel. Libero quas aliquam
-                  recusandae dicta quo maiores modi laboriosam, nisi quod
-                  ducimus corrupti nemo et excepturi magnam fugiat tenetur qui
-                  asperiores repellat minima.
-                </p>
+                <div className="profile-intro">
+                  <div className="modal-header">
+                    <span className="modal-title">Customize your intro</span>
+                    <span className="modal-subtitle">
+                      Details you select will be public.
+                    </span>
+                  </div>
+                  <div className="profile-intro-item">
+                    <span className="intro-title">Category</span>
+                    {!catShow && !user.category && (
+                      <a href="#" onClick={handleCatShow}>
+                        <img
+                          src="https://static.xx.fbcdn.net/rsrc.php/v3/yG/r/OcOuC5vm3rq.png"
+                          alt=""
+                        />
+                        <span className="intro-name">Add a Category</span>
+                      </a>
+                    )}
+                    {user.category && !catShow && (
+                      <div className="profile-intro-data">
+                        <div className="profile-intro-data-details">
+                          <img
+                            src="https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/4PEEs7qlhJk.png"
+                            alt=""
+                          />
+                          <span>{user.category}</span>
+                        </div>
+                        <button className="edit-icons" onClick={handleCatShow}>
+                          <span
+                            style={{
+                              backgroundImage:
+                                'url("https://static.xx.fbcdn.net/rsrc.php/v3/yG/r/KKuHzcDns9x.png")',
+                            }}
+                          ></span>
+                        </button>
+                      </div>
+                    )}
+                    {catShow && (
+                      <ClickUpdate
+                        placeholder="Set your profile category"
+                        hide={setCatShow}
+                        data={{
+                          data: cat,
+                          setData: setCat,
+                        }}
+                        save={handleCatUpdate}
+                      />
+                    )}
+                  </div>
+                  <div className="profile-intro-item">
+                    <span className="intro-title">Work</span>
+
+                    {user.work.map((data, index) => (
+                      <div className="profile-intro-data" key={index}>
+                        <div className="profile-intro-data-details">
+                          <img
+                            src="https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/4PEEs7qlhJk.png"
+                            alt=""
+                          />
+                          <span>{data.position}</span> at{" "}
+                          <strong>{data.company}</strong>
+                        </div>
+                        <button
+                          className="edit-icons"
+                          onClick={() => handleWorkDel(data.company)}
+                        >
+                          <span
+                            className="del-btn"
+                            style={{
+                              backgroundImage:
+                                'url("https://static.xx.fbcdn.net/rsrc.php/v3/yG/r/KKuHzcDns9x.png")',
+                            }}
+                          ></span>
+                        </button>
+                      </div>
+                    ))}
+                    {!jobShow && (
+                      <a href="#" onClick={handleJobShow}>
+                        <img
+                          src="https://static.xx.fbcdn.net/rsrc.php/v3/yG/r/OcOuC5vm3rq.png"
+                          alt=""
+                        />
+                        <span className="intro-name">Add a workplace</span>
+                      </a>
+                    )}
+                    {jobShow && (
+                      <ClickUpdate
+                        hide={setJobShow}
+                        data={{
+                          placeholder: "Set Company name",
+                          data: company,
+                          setData: setCompany,
+                        }}
+                        data2={{
+                          placeholder: "Set Position name",
+                          data: position,
+                          setData: setPosition,
+                        }}
+                        save={handleWorkSave}
+                      />
+                    )}
+                  </div>
+                  <div className="profile-intro-item">
+                    <span className="intro-title">Education</span>
+                    <a href="#">
+                      <img
+                        src="https://static.xx.fbcdn.net/rsrc.php/v3/yG/r/OcOuC5vm3rq.png"
+                        alt=""
+                      />
+                      <span className="intro-name">Add high school</span>
+                    </a>
+                    <a href="#">
+                      <img
+                        src="https://static.xx.fbcdn.net/rsrc.php/v3/yG/r/OcOuC5vm3rq.png"
+                        alt=""
+                      />
+                      <span className="intro-name">Add high collage</span>
+                    </a>
+                    <a href="#">
+                      <img
+                        src="https://static.xx.fbcdn.net/rsrc.php/v3/yG/r/OcOuC5vm3rq.png"
+                        alt=""
+                      />
+                      <span className="intro-name">Add University</span>
+                    </a>
+                  </div>
+                  <div className="profile-intro-item">
+                    <span className="intro-title">Current city</span>
+                    <a href="#">
+                      <img
+                        src="https://static.xx.fbcdn.net/rsrc.php/v3/yG/r/OcOuC5vm3rq.png"
+                        alt=""
+                      />
+                      <span className="intro-name">Add a current city</span>
+                    </a>
+                  </div>
+                  <div className="profile-intro-item">
+                    <span className="intro-title">Hometown</span>
+                    <a href="#">
+                      <img
+                        src="https://static.xx.fbcdn.net/rsrc.php/v3/yG/r/OcOuC5vm3rq.png"
+                        alt=""
+                      />
+                      <span className="intro-name">Add a hometown</span>
+                    </a>
+                  </div>
+                  <div className="profile-intro-item">
+                    <span className="intro-title">Relationship</span>
+                    <a href="#">
+                      <img
+                        src="https://static.xx.fbcdn.net/rsrc.php/v3/yG/r/OcOuC5vm3rq.png"
+                        alt=""
+                      />
+                      <span className="intro-name">
+                        Add a relationship status
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div className="profile-modal-footer">
+                  <div className="update-info">Update your information</div>
+                  <div className="update-btns">
+                    <button
+                      onClick={() => setEditDetails(!editDetails)}
+                      className="cancel"
+                    >
+                      Cancel
+                    </button>
+                    <button className="save blue">Save</button>
+                  </div>
+                </div>
               </FbModal>
             )}
 

@@ -1818,12 +1818,11 @@ span.camera-icon {
   gap: 5px;
   font-weight: bold;
 }
-
-.profile-action button.blue {
-  background-color: var(--blue-color);
-}
-.profile-action button.blue span {
+button.blue span {
   filter: invert(1);
+}
+button.blue {
+  background-color: var(--blue-color) !important;
 }
 
 .profile-action button span:first-child {
@@ -2155,4 +2154,123 @@ button.personal-info-button:hover {
 .earth-icon {
   width: 21px;
   height: 21px;
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 20px 0px;
+}
+
+.modal-header .modal-title {
+  font-size: 18px;
+  font-weight: 900;
+  font-family: inherit;
+}
+
+.modal-header .modal-subtitle {
+  font-size: 17px;
+  font-weight: 200;
+  font-family: inherit;
+  color: #65676b;
+}
+
+.profile-intro {
+  height: 400px;
+  overflow: auto;
+  padding: 0px 25px;
+}
+
+.profile-intro .profile-intro-item {
+  padding: 15px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 90%;
+}
+
+.profile-intro .profile-intro-item .intro-title {
+  font-size: 18px;
+  font-weight: 900;
+  font-size: 17px;
+}
+.profile-intro .profile-intro-item a {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  color: var(--blue-color);
+  transform: translate(5px, 0px);
+  font-size: 16px;
+}
+.profile-intro .profile-intro-item a img {
+  filter: invert(39%) sepia(57%) saturate(200%) saturate(200%) saturate(200%)
+    saturate(200%) saturate(200%) saturate(147.75%) hue-rotate(202deg)
+    brightness(97%) contrast(96%);
+}
+.profile-intro .profile-intro-item a:hover {
+  text-decoration: underline;
+}
+
+.profile-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.profile-modal-footer .update-btns {
+  display: flex;
+  gap: 10px;
+}
+.profile-modal-footer .update-btns .cancel {
+  padding: 10px 13px;
+  cursor: pointer;
+  background-color: #e4e6eb;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-family: inherit;
+}
+.profile-modal-footer .update-btns .cancel:hover {
+  background-color: #d7d8dd;
+}
+.profile-modal-footer .update-btns .save {
+  padding: 10px 40px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #f9fbfe;
+  font-family: inherit;
+}
+
+.profile-modal-footer .update-btns .save:hover {
+  background-color: #186ace !important;
+}
+
+.profile-intro-data {
+  display: flex;
+  justify-content: space-between;
+}
+.profile-intro-data .profile-intro-data-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+button.edit-icons {
+  border: none;
+  cursor: pointer;
+}
+button.edit-icons span {
+  width: 23px;
+  height: 23px;
+  display: block;
+  background-position: 0px 546px;
+}
+
+span.del-btn {
+  background-position: 0px 252px !important;
 }
