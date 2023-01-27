@@ -1,9 +1,95 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Avatar from "../../Avatar/Avatar";
+import Avatar from "../../../Avatar/Avatar";
 
-const ProfileHeader = () => {
+const ProfileHeader = ({
+  postShow,
+  aboutShow,
+  followersShow,
+  photosShow,
+  groupsShow,
+  videosShow,
+  moreShow,
+}) => {
   const { user } = useSelector((state) => state.auth);
+
+  /// handle abiut show
+  const handlePostShow = (e) => {
+    e.preventDefault();
+    postShow(true);
+    followersShow(false);
+    photosShow(false);
+    groupsShow(false);
+    videosShow(false);
+    moreShow(false);
+    aboutShow(false);
+  };
+  /// handle about show
+  const handleAboutShow = (e) => {
+    e.preventDefault();
+    aboutShow(true);
+    followersShow(false);
+    photosShow(false);
+    groupsShow(false);
+    videosShow(false);
+    moreShow(false);
+    postShow(false);
+  };
+  /// handle followers show
+  const handleAFollowersShow = (e) => {
+    e.preventDefault();
+    followersShow(true);
+    photosShow(false);
+    groupsShow(false);
+    videosShow(false);
+    moreShow(false);
+    aboutShow(false);
+    postShow(false);
+  };
+  /// handle followers show
+  const handleAPhotosShow = (e) => {
+    e.preventDefault();
+    photosShow(true);
+    groupsShow(false);
+    videosShow(false);
+    moreShow(false);
+    followersShow(false);
+    aboutShow(false);
+    postShow(false);
+  };
+  /// handle followers show
+  const handleGroupShow = (e) => {
+    e.preventDefault();
+    groupsShow(true);
+    videosShow(false);
+    moreShow(false);
+    photosShow(false);
+    followersShow(false);
+    aboutShow(false);
+    postShow(false);
+  };
+  /// handle followers show
+  const handleVideoShow = (e) => {
+    e.preventDefault();
+    videosShow(true);
+    moreShow(false);
+    groupsShow(false);
+    photosShow(false);
+    followersShow(false);
+    aboutShow(false);
+    postShow(false);
+  };
+  /// handle followers show
+  const handleMoreShow = (e) => {
+    e.preventDefault();
+    moreShow(true);
+    videosShow(false);
+    groupsShow(false);
+    photosShow(false);
+    followersShow(false);
+    aboutShow(false);
+    postShow(false);
+  };
   return (
     <>
       <div className="fb-profile-header">
@@ -99,25 +185,39 @@ const ProfileHeader = () => {
         <div className="fb-profile-menu">
           <ul>
             <li>
-              <a href="#">Posts</a>
+              <a onClick={handlePostShow} href="#">
+                Posts
+              </a>
             </li>
             <li>
-              <a href="#">About</a>
+              <a onClick={handleAboutShow} href="#">
+                About
+              </a>
             </li>
             <li>
-              <a href="#">Followers</a>
+              <a onClick={handleAFollowersShow} href="#">
+                Followers
+              </a>
             </li>
             <li>
-              <a href="#">Photos</a>
+              <a onClick={handleAPhotosShow} href="#">
+                Photos
+              </a>
             </li>
             <li>
-              <a href="#">Videos</a>
+              <a onClick={handleVideoShow} href="#">
+                Videos
+              </a>
             </li>
             <li>
-              <a href="#">Articlse</a>
+              <a onClick={handleGroupShow} href="#">
+                Groups
+              </a>
             </li>
             <li>
-              <a href="#">More</a>
+              <a onClick={handleMoreShow} href="#">
+                More
+              </a>
             </li>
           </ul>
         </div>

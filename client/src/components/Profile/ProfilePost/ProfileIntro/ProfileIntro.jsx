@@ -1,10 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { profileUpdate } from "../../../redux/auth/authAction";
-import ClickUpdate from "../../ClickUpdate/ClickUpdate";
-import Fbcard from "../../Fbcard/Fbcard";
-import FbModal from "../../FbModal/FbModal";
+import { profileUpdate } from "../../../../redux/auth/authAction";
+import ClickUpdate from "../../../ClickUpdate/ClickUpdate";
+import Fbcard from "../../../Fbcard/Fbcard";
+import FbModal from "../../../FbModal/FbModal";
+import PopupFullWidth from "../../../PopupFullWidth/PopupFullWidth";
+import StorySlider from "../../../StorySlider/StorySlider";
 
 const ProfileIntro = () => {
   const { user } = useSelector((state) => state.auth);
@@ -25,6 +27,8 @@ const ProfileIntro = () => {
   const [company, setCompany] = useState("");
 
   const [editDetails, setEditDetails] = useState(false);
+
+  const [featuredShow, setFeaturedShow] = useState(false);
 
   // handle bio show
   const handleBioShow = () => {
@@ -474,26 +478,7 @@ const ProfileIntro = () => {
             <div className="profile-featured-gallery">
               <div className="profile-featured-item">
                 <div
-                  style={{
-                    backgroundImage:
-                      "url('https://i.pinimg.com/474x/3d/da/43/3dda4343ac69a1b96157f387dbcc097e.jpg')",
-                  }}
-                  className="profile-featured-image"
-                ></div>
-                <span className="featured-count">+33</span>
-              </div>
-              <div className="profile-featured-item">
-                <div
-                  style={{
-                    backgroundImage:
-                      "url('https://i.pinimg.com/474x/3d/da/43/3dda4343ac69a1b96157f387dbcc097e.jpg')",
-                  }}
-                  className="profile-featured-image"
-                ></div>
-                <span className="featured-count">+33</span>
-              </div>
-              <div className="profile-featured-item">
-                <div
+                  onClick={() => setFeaturedShow(true)}
                   style={{
                     backgroundImage:
                       "url('https://i.pinimg.com/474x/3d/da/43/3dda4343ac69a1b96157f387dbcc097e.jpg')",
@@ -504,6 +489,11 @@ const ProfileIntro = () => {
               </div>
             </div>
           </div>
+          {featuredShow && (
+            <PopupFullWidth hide={setFeaturedShow}>
+              <StorySlider hide={setFeaturedShow} />
+            </PopupFullWidth>
+          )}
           <button className="personal-info-button">Add featured</button>
         </div>
       </Fbcard>

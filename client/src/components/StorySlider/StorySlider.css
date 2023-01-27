@@ -1,0 +1,101 @@
+.popup-story-slider-wraper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 15px;
+}
+
+.popup-story-slider-wraper .story-slider {
+  width: 310px;
+  height: 550px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.popup-story-slider-wraper .story-slider .slider-item {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  border-radius: 10px;
+}
+.popup-story-slider-wraper .story-slider .slider-item .slider-bars-wraper {
+  display: flex;
+  gap: 5px;
+  transform: translate(0px 10px);
+  padding: 0px 10px;
+}
+
+.popup-story-slider-wraper
+  .story-slider
+  .slider-item
+  .slider-bars-wraper
+  .bars-item {
+  width: 100%;
+  height: 5px;
+  background-color: #8a8580;
+  margin-top: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.popup-story-slider-wraper
+  .story-slider
+  .slider-item
+  .slider-bars-wraper
+  .bars-item
+  .progress {
+  width: 0%;
+  background-color: #eee8e1;
+  height: 5px;
+}
+.popup-story-slider-wraper
+  .story-slider
+  .slider-item
+  .slider-bars-wraper
+  .bars-item.active
+  .progress {
+  width: 100%;
+  transition: 3s;
+}
+.popup-story-slider-wraper
+  .story-slider
+  .slider-item
+  .slider-bars-wraper
+  .bars-item.viewd
+  .progress {
+  width: 100%;
+}
+.popup-story-slider-wraper .navigation {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.popup-story-slider-wraper .navigation .prev {
+  transform: translate(-90px, 0px);
+  transition: 0.3s;
+}
+.popup-story-slider-wraper .navigation .prev:hover {
+  transform: translate(-100px, 0px);
+}
+.popup-story-slider-wraper .navigation .next {
+  transform: translate(90px, 0px);
+  transition: 0.3s;
+}
+.popup-story-slider-wraper .navigation .next:hover {
+  transform: translate(100px, 0px);
+}
+.popup-story-slider-wraper .navigation button {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: #8a8b90;
+}
+.popup-story-slider-wraper .navigation button:hover {
+  background-color: #fff;
+}

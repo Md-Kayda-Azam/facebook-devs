@@ -1,0 +1,56 @@
+body {
+  background-color: #f0f2f5;
+}
+.about-personal-info {
+  margin-top: 10px;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-wraper {
+  height: 100%;
+  width: 1250px;
+}
+.about-page {
+  display: flex;
+  font-display: row;
+  justify-content: center;
+  align-items: center;
+}
+.about-title {
+  flex: 1;
+  border-right: 1px solid #ddd;
+}
+.about-title span {
+  font-size: 20px;
+  font-weight: bold;
+  font-weight: 900;
+}
+.about-title ul {
+  margin-right: 5px;
+}
+.about-title ul li {
+  display: flex;
+  gap: 5px;
+  background-color: #e7f3ff;
+  border-radius: 9px;
+  margin: 10px 0px;
+  cursor: pointer;
+}
+.about-title ul li a {
+  padding: 10px 0px;
+  background-color: #e7f3ff;
+  margin-left: 10px;
+  color: #65676b;
+  font-family: inherit;
+  font-weight: 600;
+  list-style: none;
+  font-size: 0.9375rem;
+}
+.about-page {
+  flex: 3;
+  gap: 5px;
+}

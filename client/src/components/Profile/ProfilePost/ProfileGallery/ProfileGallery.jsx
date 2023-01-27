@@ -1,5 +1,5 @@
 import React from "react";
-import Fbcard from "../../Fbcard/Fbcard";
+import Fbcard from "../../../Fbcard/Fbcard";
 
 const ProfileGallery = () => {
   return (
