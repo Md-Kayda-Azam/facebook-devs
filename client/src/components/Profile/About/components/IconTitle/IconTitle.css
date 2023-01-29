@@ -1,0 +1,27 @@
+.add-a-work {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+.add-a-work .work-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.add-a-work .work-icons img {
+  filter: invert(39%) sepia(57%) saturate(200%) saturate(200%) saturate(200%)
+    saturate(200%) saturate(200%) saturate(147.75%) hue-rotate(202deg)
+    brightness(97%) contrast(96%);
+}
+.add-a-work .work-icons span {
+  color: #1876f2;
+  font-family: inherit;
+  line-height: 1.3333;
+  font-weight: 600;
+  font-size: 16px;
+}
+.add-a-work .work-icons span:hover {
+  text-decoration: underline;
+}

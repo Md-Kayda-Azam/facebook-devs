@@ -1,0 +1,64 @@
+.contact-mobile {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.contact-mobile .call {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.contact-mobile .call img {
+  width: 28px;
+  height: 28px;
+}
+.contact-mobile .number-mobile {
+  display: flex;
+  flex-direction: column;
+}
+.edit-and-info-public-friend {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  align-items: center;
+}
+.edit-and-info-public-friend .info img {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  align-items: center;
+  filter: invert(39%) sepia(21%) saturate(200%) saturate(109.5%)
+    hue-rotate(174deg) brightness(94%) contrast(86%);
+}
+.edit-and-info-public-friend .contact-mobile .button {
+  background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yo/r/SfKut6zKB3a.png");
+  background-position: 1px -504px;
+  background-size: auto;
+  width: 25px;
+  height: 25px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  color: #e4e6eb;
+}
+.edit-and-info-public-friend .contact-mobile button {
+  border: none;
+  width: 40px;
+  height: 40px;
+  background-color: #ddd;
+  border-radius: 50%;
+}
+.edit-and-info-public-friend.contact-mobile p {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: #050505;
+}
+.edit-and-info-public-friend .contact-mobile span {
+  font-size: 0.8125rem;
+  color: #65676b;
+}
+.edit-and-info-public-friend .contact-mobile button:hover {
+  background-color: #d8dadf;
+}

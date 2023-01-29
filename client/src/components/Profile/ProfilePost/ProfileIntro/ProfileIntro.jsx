@@ -7,6 +7,8 @@ import Fbcard from "../../../Fbcard/Fbcard";
 import FbModal from "../../../FbModal/FbModal";
 import PopupFullWidth from "../../../PopupFullWidth/PopupFullWidth";
 import StorySlider from "../../../StorySlider/StorySlider";
+import bannerAdd from "../../../../_assets/images/banner.png";
+import "./ProfileIntro.css";
 
 const ProfileIntro = () => {
   const { user } = useSelector((state) => state.auth);
@@ -29,6 +31,9 @@ const ProfileIntro = () => {
   const [editDetails, setEditDetails] = useState(false);
 
   const [featuredShow, setFeaturedShow] = useState(false);
+  const [featuredAddShow, setFeaturedAddShow] = useState(false);
+  const [featuredUploadShow, setFeaturedUploadShow] = useState(false);
+  const [featuredPrev, setFeaturedPrev] = useState([]);
 
   // handle bio show
   const handleBioShow = () => {
@@ -63,6 +68,11 @@ const ProfileIntro = () => {
     dispatch(profileUpdate({ category: cat }, user._id, setCatShow));
   };
 
+  /// handle add & upload back
+  const handleUploadBack = () => {
+    setFeaturedAddShow(true);
+    setFeaturedUploadShow(false);
+  };
   // handle job show
   const handleJobShow = (e) => {
     e.preventDefault();
@@ -85,6 +95,17 @@ const ProfileIntro = () => {
     const filterWork = user.work.filter((data) => data.company !== company);
     dispatch(profileUpdate({ work: filterWork }, user._id, setJobShow));
   };
+
+  // handle feature upload
+  const handleFeatureUploadPhotos = (e) => {
+    const prevImage = [];
+    for (let index = 0; index < e.target.files.length; index++) {
+      const image = URL.createObjectURL(e.target.files[index]);
+      prevImage.push(image);
+    }
+    setFeaturedPrev(prevImage);
+  };
+
   return (
     <>
       <Fbcard>
@@ -494,7 +515,59 @@ const ProfileIntro = () => {
               <StorySlider hide={setFeaturedShow} />
             </PopupFullWidth>
           )}
-          <button className="personal-info-button">Add featured</button>
+
+          <div className="add-featured-modal">
+            {featuredAddShow && !featuredUploadShow && (
+              <FbModal title={"Edit featured"} closePopup={setFeaturedAddShow}>
+                <div className="add-featured-banner">
+                  <img src={bannerAdd} alt="" />
+                  <p>
+                    Feature your favorite photos and stories here for all your
+                    friends to see.
+                  </p>
+                  <button onClick={() => setFeaturedUploadShow(true)}>
+                    Add New
+                  </button>
+                </div>
+              </FbModal>
+            )}
+            {featuredUploadShow && (
+              <FbModal
+                title={"Edit Featured Collection"}
+                back={handleUploadBack}
+                upbd={setFeaturedPrev}
+              >
+                <div className="add-featured-upload">
+                  <div className="feature-upload">
+                    <label htmlFor="featuredFile">Upload Photos</label>
+                    <input
+                      onChange={handleFeatureUploadPhotos}
+                      type="file"
+                      multiple={true}
+                      id="featuredFile"
+                      style={{ display: "none" }}
+                    />
+                  </div>
+                  <div className="freature-items-photos-upload">
+                    <h4>Uploaded Photos</h4>
+                    <div className="fearture-preview">
+                      {featuredPrev.map((item, index) => (
+                        <div className="preview-item">
+                          <img src={item} alt="" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </FbModal>
+            )}
+          </div>
+          <button
+            onClick={() => setFeaturedAddShow(true)}
+            className="personal-info-button"
+          >
+            Add featured
+          </button>
         </div>
       </Fbcard>
     </>

@@ -44,6 +44,14 @@
   align-items: center;
   transition: 0.3s;
 }
+.fb-modal-header button.back {
+  top: 0px;
+  right: auto;
+  left: 10px;
+  bottom: 0px;
+  margin: auto;
+  font-size: 20px;
+}
 
 .fb-modal-header button:hover {
   background-color: #ccc;

@@ -19,6 +19,6 @@ export const featured = [
   {
     id: 5,
     photo:
-      "https://i.pinimg.com/originals/ce/af/a4/ceafa4b7755726e42edd9102e25e3f89.jpg",
+      "https://i.pinimg.com/originals/9a/13/46/9a134694fd9254c4bed3900b58448668.jpg",
   },
 ];

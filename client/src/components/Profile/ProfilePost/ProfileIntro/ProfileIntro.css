@@ -1,0 +1,90 @@
+.add-featured-banner {
+  padding: 20px 15px;
+  text-align: center;
+  overflow: auto;
+}
+.add-featured-banner img {
+  height: 166px;
+  object-fit: contain;
+  width: 320px;
+}
+.add-featured-banner p {
+  font-size: 16px;
+  color: #65676b;
+  margin-bottom: 20px;
+}
+.add-featured-banner button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.0625rem;
+  line-height: 1.1765;
+  font-weight: 600;
+  background-color: #e7f3ff;
+  color: #1877f2;
+  font-family: inherit;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+.add-featured-banner button:hover {
+  background-color: #dbe7f2;
+}
+.add-featured-upload {
+  margin: 10px 20px;
+}
+
+.add-featured-upload label {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.0625rem;
+  line-height: 1.1765;
+  font-weight: 600;
+  background-color: #e7f3ff;
+  color: #1877f2;
+  font-family: inherit;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+.add-featured-upload label:hover {
+  background-color: #dbe7f2;
+}
+.add-featured-upload .feature-upload {
+  padding-bottom: 15px;
+}
+.freature-items-photos-upload {
+  width: 675px;
+  overflow: auto;
+  height: 130px;
+}
+.freature-items-photos-upload .fearture-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0px;
+}
+
+.freature-items-photos-upload .fearture-preview .preview-item {
+  width: 123px;
+  height: 228.44px;
+  background-color: #ccc;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.freature-items-photos-upload .fearture-preview .preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -1,0 +1,60 @@
+.over-view {
+  width: 100%;
+}
+.over-view .over-view-item {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.contact-mobile {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.contact-mobile .call {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.contact-mobile .call img {
+  width: 28px;
+  height: 28px;
+}
+.contact-mobile .number-mobile {
+  display: flex;
+  flex-direction: column;
+}
+.contact-mobile .button {
+  background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yo/r/SfKut6zKB3a.png);
+  background-position: 1px -504px;
+  background-size: auto;
+  width: 25px;
+  height: 25px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  color: #e4e6eb;
+}
+.contact-mobile button {
+  border: none;
+  width: 40px;
+  height: 40px;
+  background-color: #ddd;
+  border-radius: 50%;
+}
+.contact-mobile p {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: #050505;
+}
+.contact-mobile span {
+  font-size: 0.8125rem;
+  color: #65676b;
+}
+.contact-mobile button:hover {
+  background-color: #d8dadf;
+}
