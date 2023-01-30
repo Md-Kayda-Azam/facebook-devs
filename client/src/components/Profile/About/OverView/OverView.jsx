@@ -18,6 +18,9 @@ const OverView = () => {
           icon={"https://static.xx.fbcdn.net/rsrc.php/v3/yl/r/mxbGn5aKz1f.png"}
           name={"01750-910188"}
           nameInfo={"Mobile"}
+          editPhoto={
+            "https://static.xx.fbcdn.net/rsrc.php/v3/yo/r/SfKut6zKB3a.png"
+          }
         />
       </Wraper>
     </>

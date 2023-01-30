@@ -1,12 +1,21 @@
 import React from "react";
 import "./ContactInfo.css";
 
-const ContactInfo = ({ icon, name, nameInfo, friendsPublic }) => {
+const ContactInfo = ({
+  icon,
+  name,
+  nameInfo,
+  friendsPublic,
+  editPhoto,
+  emty,
+  editEmty,
+}) => {
   return (
     <>
       <div className="contact-mobile">
         <div className="call">
-          <img src={icon} alt="" />
+          {emty && <div style={{ width: "25px" }}></div>}
+          {icon && <img src={icon} alt="" />}
           <div className="number-mobile">
             <p>{name}</p>
             <span>{nameInfo}</span>
@@ -17,9 +26,17 @@ const ContactInfo = ({ icon, name, nameInfo, friendsPublic }) => {
           <div className="info">
             <img src={friendsPublic} alt="" />
           </div>
-          <button>
-            <div className="button"></div>
-          </button>
+          {editEmty && <div style={{ width: "40px" }}></div>}
+          {editPhoto && (
+            <button>
+              <div
+                className="button"
+                style={{
+                  backgroundImage: `url("${editPhoto}")`,
+                }}
+              ></div>
+            </button>
+          )}
         </div>
       </div>
     </>

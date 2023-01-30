@@ -37,7 +37,7 @@ const StorySlider = ({ hide }) => {
       if (sliderIndex === featured.length - 1) {
         hide(false);
       }
-    }, 311000);
+    }, 3000);
     return () => clearTimeout(sliderTimeout);
   }, [sliderIndex]);
 

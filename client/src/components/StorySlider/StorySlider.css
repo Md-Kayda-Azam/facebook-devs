@@ -95,6 +95,8 @@
   border-radius: 50%;
   cursor: pointer;
   background-color: #8a8b90;
+  display: flex;
+  align-items: center;
 }
 .popup-story-slider-wraper .navigation button:hover {
   background-color: #fff;
