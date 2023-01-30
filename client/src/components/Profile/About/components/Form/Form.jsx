@@ -1,13 +1,11 @@
-import React from "react";
-import { useRef } from "react";
-import { useState } from "react";
+import React, { useRef, useState } from "react";
 import usePopupClose from "../../../../../hooks/usePopupClose";
 import DayOptions from "../FormComponents/DayOptions/DayOptions";
 import MonthOptions from "../FormComponents/MonthOptions/MonthOptions";
 import YearOptions from "../FormComponents/YearOptions/YearOptions";
-import "./AddAWorkPlace.css";
+import "./Form.css"
 
-const AddAWorkPlace = ({ showHide, ymd }) => {
+const Form = ({ showHide }) => {
   const [birthYear, setBirthYear] = useState(false);
   const [birthMonth, setBirthMonth] = useState(false);
   const [birthDay, setBirthDay] = useState(false);
@@ -96,9 +94,9 @@ const AddAWorkPlace = ({ showHide, ymd }) => {
             </div>
           )}
         </div>
-        {birthYear && <YearOptions ymd={ymd}  />}
-        {birthMonth && <MonthOptions ymd={ymd} />}
-        {birthDay && <DayOptions ymd={ymd} />}
+        {birthYear && <YearOptions />}
+        {birthMonth && <MonthOptions />}
+        {birthDay && <DayOptions />}
         <div className="public-save-cencel">
           <button>
             <img
@@ -121,4 +119,4 @@ const AddAWorkPlace = ({ showHide, ymd }) => {
   );
 };
 
-export default AddAWorkPlace;
+export default Form;

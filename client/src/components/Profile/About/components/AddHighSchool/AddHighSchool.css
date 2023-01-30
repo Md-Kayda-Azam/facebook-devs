@@ -1,0 +1,95 @@
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  input[type="text"] {
+    padding: 15px 15px;
+    border: none;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    font-size: 15px;
+  }
+  input[type="text"]:hover {
+    border: 1px solid #000;
+  }
+  textarea {
+    padding: 15px 15px;
+    border: none;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    font-size: 17px;
+    resize: none;
+    font-family: inherit;
+    width: 100%;
+    height: 150px;
+  }
+  
+  .redio-box {
+    display: flex;
+    justify-content: flex-start;
+    gap: 14px;
+  }
+  .redio-box input[type="checkbox"] {
+    width: 21px;
+  }
+  .redio-box p {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit;
+  }
+  .birth-day-box {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+  }
+  .birth-day-box .year-option {
+    width: 91px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: #e4e6eb;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .birth-day-box .year-option span {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .birth-day-box .year-option:hover {
+    background-color: #ddd;
+  }
+  .birth-day-box .year-option .year-icon {
+    background-position: -34px -164px;
+    background-size: auto;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    display: inline-block;
+  }
+  .public-save-cencel {
+    border-top: 1px solid #ddd;
+    padding: 10px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .public-save-cencel button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 90px;
+  }
+  .public-save-cencel .cancel-save-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  

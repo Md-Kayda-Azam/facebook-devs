@@ -1725,6 +1725,7 @@ span.icon {
   background-color: #fff;
   font-family: inherit;
   z-index: 999;
+  width: 150px;
 }
 
 .fb-profile-header .fb-cover-photo button:hover {
@@ -2273,4 +2274,15 @@ button.edit-icons span {
 
 span.del-btn {
   background-position: 0px 252px !important;
+}
+
+.option-item span {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px 22px;
+  background-color: #fff;
+  color: #626262;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
 }
