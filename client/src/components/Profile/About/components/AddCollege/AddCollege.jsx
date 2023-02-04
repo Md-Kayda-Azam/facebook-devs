@@ -1,9 +1,112 @@
 import React, { useRef, useState } from "react";
 import usePopupClose from "../../../../../hooks/usePopupClose";
-import DayOptions from "../FormComponents/DayOptions/DayOptions";
-import MonthOptions from "../FormComponents/MonthOptions/MonthOptions";
-import YearOptions from "../FormComponents/YearOptions/YearOptions";
 import "./AddCollege.css";
+const days = [
+  "Day",
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+];
+const months = [
+  "Month",
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+const years = Array.from(
+  { length: 118 },
+  (_, i) => new Date().getFullYear() - i
+);
+const daye = [
+  "Day",
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+];
+const monthe = [
+  "Month",
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+const yeare = Array.from(
+  { length: 118 },
+  (_, i) => new Date().getFullYear() - i
+);
 
 const AddCollege = ({ showHide, addColl, addCollege }) => {
   const [birthYear, setBirthYear] = useState(false);
@@ -84,12 +187,13 @@ const AddCollege = ({ showHide, addColl, addCollege }) => {
             ref={yearMonthDay}
           >
             <span>year</span>
-            <span
-              className="year-icon"
-              style={{
-                backgroundImage: `url("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/gqBqhcDX1Yc.png")`,
-              }}
-            ></span>
+            <select className="year" name="years" id="" ref={yearMonthDay}>
+              {years.map((item, index) => (
+                <option value={item} key={index}>
+                  {item}
+                </option>
+              ))}
+            </select>
           </div>
           {showSchoolMonth && (
             <div
@@ -98,12 +202,13 @@ const AddCollege = ({ showHide, addColl, addCollege }) => {
               ref={yearMonthDay}
             >
               <span>Month</span>
-              <span
-                className="year-icon"
-                style={{
-                  backgroundImage: `url("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/gqBqhcDX1Yc.png")`,
-                }}
-              ></span>
+              <select className="month" name="months" id="" ref={yearMonthDay}>
+                {months.map((item, index) => (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                ))}
+              </select>
             </div>
           )}
           {showSchoolDay && (
@@ -113,23 +218,25 @@ const AddCollege = ({ showHide, addColl, addCollege }) => {
               ref={yearMonthDay}
             >
               <span>Day</span>
-              <span
-                className="year-icon"
-                style={{
-                  backgroundImage: `url("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/gqBqhcDX1Yc.png")`,
-                }}
-              ></span>
+              <select className="day" name="days" id="" ref={yearMonthDay}>
+                {days.map((item, index) => (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                ))}
+              </select>
             </div>
           )}
           <p>to</p>
           <div className="year-option" onClick={handleYear} ref={yearMonthDay}>
             <span>year</span>
-            <span
-              className="year-icon"
-              style={{
-                backgroundImage: `url("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/gqBqhcDX1Yc.png")`,
-              }}
-            ></span>
+            <select className="year" name="yeare" id="" ref={yearMonthDay}>
+              {yeare.map((item, index) => (
+                <option value={item} key={index}>
+                  {item}
+                </option>
+              ))}
+            </select>
           </div>
           {showMonth && (
             <div
@@ -138,41 +245,28 @@ const AddCollege = ({ showHide, addColl, addCollege }) => {
               ref={yearMonthDay}
             >
               <span>Month</span>
-              <span
-                className="year-icon"
-                style={{
-                  backgroundImage: `url("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/gqBqhcDX1Yc.png")`,
-                }}
-              ></span>
+              <select className="month" name="monthe" id="" ref={yearMonthDay}>
+                {monthe.map((item, index) => (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                ))}
+              </select>
             </div>
           )}
           {showDay && (
             <div className="year-option" onClick={handleDay} ref={yearMonthDay}>
               <span>Day</span>
-              <span
-                className="year-icon"
-                style={{
-                  backgroundImage: `url("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/gqBqhcDX1Yc.png")`,
-                }}
-              ></span>
+              <select className="day" name="daye" id="" ref={yearMonthDay}>
+                {daye.map((item, index) => (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                ))}
+              </select>
             </div>
           )}
         </div>
-        {birthYear && <YearOptions addColl={addColl} addCollege={addCollege} />}
-        {birthMonth && (
-          <MonthOptions addColl={addColl} addCollege={addCollege} />
-        )}
-        {birthDay && <DayOptions addColl={addColl} addCollege={addCollege} />}
-
-        {startSchooly && (
-          <YearOptions addColl={addColl} addCollege={addCollege} />
-        )}
-        {startSchoolm && (
-          <MonthOptions addColl={addColl} addCollege={addCollege} />
-        )}
-        {startSchoold && (
-          <DayOptions addColl={addColl} addCollege={addCollege} />
-        )}
         <div className="redio-box">
           <input type="checkbox" name="" id="" />
           <p>Graduated</p>

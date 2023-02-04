@@ -9,6 +9,7 @@ import PopupFullWidth from "../../../PopupFullWidth/PopupFullWidth";
 import StorySlider from "../../../StorySlider/StorySlider";
 import bannerAdd from "../../../../_assets/images/banner.png";
 import "./ProfileIntro.css";
+import AddHobbies from "../AddHobbies/AddHobbies";
 
 const ProfileIntro = () => {
   const { user } = useSelector((state) => state.auth);
@@ -29,12 +30,16 @@ const ProfileIntro = () => {
   const [company, setCompany] = useState("");
 
   const [editDetails, setEditDetails] = useState(false);
+  const [addEditHobbies, setAddEditHobbies] = useState(false);
 
   const [featuredShow, setFeaturedShow] = useState(false);
   const [featuredAddShow, setFeaturedAddShow] = useState(false);
   const [featuredUploadShow, setFeaturedUploadShow] = useState(false);
-  const [featuredPrev, setFeaturedPrev] = useState([]);
 
+  const [featuredPrev, setFeaturedPrev] = useState([]);
+  const [featuredPrevPhotos, setFeaturedPrevPhotos] = useState([]);
+
+  console.log(featuredPrevPhotos);
   // handle bio show
   const handleBioShow = () => {
     setBioshow(!bioshow);
@@ -99,11 +104,14 @@ const ProfileIntro = () => {
   // handle feature upload
   const handleFeatureUploadPhotos = (e) => {
     const prevImage = [];
+    const prevImagePhotos = [];
     for (let index = 0; index < e.target.files.length; index++) {
       const image = URL.createObjectURL(e.target.files[index]);
       prevImage.push(image);
+      prevImagePhotos.push(e.target.files[index]);
     }
-    setFeaturedPrev(prevImage);
+    setFeaturedPrev((prevState) => [...prevState, ...prevImage]);
+    setFeaturedPrevPhotos((prevState) => [...prevState, ...prevImagePhotos]);
   };
 
   return (
@@ -188,7 +196,7 @@ const ProfileIntro = () => {
                   />
                   <span>
                     {data.position} at{" "}
-                    <span className="bold-text"> {data.company}</span>
+                    <span className="bold-text"> {data.companyName}</span>
                   </span>
                 </li>
               ))}
@@ -341,11 +349,11 @@ const ProfileIntro = () => {
                             alt=""
                           />
                           <span>{data.position}</span> at{" "}
-                          <strong>{data.company}</strong>
+                          <strong>{data.companyName}</strong>
                         </div>
                         <button
                           className="edit-icons"
-                          onClick={() => handleWorkDel(data.company)}
+                          onClick={() => handleWorkDel(data.companyName)}
                         >
                           <span
                             className="del-btn"
@@ -493,7 +501,13 @@ const ProfileIntro = () => {
                 <span>Football</span>
               </div>
             </div>
-            <button className="personal-info-button">Edit hobbies</button>
+            <button
+              className="personal-info-button"
+              onClick={() => setAddEditHobbies(true)}
+            >
+              Edit hobbies
+            </button>
+            {addEditHobbies && <AddHobbies showHide={setAddEditHobbies} />}
           </div>
           <div className="profile-featured">
             <div className="profile-featured-gallery">
@@ -552,8 +566,23 @@ const ProfileIntro = () => {
                     <h4>Uploaded Photos</h4>
                     <div className="fearture-preview">
                       {featuredPrev.map((item, index) => (
-                        <div className="preview-item">
-                          <img src={item} alt="" />
+                        <div className="preview-item" key={index}>
+                          <label
+                            className="wrap-label"
+                            htmlFor={`checkbox-${index}`}
+                          >
+                            <img src={item} alt="" />
+                          </label>
+                          <div className="container">
+                            <div className="round">
+                              <input
+                                type="checkbox"
+                                checked={true}
+                                id={`checkbox-${index}`}
+                              />
+                              <label for="checkbox"></label>
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>

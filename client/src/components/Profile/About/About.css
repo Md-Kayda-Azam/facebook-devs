@@ -33,6 +33,11 @@ body {
 }
 .about-title ul {
   margin-right: 5px;
+  color: #65676b;
+}
+li.aci {
+  background-color: #e7f3ff;
+  color: #267ef3;
 }
 .about-title ul li {
   display: flex;
@@ -44,7 +49,6 @@ body {
 .about-title ul li a {
   padding: 10px 0px;
   margin-left: 10px;
-  color: #65676b;
   font-family: inherit;
   font-weight: 600;
   list-style: none;

@@ -1,0 +1,42 @@
+.web-site {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+input[type="text"] {
+  padding: 15px 15px;
+  border: none;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font-size: 15px;
+  width: 100%;
+}
+.add-a-website {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 167px;
+  padding: 10px 10px;
+  background-color: #e7f3ff;
+  color: #247ef3;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+.add-a-website:hover {
+  background-color: #dbe7f2;
+}
+.add-a-website p {
+  background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/YQoVljLJSj5.png");
+  background-position: 0px -1441px;
+  background-size: auto;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  filter: invert(39%) sepia(57%) saturate(200%) saturate(200%) saturate(200%)
+    saturate(200%) saturate(200%) saturate(147.75%) hue-rotate(202deg)
+    brightness(97%) contrast(96%);
+}

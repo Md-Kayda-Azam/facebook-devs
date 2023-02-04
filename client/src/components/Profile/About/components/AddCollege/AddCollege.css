@@ -92,3 +92,50 @@ textarea {
   align-items: center;
   gap: 10px;
 }
+
+select.year {
+  position: absolute;
+  left: 0px;
+  width: 91px;
+  outline: none;
+  padding: 7px;
+  font-size: 18px;
+  border: none;
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  gap: 5px;
+  background-color: #e4e6eb;
+}
+select.month {
+  position: absolute;
+  left: 0px;
+  width: 91px;
+  outline: none;
+  padding: 7px;
+  font-size: 18px;
+  border: none;
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  gap: 5px;
+  background-color: #e4e6eb;
+}
+select.day {
+  position: absolute;
+  left: 0px;
+  width: 91px;
+  outline: none;
+  padding: 7px;
+  font-size: 18px;
+  border: none;
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  gap: 5px;
+  background-color: #e4e6eb;
+}
+option {
+  background: #fff;
+  border: none;
+}

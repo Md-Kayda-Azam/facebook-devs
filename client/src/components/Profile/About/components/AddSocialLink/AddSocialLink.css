@@ -1,0 +1,43 @@
+.socialLink {
+  width: 163px;
+  font-size: 15px;
+}
+.social-item {
+  display: flex;
+  width: 315px;
+  gap: 5px;
+}
+
+.social-item button {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  width: 250px;
+}
+
+.social-item button span {
+  background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yE/r/nd8DbTIqNXG.png);
+  background-position: -153px -147px;
+  background-size: auto;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+select.social-select {
+  position: absolute;
+  left: 730px;
+  width: 122px;
+  outline: none;
+  padding: 7px;
+  font-size: 18px;
+  border: none;
+  display: flex;
+  /* border: 1px solid #ddd; */
+  border-radius: 8px;
+  gap: 5px;
+  background-color: #e4e6eb;
+  /* -webkit-appearance: none; */
+  cursor: pointer;
+}

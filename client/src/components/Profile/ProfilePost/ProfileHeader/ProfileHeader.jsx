@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Avatar from "../../../Avatar/Avatar";
 
@@ -13,9 +13,25 @@ const ProfileHeader = ({
 }) => {
   const { user } = useSelector((state) => state.auth);
 
+  const [postTrue, setPostTrue] = useState(true);
+  const [aboutTrue, setAboutTrue] = useState(false);
+  const [followTrue, setFollowTrue] = useState(false);
+  const [photosTrue, setPhotosTrue] = useState(false);
+  const [groupsTrue, setGroupsTrue] = useState(false);
+  const [videosTrue, setVideosTrue] = useState(false);
+  const [moreTrue, setMoreTrue] = useState(false);
+
   /// handle abiut show
   const handlePostShow = (e) => {
     e.preventDefault();
+    setPostTrue(true);
+    setAboutTrue(false);
+    setFollowTrue(false);
+    setPhotosTrue(false);
+    setGroupsTrue(false);
+    setVideosTrue(false);
+    setMoreTrue(false);
+
     postShow(true);
     followersShow(false);
     photosShow(false);
@@ -27,6 +43,14 @@ const ProfileHeader = ({
   /// handle about show
   const handleAboutShow = (e) => {
     e.preventDefault();
+    setAboutTrue(true);
+    setFollowTrue(false);
+    setPostTrue(false);
+    setPhotosTrue(false);
+    setGroupsTrue(false);
+    setVideosTrue(false);
+    setMoreTrue(false);
+
     aboutShow(true);
     followersShow(false);
     photosShow(false);
@@ -38,6 +62,14 @@ const ProfileHeader = ({
   /// handle followers show
   const handleAFollowersShow = (e) => {
     e.preventDefault();
+    setFollowTrue(true);
+    setPostTrue(false);
+    setAboutTrue(false);
+    setPhotosTrue(false);
+    setGroupsTrue(false);
+    setVideosTrue(false);
+    setMoreTrue(false);
+
     followersShow(true);
     photosShow(false);
     groupsShow(false);
@@ -49,6 +81,14 @@ const ProfileHeader = ({
   /// handle followers show
   const handleAPhotosShow = (e) => {
     e.preventDefault();
+    setPhotosTrue(true);
+    setFollowTrue(false);
+    setPostTrue(false);
+    setAboutTrue(false);
+    setGroupsTrue(false);
+    setVideosTrue(false);
+    setMoreTrue(false);
+
     photosShow(true);
     groupsShow(false);
     videosShow(false);
@@ -60,6 +100,14 @@ const ProfileHeader = ({
   /// handle followers show
   const handleGroupShow = (e) => {
     e.preventDefault();
+    setGroupsTrue(true);
+    setPhotosTrue(false);
+    setFollowTrue(false);
+    setPostTrue(false);
+    setAboutTrue(false);
+    setVideosTrue(false);
+    setMoreTrue(false);
+
     groupsShow(true);
     videosShow(false);
     moreShow(false);
@@ -71,6 +119,14 @@ const ProfileHeader = ({
   /// handle followers show
   const handleVideoShow = (e) => {
     e.preventDefault();
+    setVideosTrue(true);
+    setGroupsTrue(false);
+    setPhotosTrue(false);
+    setFollowTrue(false);
+    setPostTrue(false);
+    setAboutTrue(false);
+    setMoreTrue(false);
+
     videosShow(true);
     moreShow(false);
     groupsShow(false);
@@ -82,6 +138,14 @@ const ProfileHeader = ({
   /// handle followers show
   const handleMoreShow = (e) => {
     e.preventDefault();
+    setMoreTrue(true);
+    setGroupsTrue(false);
+    setPhotosTrue(false);
+    setFollowTrue(false);
+    setPostTrue(false);
+    setAboutTrue(false);
+    setVideosTrue(false);
+
     moreShow(true);
     videosShow(false);
     groupsShow(false);
@@ -184,40 +248,47 @@ const ProfileHeader = ({
         </div>
         <div className="fb-profile-menu">
           <ul>
-            <li>
+            <li className={postTrue ? "api" : ""}>
               <a onClick={handlePostShow} href="#">
                 Posts
               </a>
+              <span className="bp"></span>
             </li>
-            <li>
+            <li className={aboutTrue ? "api" : ""}>
               <a onClick={handleAboutShow} href="#">
                 About
               </a>
+              <span className="bp"></span>
             </li>
-            <li>
+            <li className={followTrue ? "api" : ""}>
               <a onClick={handleAFollowersShow} href="#">
                 Followers
               </a>
+              <span className="bp"></span>
             </li>
-            <li>
+            <li className={photosTrue ? "api" : ""}>
               <a onClick={handleAPhotosShow} href="#">
                 Photos
               </a>
+              <span className="bp"></span>
             </li>
-            <li>
+            <li className={videosTrue ? "api" : ""}>
               <a onClick={handleVideoShow} href="#">
                 Videos
               </a>
+              <span className="bp"></span>
             </li>
-            <li>
+            <li className={groupsTrue ? "api" : ""}>
               <a onClick={handleGroupShow} href="#">
                 Groups
               </a>
+              <span className="bp"></span>
             </li>
-            <li>
+            <li className={moreTrue ? "api" : ""}>
               <a onClick={handleMoreShow} href="#">
                 More
               </a>
+              <span className="bp"></span>
             </li>
           </ul>
         </div>

@@ -11,6 +11,8 @@ import { BsPauseFill } from "react-icons/bs";
 import { GoUnmute } from "react-icons/go";
 import { GoMute } from "react-icons/go";
 import { FiMoreHorizontal } from "react-icons/fi";
+import usePopupClose from "../../hooks/usePopupClose";
+import { useRef } from "react";
 
 const StorySlider = ({ hide }) => {
   const [sliderIndex, setSliderIndex] = useState(0);
@@ -19,7 +21,9 @@ const StorySlider = ({ hide }) => {
     useState(false);
   const [moreOption, setMoreOption] = useState(false);
 
-  console.log(sliderIndex);
+  const closeStory = useRef(null);
+
+  usePopupClose(closeStory, setMoreOption);
   // change next img
   const handleNext = () => {
     setSliderIndex((sliderIndex + 1) % featured.length);
@@ -37,7 +41,7 @@ const StorySlider = ({ hide }) => {
       if (sliderIndex === featured.length - 1) {
         hide(false);
       }
-    }, 3000);
+    }, 5000);
     return () => clearTimeout(sliderTimeout);
   }, [sliderIndex]);
 
@@ -129,7 +133,7 @@ const StorySlider = ({ hide }) => {
                 </a>
               </div>
               {moreOption && (
-                <div className="more-options-details">
+                <div className="more-options-details" ref={closeStory}>
                   <div className="options-wraper">
                     <div className="more-option">
                       <svg
@@ -167,15 +171,13 @@ const StorySlider = ({ hide }) => {
                 {sliderIndex === 0 ? (
                   ""
                 ) : (
-                  <button onClick={handlePrev}>
-                    <IoIosArrowBack />
-                  </button>
+                  <div onClick={handlePrev} className="prevBtnn">
+                    <span className="prevBtn"></span>
+                  </div>
                 )}
               </div>
               <div className="next">
-                <button onClick={handleNext}>
-                  <IoIosArrowForward />
-                </button>
+                <div onClick={handleNext} className="nextBtn"></div>
               </div>
             </div>
           </div>

@@ -1,9 +1,12 @@
 import React from "react";
+import { useState } from "react";
+import AddProfileTransparency from "../components/AddProfileTransparency/AddProfileTransparency";
 import ContactInfo from "../components/ContactInfo/ContactInfo";
 import Wraper from "../components/Wraper/Wraper";
 import "./ProfileTransparency.css";
 
 const ProfileTransparency = () => {
+  const [profileTransparency, setProfileTransparency] = useState(false);
   return (
     <>
       <Wraper>
@@ -24,7 +27,10 @@ const ProfileTransparency = () => {
           icon={"https://static.xx.fbcdn.net/rsrc.php/v3/yb/r/Ix9L9CJxYBf.png"}
           name={"This Profile is not currently running ads."}
         />
-        <button>See All</button>
+        {profileTransparency && (
+          <AddProfileTransparency showHide={setProfileTransparency} />
+        )}
+        <button onClick={() => setProfileTransparency(true)}>See All</button>
       </Wraper>
     </>
   );

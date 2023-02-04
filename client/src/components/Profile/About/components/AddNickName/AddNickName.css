@@ -1,0 +1,74 @@
+.nick-name {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 10px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  align-items: center;
+  position: relative;
+}
+.nick-name:hover {
+  border: 1px solid #000;
+}
+.nick-name .name-two {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.nick-name span.name-small {
+  font-size: 14px;
+  color: #808080;
+}
+.nick-name span.name-small:hover {
+  color: var(--blue-color);
+}
+.nick-name .name-two span {
+}
+.nick-name .nick-name-list {
+  background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yE/r/nd8DbTIqNXG.png");
+  background-position: -153px -147px;
+  background-size: auto;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+
+.check-box {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  flex-direction: column;
+}
+.check-box .check-box-chek {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.check-box span.check-title {
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+}
+input.check-sixe {
+  width: 20px;
+  height: 20px;
+}
+select.nick-name-select {
+  position: absolute;
+  width: 91%;
+  outline: none;
+  padding: 7px;
+  font-size: 18px;
+  border: none;
+  display: flex;
+  border-radius: 8px;
+  /* background-color: #e4e6eb; */
+  gap: 5px;
+  -webkit-appearance: none;
+  cursor: pointer;
+  height: 52px;
+  /* margin-left: 20px; */
+}

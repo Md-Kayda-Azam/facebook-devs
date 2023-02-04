@@ -56,8 +56,16 @@
   .slider-bars-wraper
   .bars-item.active
   .progress {
-  width: 100%;
-  transition: 3s;
+  animation: 5s sliderLoading;
+}
+
+@keyframes sliderLoading {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
 }
 .popup-story-slider-wraper
   .story-slider
@@ -73,19 +81,59 @@
   justify-content: space-between;
   align-items: center;
 }
-.popup-story-slider-wraper .navigation .prev {
+.popup-story-slider-wraper .navigation .prevBtn {
+  background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yE/r/nd8DbTIqNXG.png");
+  background-position: -58px -26px;
+  background-size: auto;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  filter: invert(62%) sepia(98%) saturate(12%) hue-rotate(175deg)
+    brightness(90%) contrast(96%);
+}
+.popup-story-slider-wraper .navigation .nextBtn {
+  background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yE/r/nd8DbTIqNXG.png");
+  background-position: -108px -26px;
+  background-size: auto;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  filter: invert(62%) sepia(98%) saturate(12%) hue-rotate(175deg)
+    brightness(90%) contrast(96%);
+}
+.popup-story-slider-wraper .navigation .prevBtnn {
   transform: translate(-90px, 0px);
   transition: 0.3s;
+  width: 50px;
+  height: 50px;
+  background-color: #242526;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
 }
-.popup-story-slider-wraper .navigation .prev:hover {
+.popup-story-slider-wraper .navigation .prevBtnn:hover {
   transform: translate(-100px, 0px);
+  background-color: #3a3b3c;
 }
 .popup-story-slider-wraper .navigation .next {
   transform: translate(90px, 0px);
   transition: 0.3s;
+  width: 50px;
+  height: 50px;
+  background-color: #242526;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
 }
 .popup-story-slider-wraper .navigation .next:hover {
   transform: translate(100px, 0px);
+  background-color: #3a3b3c;
 }
 .popup-story-slider-wraper .navigation button {
   font-size: 40px;
@@ -94,12 +142,8 @@
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  background-color: #8a8b90;
   display: flex;
   align-items: center;
-}
-.popup-story-slider-wraper .navigation button:hover {
-  background-color: #fff;
 }
 
 .story-details {

@@ -149,31 +149,58 @@ const About = () => {
               <div className="about-title">
                 <span>About</span>
                 <ul>
-                  <li onClick={handleOverView}>
+                  <li
+                    onClick={handleOverView}
+                    className={`${overView ? "aci" : ""}`}
+                  >
                     <a href="#">Over view</a>
                   </li>
-                  <li onClick={handleWorkEducation}>
+                  <li
+                    onClick={handleWorkEducation}
+                    className={`${workEducation ? "aci" : ""}`}
+                  >
                     <a href="#">Work and education</a>
                   </li>
-                  <li onClick={handlePlacesLived}>
+                  <li
+                    onClick={handlePlacesLived}
+                    className={`${placeLived ? "aci" : ""}`}
+                  >
                     <a href="#">Places lived</a>
                   </li>
-                  <li onClick={handleContactBasicInfo}>
+                  <li
+                    onClick={handleContactBasicInfo}
+                    className={`${contactAndBasicInfo ? "aci" : ""}`}
+                  >
                     <a href="#">Contact and basic info</a>
                   </li>
-                  <li onClick={handlePrivacyInfo}>
+                  <li
+                    onClick={handlePrivacyInfo}
+                    className={`${privacyInfo ? "aci" : ""}`}
+                  >
                     <a href="#">Privacy and Legal info</a>
                   </li>
-                  <li onClick={handleProfileTransparency}>
+                  <li
+                    onClick={handleProfileTransparency}
+                    className={`${profileTransparency ? "aci" : ""}`}
+                  >
                     <a href="#">Profile transparency</a>
                   </li>
-                  <li onClick={handleFamilyRelationship}>
+                  <li
+                    onClick={handleFamilyRelationship}
+                    className={`${familyRelationship ? "aci" : ""}`}
+                  >
                     <a href="#">Family and relationships</a>
                   </li>
-                  <li onClick={handleDetailsAboutYou}>
+                  <li
+                    onClick={handleDetailsAboutYou}
+                    className={`${detailsAboutYou ? "aci" : ""}`}
+                  >
                     <a href="#">Details about you</a>
                   </li>
-                  <li onClick={handleLifeEvents}>
+                  <li
+                    onClick={handleLifeEvents}
+                    className={`${liveEvents ? "aci" : ""}`}
+                  >
                     <a href="#">Life events</a>
                   </li>
                 </ul>

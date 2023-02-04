@@ -8,6 +8,9 @@ const FbModal = ({ children, title, closePopup, back, upbd }) => {
     back(false);
     upbd([]);
   };
+  const handleButtonDelete = () => {
+    closePopup(false);
+  };
 
   return (
     <>
@@ -25,7 +28,7 @@ const FbModal = ({ children, title, closePopup, back, upbd }) => {
                 </button>
               )}
               {closePopup && (
-                <button onClick={() => closePopup(false)}>
+                <button onClick={handleButtonDelete} className="closePopup">
                   <img src={cross} alt="" />
                 </button>
               )}

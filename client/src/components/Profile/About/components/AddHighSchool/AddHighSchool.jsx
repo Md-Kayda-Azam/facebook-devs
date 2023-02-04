@@ -1,9 +1,112 @@
 import React, { useRef, useState } from "react";
 import usePopupClose from "../../../../../hooks/usePopupClose";
-import DayOptions from "../FormComponents/DayOptions/DayOptions";
-import MonthOptions from "../FormComponents/MonthOptions/MonthOptions";
-import YearOptions from "../FormComponents/YearOptions/YearOptions";
 import "./AddHighSchool.css";
+const days = [
+  "Day",
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+];
+const months = [
+  "Month",
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+const years = Array.from(
+  { length: 118 },
+  (_, i) => new Date().getFullYear() - i
+);
+const daye = [
+  "Day",
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+];
+const monthe = [
+  "Month",
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+const yeare = Array.from(
+  { length: 118 },
+  (_, i) => new Date().getFullYear() - i
+);
 
 const AddHighSchool = ({ showHide, highSc, ymd }) => {
   const [birthYear, setBirthYear] = useState(false);
@@ -12,8 +115,6 @@ const AddHighSchool = ({ showHide, highSc, ymd }) => {
 
   const [showMonth, setShowMonth] = useState(false);
   const [showDay, setShowDay] = useState(false);
-
-  const [ydmtrue, setYmdrue] = useState(true);
 
   // school start state
   const [startSchooly, setStartSchooly] = useState(false);
@@ -44,10 +145,10 @@ const AddHighSchool = ({ showHide, highSc, ymd }) => {
   // hnadle year
   const handleMonth = () => {
     setBirthMonth(!birthMonth);
+    setShowDay(true);
     setBirthYear(false);
     setBirthDay(false);
-    ymd(false);
-    setShowDay(true);
+    ymd(true);
     highSc(true);
   };
   // hnadle year
@@ -55,7 +156,7 @@ const AddHighSchool = ({ showHide, highSc, ymd }) => {
     setBirthDay(!birthDay);
     setBirthYear(false);
     setBirthMonth(false);
-    ymd(false);
+    ymd(true);
     highSc(true);
   };
   // hnadle start year
@@ -81,7 +182,7 @@ const AddHighSchool = ({ showHide, highSc, ymd }) => {
     setStartSchoold(!startSchoold);
     setStartSchooly(false);
     setStartSchoolm(false);
-    ymd(false);
+    ymd(true);
     highSc(true);
   };
 
@@ -97,13 +198,14 @@ const AddHighSchool = ({ showHide, highSc, ymd }) => {
             onClick={handleStartYear}
             ref={yearMonthDay}
           >
-            <span>year</span>
-            <span
-              className="year-icon"
-              style={{
-                backgroundImage: `url("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/gqBqhcDX1Yc.png")`,
-              }}
-            ></span>
+            <select name="year" id="year" className="year" ref={yearMonthDay}>
+              <option value="">Year</option>
+              {years.map((item, index) => (
+                <option value={item} key={index}>
+                  {item}
+                </option>
+              ))}
+            </select>
           </div>
           {showSchoolMonth && (
             <div
@@ -111,13 +213,13 @@ const AddHighSchool = ({ showHide, highSc, ymd }) => {
               onClick={handleStartMonth}
               ref={yearMonthDay}
             >
-              <span>Month</span>
-              <span
-                className="year-icon"
-                style={{
-                  backgroundImage: `url("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/gqBqhcDX1Yc.png")`,
-                }}
-              ></span>
+              <select className="month" name="month" id="" ref={yearMonthDay}>
+                {months.map((item, index) => (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                ))}
+              </select>
             </div>
           )}
           {showSchoolDay && (
@@ -127,23 +229,26 @@ const AddHighSchool = ({ showHide, highSc, ymd }) => {
               ref={yearMonthDay}
             >
               <span>Day</span>
-              <span
-                className="year-icon"
-                style={{
-                  backgroundImage: `url("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/gqBqhcDX1Yc.png")`,
-                }}
-              ></span>
+              <select className="day" name="day" id="" ref={yearMonthDay}>
+                {days.map((item, index) => (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                ))}
+              </select>
             </div>
           )}
           <p>to</p>
           <div className="year-option" onClick={handleYear} ref={yearMonthDay}>
             <span>year</span>
-            <span
-              className="year-icon"
-              style={{
-                backgroundImage: `url("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/gqBqhcDX1Yc.png")`,
-              }}
-            ></span>
+            <select name="year" id="year" className="year" ref={yearMonthDay}>
+              <option value="">Year</option>
+              {yeare.map((item, index) => (
+                <option value={item} key={index}>
+                  {item}
+                </option>
+              ))}
+            </select>
           </div>
           {showMonth && (
             <div
@@ -151,34 +256,29 @@ const AddHighSchool = ({ showHide, highSc, ymd }) => {
               onClick={handleMonth}
               ref={yearMonthDay}
             >
-              <span>Month</span>
-              <span
-                className="year-icon"
-                style={{
-                  backgroundImage: `url("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/gqBqhcDX1Yc.png")`,
-                }}
-              ></span>
+              <select className="month" name="month" id="" ref={yearMonthDay}>
+                {monthe.map((item, index) => (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                ))}
+              </select>
             </div>
           )}
           {showDay && (
             <div className="year-option" onClick={handleDay} ref={yearMonthDay}>
               <span>Day</span>
-              <span
-                className="year-icon"
-                style={{
-                  backgroundImage: `url("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/gqBqhcDX1Yc.png")`,
-                }}
-              ></span>
+              <select className="day" name="day" id="" ref={yearMonthDay}>
+                {daye.map((item, index) => (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                ))}
+              </select>
             </div>
           )}
         </div>
-        {birthYear && <YearOptions ydmtrue={ydmtrue} highSc={highSc} />}
-        {birthMonth && <MonthOptions ydmtrue={ydmtrue} highSc={highSc} />}
-        {birthDay && <DayOptions ydmtrue={ydmtrue} highSc={highSc} />}
 
-        {startSchooly && <YearOptions ydmtrue={ydmtrue} highSc={highSc} />}
-        {startSchoolm && <MonthOptions ydmtrue={ydmtrue} highSc={highSc} />}
-        {startSchoold && <DayOptions ydmtrue={ydmtrue} highSc={highSc} />}
         <div className="redio-box">
           <input type="checkbox" name="" id="" />
           <p>Graduated</p>

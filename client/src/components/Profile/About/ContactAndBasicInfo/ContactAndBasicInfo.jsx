@@ -1,9 +1,16 @@
 import React from "react";
+import { useState } from "react";
+import AddLanguage from "../components/AddLanguage/AddLanguage";
+import AddSocialLink from "../components/AddSocialLink/AddSocialLink";
+import AddWebSite from "../components/AddWebSite/AddWebSite";
 import ContactInfo from "../components/ContactInfo/ContactInfo";
 import IconTitle from "../components/IconTitle/IconTitle";
 import Wraper from "../components/Wraper/Wraper";
 
 const ContactAndBasicInfo = () => {
+  const [addWebSite, setAddWebSite] = useState(false);
+  const [addSocialLink, setAddocialLink] = useState(false);
+  const [addLanguages, setAddLanguages] = useState(false);
   return (
     <>
       <Wraper>
@@ -26,13 +33,22 @@ const ContactAndBasicInfo = () => {
         <div className="title">
           <h3>Websites and social links</h3>
         </div>
-        <IconTitle title={"Add a website"} />
-        <IconTitle title={"Add a social link"} />
+        {!addWebSite && (
+          <IconTitle title={"Add a website"} show={setAddWebSite} />
+        )}
+        {addWebSite && <AddWebSite showHide={setAddWebSite} />}
+        {!addSocialLink && (
+          <IconTitle title={"Add a social link"} show={setAddocialLink} />
+        )}
+        {addSocialLink && <AddSocialLink showHide={setAddocialLink} />}
         <div className="title">
           <h3>Basic info</h3>
         </div>
+        {!addLanguages && (
+          <IconTitle title={"Add a language"} show={setAddLanguages} />
+        )}
+        {addLanguages && <AddLanguage showHide={setAddLanguages} />}
 
-        <IconTitle title={"Add a language"} />
         <ContactInfo
           icon={"https://static.xx.fbcdn.net/rsrc.php/v3/yi/r/rodGQv9jZg5.png"}
           name={"Male"}

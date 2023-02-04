@@ -52,7 +52,30 @@
   margin: auto;
   font-size: 20px;
 }
-
+.fb-modal-header button.closePopup {
+  top: 0px;
+  bottom: 0px;
+  margin: auto;
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .fb-modal-header button:hover {
   background-color: #ccc;
+}
+
+.fb-modal-footer {
+  display: flex;
+  width: 139px;
+  right: 5px;
+  height: 58px;
+  padding: 10px;
+  margin: 0px 0px 0px 540px;
+}
+.fb-modal-footer .footer-btn {
+  background-color: #1b74e4;
+  color: #fff;
 }

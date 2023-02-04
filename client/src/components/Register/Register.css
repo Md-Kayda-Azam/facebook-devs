@@ -170,3 +170,11 @@
 .reg-form-select.border-error label {
   border: 1px solid red;
 }
+.sign-up-header button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 45px;
+  border-radius: 50%;
+  height: 45px;
+}

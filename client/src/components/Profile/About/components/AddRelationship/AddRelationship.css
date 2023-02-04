@@ -1,0 +1,50 @@
+.status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: relative;
+  background-color: #e4e6eb;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+}
+.status:hover {
+  background-color: #d8dadf;
+}
+.status span {
+}
+.status .img {
+  background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yE/r/nd8DbTIqNXG.png");
+  background-position: -153px -147px;
+  background-size: auto;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+select.status-select {
+  position: absolute;
+  /* left: 14px; */
+  width: 369px;
+  outline: none;
+  padding: 7px;
+  font-size: 18px;
+  border: none;
+  display: flex;
+  /* border: 1px solid #ddd; */
+  border-radius: 8px;
+  gap: 5px;
+  background-color: #e4e6eb;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+select.status-select:hover {
+  background-color: #d8dadf;
+}
+select {
+  border: none;
+  outline: none;
+  scroll-behavior: smooth;
+  cursor: pointer;
+}

@@ -1,11 +1,60 @@
 import React, { useRef, useState } from "react";
 import usePopupClose from "../../../../../hooks/usePopupClose";
-import DayOptions from "../FormComponents/DayOptions/DayOptions";
-import MonthOptions from "../FormComponents/MonthOptions/MonthOptions";
-import YearOptions from "../FormComponents/YearOptions/YearOptions";
-import "./Form.css"
-
-const Form = ({ showHide }) => {
+import "./AddCity.css";
+const day = [
+  "Day",
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+];
+const month = [
+  "Month",
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+const year = Array.from(
+  { length: 118 },
+  (_, i) => new Date().getFullYear() - i
+);
+const AddCity = ({ showHide }) => {
   const [birthYear, setBirthYear] = useState(false);
   const [birthMonth, setBirthMonth] = useState(false);
   const [birthDay, setBirthDay] = useState(false);
@@ -41,31 +90,19 @@ const Form = ({ showHide }) => {
   return (
     <>
       <form action="">
-        <input type="text" placeholder="Company" />
-        <input type="text" placeholder="Position" />
-        <input type="text" placeholder="City/Town" />
-        <textarea
-          name=""
-          id=""
-          cols="10"
-          rows="10"
-          placeholder="Discription"
-        ></textarea>
-        <h4>Time Period</h4>
-        <div className="redio-box">
-          <input type="checkbox" name="" id="" />
-          <p>I currently work here</p>
-        </div>
+        <input type="text" placeholder="Current city" />
         <div className="birth-day-box">
-          <p>From</p>
+          <p>Date Moved</p>
           <div className="year-option" onClick={handleYear} ref={yearMonthDay}>
             <span>year</span>
-            <span
-              className="year-icon"
-              style={{
-                backgroundImage: `url("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/gqBqhcDX1Yc.png")`,
-              }}
-            ></span>
+            <select name="year" id="year" className="year" ref={yearMonthDay}>
+              <option value="">Year</option>
+              {year.map((item, index) => (
+                <option value={item} key={index}>
+                  {item}
+                </option>
+              ))}
+            </select>
           </div>
           {showMonth && (
             <div
@@ -74,29 +111,35 @@ const Form = ({ showHide }) => {
               ref={yearMonthDay}
             >
               <span>Month</span>
-              <span
-                className="year-icon"
-                style={{
-                  backgroundImage: `url("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/gqBqhcDX1Yc.png")`,
-                }}
-              ></span>
+              <select
+                name="year"
+                id="month"
+                className="month"
+                ref={yearMonthDay}
+              >
+                <option value="">Year</option>
+                {month.map((item, index) => (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                ))}
+              </select>
             </div>
           )}
           {showDay && (
             <div className="year-option" onClick={handleDay} ref={yearMonthDay}>
               <span>Day</span>
-              <span
-                className="year-icon"
-                style={{
-                  backgroundImage: `url("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/gqBqhcDX1Yc.png")`,
-                }}
-              ></span>
+              <select name="day" id="day" className="day" ref={yearMonthDay}>
+                <option value="">Year</option>
+                {day.map((item, index) => (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                ))}
+              </select>
             </div>
           )}
         </div>
-        {birthYear && <YearOptions />}
-        {birthMonth && <MonthOptions />}
-        {birthDay && <DayOptions />}
         <div className="public-save-cencel">
           <button>
             <img
@@ -119,4 +162,4 @@ const Form = ({ showHide }) => {
   );
 };
 
-export default Form;
+export default AddCity;

@@ -2,23 +2,26 @@ export const featured = [
   {
     id: 1,
     photo:
-      "https://img.freepik.com/free-photo/shot-cute-baby-girl-looking-camera_329181-19580.jpg?w=2000",
+      "https://i.pinimg.com/736x/81/35/93/81359345750270dc285ab4c1b27d909b.jpg",
   },
   {
     id: 2,
-    photo: "https://thumbs.dreamstime.com/b/cute-baby-13422650.jpg",
+    photo:
+      "https://i.pinimg.com/736x/e6/56/50/e6565098e737bbfe5d9767c4e5126897.jpg",
   },
   {
     id: 3,
-    photo: "https://thumbs.dreamstime.com/b/cute-baby-boy-29660901.jpg",
+    photo:
+      "https://i.pinimg.com/736x/92/5a/db/925adba1d6a2ec948cea347df867cb11.jpg",
   },
   {
     id: 4,
-    photo: "https://thumbs.dreamstime.com/b/baby-boy-posing-2607278.jpg",
+    photo:
+      "https://i.pinimg.com/236x/66/fd/b8/66fdb8d3c11e22e61709c3b016ae65c0.jpg",
   },
   {
     id: 5,
     photo:
-      "https://i.pinimg.com/originals/9a/13/46/9a134694fd9254c4bed3900b58448668.jpg",
+      "https://i.pinimg.com/236x/64/ca/61/64ca61eeae18d1e268f2b0e62764f509.jpg",
   },
 ];

@@ -15,7 +15,7 @@ const WorkAndEducation = () => {
   return (
     <>
       <Wraper>
-        <div className="title">
+        <div className="title-work">
           <h4>Work</h4>
         </div>
         {!workAndEducation && (
@@ -27,7 +27,7 @@ const WorkAndEducation = () => {
             ymd={workAndEducation}
           />
         )}
-        <div className="title">
+        <div className="title-college">
           <h4>College</h4>
         </div>
         {!addCollege && (
@@ -36,7 +36,7 @@ const WorkAndEducation = () => {
         {addCollege && (
           <AddCollege showHide={setAddCollege} addCollege={addCollege} />
         )}
-        <div className="title">
+        <div className="title-high">
           <h4>High school</h4>
         </div>
         {!highSchool && (

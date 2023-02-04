@@ -24,6 +24,10 @@ textarea {
   font-family: inherit;
   width: 100%;
   height: 150px;
+  outline: none;
+}
+textarea:hover {
+  border: 1px solid #000;
 }
 
 .redio-box {
@@ -53,16 +57,13 @@ textarea {
   justify-content: center;
   align-items: center;
   gap: 10px;
-  background-color: #e4e6eb;
   cursor: pointer;
   border-radius: 5px;
+  position: relative;
 }
 .birth-day-box .year-option span {
   font-size: 18px;
   font-weight: 500;
-}
-.birth-day-box .year-option:hover {
-  background-color: #ddd;
 }
 .birth-day-box .year-option .year-icon {
   background-position: -34px -164px;
@@ -91,4 +92,84 @@ textarea {
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
+
+select.year {
+  position: absolute;
+  left: 0px;
+  width: 91px;
+  outline: none;
+  padding: 7px;
+  font-size: 18px;
+  border: none;
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  gap: 5px;
+  background-color: #e4e6eb;
+  cursor: pointer;
+}
+select.month {
+  position: absolute;
+  left: 0px;
+  width: 91px;
+  outline: none;
+  padding: 7px;
+  font-size: 18px;
+  border: none;
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  gap: 5px;
+  background-color: #e4e6eb;
+  cursor: pointer;
+}
+select.day {
+  position: absolute;
+  left: 0px;
+  width: 91px;
+  outline: none;
+  padding: 7px;
+  font-size: 18px;
+  border: none;
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  gap: 5px;
+  background-color: #e4e6eb;
+  cursor: pointer;
+}
+option {
+  background: #fff;
+  border: none;
+}
+.yearMonthDay {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+.Invalid-modal {
+  display: flex;
+  justify-content: flex-start;
+  width: auto;
+  height: 261px;
+  flex-direction: column;
+  gap: 138px;
+  padding: 0px 10px;
+}
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}
+.footer button {
+  background-color: var(--blue-color);
+  color: #fff;
+}
+.footer button:hover {
+  background-color: var(--blue-color);
+  color: #fff;
+}
+.dec {
+  margin: 27px 20px;
 }
