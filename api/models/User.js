@@ -89,6 +89,10 @@ const userSchema = mongoose.Schema(
       type: Array,
       default: [],
     },
+    current_city: {
+      type: Array,
+      default: [],
+    },
     living: {
       type: String,
     },
@@ -96,13 +100,45 @@ const userSchema = mongoose.Schema(
       type: String,
     },
     relationship: {
+      type: String,
+    },
+    family_members: {
       type: Array,
-      default: ["Married", "Single", "In a Relationship"],
+      default: [],
+    },
+    about_you: {
+      type: String,
+    },
+    favorite_quotes: {
+      type: String,
+    },
+    blood_donations: {
+      type: String,
+    },
+    name_pronunciation: {
+      type: Array,
+      default: [],
+    },
+    others_name: {
+      type: Array,
+      default: [],
+    },
+    life_event: {
+      type: Array,
+      default: [],
     },
     joined: {
       type: Date,
     },
+    web_site: {
+      type: Array,
+      default: [],
+    },
     social: {
+      type: Array,
+      default: [],
+    },
+    language: {
       type: Array,
       default: [],
     },
@@ -129,6 +165,12 @@ const userSchema = mongoose.Schema(
     posts: {
       type: Array,
       default: [],
+    },
+    privacyLegal_info: {
+      type: String,
+    },
+    impressum: {
+      type: String,
     },
     isActivate: {
       type: Boolean,

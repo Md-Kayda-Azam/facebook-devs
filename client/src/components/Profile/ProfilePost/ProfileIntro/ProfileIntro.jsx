@@ -26,6 +26,14 @@ const ProfileIntro = () => {
 
   const [jobShow, setJobShow] = useState(false);
   const [job, setJob] = useState(user.work ? user.work : []);
+  const [living, setLiving] = useState(user.living ? user.living : false);
+  const [relationship, setRelationship] = useState(
+    user.relationship ? user.relationship : false
+  );
+  const [homeTown, setHomeTown] = useState(
+    user.home_town ? user.home_town : false
+  );
+  const [social, setSocial] = useState(user.social ? user.social : false);
   const [position, setPosition] = useState("");
   const [company, setCompany] = useState("");
 
@@ -195,45 +203,54 @@ const ProfileIntro = () => {
                     alt=""
                   />
                   <span>
-                    {data.position} at{" "}
+                    Works at
                     <span className="bold-text"> {data.companyName}</span>
                   </span>
                 </li>
               ))}
-              <li>
-                <img
-                  src="https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/jV4o8nAgIEh.png"
-                  alt=""
-                />
-                <span>
-                  Studied at University of Information Technology and Sciences
-                </span>
-              </li>
-              <li>
-                <img
-                  src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/VMZOiSIJIwn.png"
-                  alt=""
-                />
-                <span>
-                  Lives in <span className="bold-text">Dinajpur</span>
-                </span>
-              </li>
-              <li>
-                <img
-                  src="https://static.xx.fbcdn.net/rsrc.php/v3/yc/r/-e1Al38ZrZL.png"
-                  alt=""
-                />
-                <span>
-                  From <span className="bold-text">Dhaka, Bangladesh</span>
-                </span>
-              </li>
-              <li>
-                <img
-                  src="https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/S0aTxIHuoYO.png"
-                  alt=""
-                />
-                <span>Single</span>
-              </li>
+              {user.edu.map((data, index) => (
+                <li key={index}>
+                  <img
+                    src="https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/jV4o8nAgIEh.png"
+                    alt=""
+                  />
+                  <span>
+                    Studied at
+                    <span className="bold-text"> {data.schoolName}</span>
+                  </span>
+                </li>
+              ))}
+              {living && (
+                <li>
+                  <img
+                    src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/VMZOiSIJIwn.png"
+                    alt=""
+                  />
+                  <span>
+                    Lives in <span className="bold-text">{user.living}</span>
+                  </span>
+                </li>
+              )}
+              {homeTown && (
+                <li>
+                  <img
+                    src="https://static.xx.fbcdn.net/rsrc.php/v3/yc/r/-e1Al38ZrZL.png"
+                    alt=""
+                  />
+                  <span>
+                    From <span className="bold-text">{user.home_town}</span>
+                  </span>
+                </li>
+              )}
+              {relationship && (
+                <li>
+                  <img
+                    src="https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/S0aTxIHuoYO.png"
+                    alt=""
+                  />
+                  <span>{user.relationship}</span>
+                </li>
+              )}
               <li>
                 <img
                   src="https://static.xx.fbcdn.net/rsrc.php/v3/yE/r/mp_faH0qhrY.png"
@@ -250,42 +267,28 @@ const ProfileIntro = () => {
                   Followed by <span className="bold-text">2,480 people</span>
                 </span>
               </li>
-              <li>
-                <img
-                  src="https://static.xx.fbcdn.net/rsrc.php/v3/yj/r/LPnnw6HJjJT.png"
-                  alt=""
-                />
-                <span>
-                  <a href="#">mdkaydaazam</a>
-                </span>
-              </li>
-              <li>
-                <img
-                  src="https://static.xx.fbcdn.net/rsrc.php/v3/yV/r/ufIMw_ngzRh.png"
-                  alt=""
-                />
-                <span>
-                  <a href="#">mdkaydaazam</a>
-                </span>
-              </li>
-              <li>
-                <img
-                  src="https://static.xx.fbcdn.net/rsrc.php/v3/yh/r/ssTVF98Hpr4.png"
-                  alt=""
-                />
-                <span>
-                  <a href="#">mdkaydaazam</a>
-                </span>
-              </li>
-              <li>
-                <img
-                  src="https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/toH9huWBEUQ.png"
-                  alt=""
-                />
-                <span>
-                  <a href="#">mdkaydaazam</a>
-                </span>
-              </li>
+              {user.social.map((data, index) => (
+                <li>
+                  <img
+                    src="https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/toH9huWBEUQ.png"
+                    alt=""
+                  />
+                  <span>
+                    <a href="#">{data.social_title}</a>
+                  </span>
+                </li>
+              ))}
+              {user.web_site.map((data, index) => (
+                <li>
+                  <img
+                    src="https://static.xx.fbcdn.net/rsrc.php/v3/y3/r/BQdeC67wT9z.png"
+                    alt=""
+                  />
+                  <span>
+                    <a href="#">{data.web_site}</a>
+                  </span>
+                </li>
+              ))}
             </ul>
             {editDetails && (
               <FbModal title="Edit details" closePopup={setEditDetails}>

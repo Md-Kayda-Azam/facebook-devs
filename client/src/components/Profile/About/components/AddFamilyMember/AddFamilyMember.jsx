@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import usePopupClose from "../../../../../hooks/usePopupClose";
+import { profileUpdate } from "../../../../../redux/auth/authAction";
 import "./AddFamilyMember.css";
 const familyMember = [
   "Mother",
@@ -21,13 +23,67 @@ const AddFamilyMember = ({ showHidep, showHide }) => {
 
   usePopupClose(status, setShow);
 
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  /// modal control state
+  const [cModal, setCModal] = useState(false);
+
+  /// handle input add work place
+  const [input, setInput] = useState({
+    relationship: "",
+    name: "",
+  });
+  // handle inpu change
+  const handleInputChange = (e) => {
+    setInput((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  // handle work submit
+  const handleWorkSubmit = (e) => {
+    e.preventDefault();
+
+    if (!input.name) {
+      setCModal(true);
+    } else {
+      dispatch(
+        profileUpdate(
+          {
+            family_members: [
+              ...user.family_members,
+              {
+                relationship: input.relationship,
+                name: input.name,
+              },
+            ],
+          },
+          user._id,
+          setInput
+        )
+      );
+      showHide(false);
+    }
+  };
   return (
     <>
-      <form action="">
-        <input type="text" placeholder="Family member" />
+      <form onSubmit={handleWorkSubmit}>
+        <input
+          name="name"
+          onChange={handleInputChange}
+          type="text"
+          placeholder="Family member"
+        />
         <div className="status-family-member" onClick={() => setShow(!show)}>
           <span className="family-img"></span>
-          <select name="" id="" className="family-status-select">
+          <select
+            name="relationship"
+            onChange={handleInputChange}
+            id=""
+            className="family-status-select"
+          >
             <option value="a">Relationship</option>
             {familyMember.map((item, index) => (
               <option value={item} key={index}>

@@ -1941,7 +1941,7 @@ button.personal-info-button:hover {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  gap: 10px;
+  gap: 21px;
   margin-bottom: 20px;
 }
 .personal-info-details ul li {
@@ -1970,7 +1970,8 @@ button.personal-info-button:hover {
   text-decoration: underline;
 }
 .personal-info-details ul li img {
-  filter: contrast(0.001);
+  filter: invert(59%) sepia(11%) saturate(200%) saturate(135%)
+    hue-rotate(176deg) brightness(96%) contrast(94%);
 }
 .hobbies-list {
   display: flex;

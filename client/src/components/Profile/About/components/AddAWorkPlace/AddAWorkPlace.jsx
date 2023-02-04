@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import usePopupClose from "../../../../../hooks/usePopupClose";
 import { profileUpdate } from "../../../../../redux/auth/authAction";
 import { setMonthShortName } from "../../../../../utility/satvalus";
-import createToast from "../../../../../utility/toast";
 import FbModal from "../../../../FbModal/FbModal";
 import "./AddAWorkPlace.css";
 
@@ -385,9 +384,7 @@ const AddAWorkPlace = ({ showHide }) => {
             <button onClick={() => showHide(false)}>
               <span>Cancel</span>
             </button>
-            <button type="submit">
-              <span>Save</span>
-            </button>
+            <button type="submit">Save</button>
           </div>
           {cModal && (
             <FbModal title={"Invalid Employer"} closePopup={setCModal}>

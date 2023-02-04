@@ -1,5 +1,9 @@
 import React, { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import usePopupClose from "../../../../../hooks/usePopupClose";
+import { profileUpdate } from "../../../../../redux/auth/authAction";
+import { setMonthShortName } from "../../../../../utility/satvalus";
+import FbModal from "../../../../FbModal/FbModal";
 import "./AddCollege.css";
 const days = [
   "Day",
@@ -108,7 +112,13 @@ const yeare = Array.from(
   (_, i) => new Date().getFullYear() - i
 );
 
-const AddCollege = ({ showHide, addColl, addCollege }) => {
+const AddCollege = ({ showHide }) => {
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  /// modal control state
+  const [cModal, setCModal] = useState(false);
+
   const [birthYear, setBirthYear] = useState(false);
   const [birthMonth, setBirthMonth] = useState(false);
   const [birthDay, setBirthDay] = useState(false);
@@ -124,6 +134,22 @@ const AddCollege = ({ showHide, addColl, addCollege }) => {
   const [showSchoolMonth, setShowSchoolMonth] = useState(false);
   const [showSchoolDay, setShowSchoolDay] = useState(false);
 
+  let date = new Date();
+  /// handle input add work place
+  const [input, setInput] = useState({
+    schoolName: "",
+    cenOne: "",
+    cenTwo: "",
+    cenThree: "",
+    deg: "",
+    dec: "",
+    days: date.getDate(),
+    months: setMonthShortName(date.getMonth()),
+    years: date.getFullYear(),
+    daye: date.getDate(),
+    monthe: setMonthShortName(date.getMonth()),
+    yeare: date.getFullYear(),
+  });
   const yearMonthDay = useRef(null);
 
   usePopupClose(yearMonthDay, setBirthYear);
@@ -174,11 +200,62 @@ const AddCollege = ({ showHide, addColl, addCollege }) => {
     setStartSchooly(false);
     setStartSchoolm(false);
   };
+  // handle inpu change
+  const handleInputChange = (e) => {
+    setInput((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
+  // handle work submit
+  const handleWorkSubmit = (e) => {
+    e.preventDefault();
+
+    if (!input.schoolName) {
+      setCModal(true);
+    } else {
+      dispatch(
+        profileUpdate(
+          {
+            edu: [
+              ...user.edu,
+              {
+                schoolName: input.schoolName,
+                deg: input.deg,
+                cenOne: input.cenOne,
+                cenTwo: input.cenTwo,
+                cenThree: input.cenThree,
+                dec: input.dec,
+                fromDateStart: {
+                  fromYear: input.years,
+                  fromMonth: input.months,
+                  fromDay: input.days,
+                },
+                fromDateEnd: {
+                  fromYear: input.yeare,
+                  fromMonth: input.monthe,
+                  fromDay: input.daye,
+                },
+              },
+            ],
+          },
+          user._id,
+          setInput
+        )
+      );
+      showHide(false);
+    }
+  };
   return (
     <>
-      <form action="">
-        <input type="text" placeholder="School" />
+      <form action="" onSubmit={handleWorkSubmit}>
+        <input
+          name="schoolName"
+          type="text"
+          placeholder="School"
+          onChange={handleInputChange}
+        />
         <h4>Time Period</h4>
         <div className="birth-day-box">
           <div
@@ -187,7 +264,13 @@ const AddCollege = ({ showHide, addColl, addCollege }) => {
             ref={yearMonthDay}
           >
             <span>year</span>
-            <select className="year" name="years" id="" ref={yearMonthDay}>
+            <select
+              className="year"
+              name="years"
+              id=""
+              ref={yearMonthDay}
+              onChange={handleInputChange}
+            >
               {years.map((item, index) => (
                 <option value={item} key={index}>
                   {item}
@@ -202,7 +285,13 @@ const AddCollege = ({ showHide, addColl, addCollege }) => {
               ref={yearMonthDay}
             >
               <span>Month</span>
-              <select className="month" name="months" id="" ref={yearMonthDay}>
+              <select
+                className="month"
+                name="months"
+                id=""
+                ref={yearMonthDay}
+                onChange={handleInputChange}
+              >
                 {months.map((item, index) => (
                   <option value={item} key={index}>
                     {item}
@@ -218,7 +307,13 @@ const AddCollege = ({ showHide, addColl, addCollege }) => {
               ref={yearMonthDay}
             >
               <span>Day</span>
-              <select className="day" name="days" id="" ref={yearMonthDay}>
+              <select
+                className="day"
+                name="days"
+                id=""
+                ref={yearMonthDay}
+                onChange={handleInputChange}
+              >
                 {days.map((item, index) => (
                   <option value={item} key={index}>
                     {item}
@@ -230,7 +325,13 @@ const AddCollege = ({ showHide, addColl, addCollege }) => {
           <p>to</p>
           <div className="year-option" onClick={handleYear} ref={yearMonthDay}>
             <span>year</span>
-            <select className="year" name="yeare" id="" ref={yearMonthDay}>
+            <select
+              className="year"
+              name="yeare"
+              id=""
+              ref={yearMonthDay}
+              onChange={handleInputChange}
+            >
               {yeare.map((item, index) => (
                 <option value={item} key={index}>
                   {item}
@@ -245,7 +346,13 @@ const AddCollege = ({ showHide, addColl, addCollege }) => {
               ref={yearMonthDay}
             >
               <span>Month</span>
-              <select className="month" name="monthe" id="" ref={yearMonthDay}>
+              <select
+                className="month"
+                name="monthe"
+                id=""
+                ref={yearMonthDay}
+                onChange={handleInputChange}
+              >
                 {monthe.map((item, index) => (
                   <option value={item} key={index}>
                     {item}
@@ -257,7 +364,13 @@ const AddCollege = ({ showHide, addColl, addCollege }) => {
           {showDay && (
             <div className="year-option" onClick={handleDay} ref={yearMonthDay}>
               <span>Day</span>
-              <select className="day" name="daye" id="" ref={yearMonthDay}>
+              <select
+                className="day"
+                name="daye"
+                id=""
+                ref={yearMonthDay}
+                onChange={handleInputChange}
+              >
                 {daye.map((item, index) => (
                   <option value={item} key={index}>
                     {item}
@@ -272,16 +385,33 @@ const AddCollege = ({ showHide, addColl, addCollege }) => {
           <p>Graduated</p>
         </div>
         <textarea
-          name=""
+          name="dec"
           id=""
           cols="10"
           rows="10"
           placeholder="Discription"
+          onChange={handleInputChange}
+          value={input.dec}
         ></textarea>
         <h4>Concentrations</h4>
-        <input type="text" placeholder="Concentrations" />
-        <input type="text" placeholder="Concentrations" />
-        <input type="text" placeholder="Concentrations" />
+        <input
+          name="cenOne"
+          type="text"
+          placeholder="Concentrations"
+          onChange={handleInputChange}
+        />
+        <input
+          name="cenTwo"
+          type="text"
+          placeholder="Concentrations"
+          onChange={handleInputChange}
+        />
+        <input
+          name="cenThree"
+          type="text"
+          placeholder="Concentrations"
+          onChange={handleInputChange}
+        />
         <h4>Attended for</h4>
         <div className="redio-box">
           <input type="radio" name="" id="" />
@@ -291,7 +421,12 @@ const AddCollege = ({ showHide, addColl, addCollege }) => {
           <input type="radio" name="" id="" />
           <p>Graduate School</p>
         </div>
-        <input type="text" placeholder="Degree" />
+        <input
+          name="deg"
+          type="text"
+          placeholder="Degree"
+          onChange={handleInputChange}
+        />
         <div className="public-save-cencel">
           <button>
             <img
@@ -304,11 +439,24 @@ const AddCollege = ({ showHide, addColl, addCollege }) => {
             <button onClick={() => showHide(false)}>
               <span>Cancel</span>
             </button>
-            <button>
-              <span>Save</span>
-            </button>
+            <button type="submit">Save</button>
           </div>
         </div>
+        {cModal && (
+          <FbModal title={"Profile update failed"} closePopup={setCModal}>
+            <div className="Invalid-modal">
+              <div className="dec">
+                <p>
+                  There was an error saving changes to your profile. Please try
+                  again.
+                </p>
+              </div>
+              <div className="footer">
+                <button onClick={() => setCModal(false)}>Ok</button>
+              </div>
+            </div>
+          </FbModal>
+        )}
       </form>
     </>
   );
