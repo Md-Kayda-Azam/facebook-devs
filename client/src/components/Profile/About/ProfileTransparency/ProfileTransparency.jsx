@@ -11,7 +11,7 @@ const ProfileTransparency = () => {
     <>
       <Wraper>
         <div className="title">
-          <h3>Profile transparency</h3>
+          <span className="bold-text">Profile transparency</span>
           <p style={{ color: "#65676B" }}>
             Facebook is showing information to help people understand the
             purpose of your profile. You won't be able to edit what is shown

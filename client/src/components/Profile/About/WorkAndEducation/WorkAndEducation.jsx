@@ -16,7 +16,7 @@ const WorkAndEducation = () => {
     <>
       <Wraper>
         <div className="title-work">
-          <h4>Work</h4>
+          <span className="bold-text">Work</span>
         </div>
         {!workAndEducation && (
           <IconTitle title={"Add a workplace"} show={setWorkAndEducation} />
@@ -28,7 +28,7 @@ const WorkAndEducation = () => {
           />
         )}
         <div className="title-college">
-          <h4>College</h4>
+          <span className="bold-text">College</span>
         </div>
         {!addCollege && (
           <IconTitle title={"Add college"} show={setAddCollege} />
@@ -37,7 +37,7 @@ const WorkAndEducation = () => {
           <AddCollege showHide={setAddCollege} addCollege={addCollege} />
         )}
         <div className="title-high">
-          <h4>High school</h4>
+          <span className="bold-text">High school</span>
         </div>
         {!highSchool && (
           <IconTitle title={"Add high school"} show={sethighSchool} />

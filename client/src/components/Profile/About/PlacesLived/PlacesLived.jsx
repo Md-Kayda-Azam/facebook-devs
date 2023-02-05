@@ -15,7 +15,7 @@ const PlacesLived = () => {
     <>
       <Wraper>
         <div className="title">
-          <h3>Places lived</h3>
+          <span className="bold-text">Places lived</span>
         </div>
         {!addCureentCity && (
           <IconTitle title={"Add current city"} show={setAddCurrentCity} />

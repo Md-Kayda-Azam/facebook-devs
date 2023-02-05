@@ -218,10 +218,10 @@ const AddCollege = ({ showHide }) => {
       dispatch(
         profileUpdate(
           {
-            edu: [
-              ...user.edu,
+            college_university: [
+              ...user.college_university,
               {
-                schoolName: input.schoolName,
+                college_university: input.schoolName,
                 deg: input.deg,
                 cenOne: input.cenOne,
                 cenTwo: input.cenTwo,

@@ -15,7 +15,7 @@ const DetailsAboutYou = () => {
     <>
       <Wraper>
         <div className="title">
-          <h3>About you</h3>
+          <span className="bold-text">About you</span>
         </div>
         {!addAboutYou && (
           <IconTitle
@@ -25,11 +25,11 @@ const DetailsAboutYou = () => {
         )}
         {addAboutYou && <AddAboutYou showHide={setAddAboutYou} />}
         <div className="title">
-          <h3>Name pronunciation</h3>
+          <span className="bold-text">Name pronunciation</span>
         </div>
         <IconTitle title={"Add a name pronunciation"} />
         <div className="title">
-          <h3>Other names</h3>
+          <span className="bold-text">Other names</span>
         </div>
         {!addNickName && (
           <IconTitle
@@ -39,7 +39,7 @@ const DetailsAboutYou = () => {
         )}
         {addNickName && <AddNickName showHide={setAddNickName} />}
         <div className="title">
-          <h3>Favorite quotes</h3>
+          <span className="bold-text">Favorite quotes</span>
         </div>
         {!addFavoriteQuotes && (
           <IconTitle
@@ -51,7 +51,7 @@ const DetailsAboutYou = () => {
           <AddFavoriteQuotes showHide={setAddFavoriteQuotes} />
         )}
         <div className="title">
-          <h3>Blood donations</h3>
+          <span className="bold-text">Blood donations</span>
         </div>
         <IconTitle title={"Learn about blood donations"} />
       </Wraper>

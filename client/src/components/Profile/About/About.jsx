@@ -145,7 +145,7 @@ const About = () => {
       <div className="about-personal-info">
         <div className="info-wraper">
           <Fbcard>
-            <div className="about-page">
+            <div className="about">
               <div className="about-title">
                 <span>About</span>
                 <ul>

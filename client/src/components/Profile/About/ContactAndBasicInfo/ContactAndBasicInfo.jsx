@@ -15,7 +15,7 @@ const ContactAndBasicInfo = () => {
     <>
       <Wraper>
         <div className="title">
-          <h3>Contact info</h3>
+          <span className="bold-text">Contact info</span>
         </div>
         <ContactInfo
           icon={"https://static.xx.fbcdn.net/rsrc.php/v3/yl/r/mxbGn5aKz1f.png"}
@@ -31,7 +31,7 @@ const ContactAndBasicInfo = () => {
           nameInfo={"Mobile"}
         />
         <div className="title">
-          <h3>Websites and social links</h3>
+          <span className="bold-text">Websites and social links</span>
         </div>
         {!addWebSite && (
           <IconTitle title={"Add a website"} show={setAddWebSite} />
@@ -42,7 +42,7 @@ const ContactAndBasicInfo = () => {
         )}
         {addSocialLink && <AddSocialLink showHide={setAddocialLink} />}
         <div className="title">
-          <h3>Basic info</h3>
+          <span className="bold-text">Basic info</span>
         </div>
         {!addLanguages && (
           <IconTitle title={"Add a language"} show={setAddLanguages} />
@@ -81,7 +81,7 @@ const ContactAndBasicInfo = () => {
           editEmty={"dddddddd"}
         />
         <div className="title">
-          <h3>Category</h3>
+          <span className="bold-text">Category</span>
         </div>
         <ContactInfo
           icon={"https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/lhdCVH10kLz.png"}

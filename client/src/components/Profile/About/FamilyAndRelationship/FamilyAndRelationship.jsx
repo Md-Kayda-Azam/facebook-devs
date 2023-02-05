@@ -12,7 +12,7 @@ const FamilyAndRelationship = () => {
     <>
       <Wraper>
         <div className="title">
-          <h3>Relationship</h3>
+          <span className="bold-text">Relationship</span>
         </div>
         {!relationship && (
           <IconTitle title={"Relationship"} show={setRelationship} />
@@ -24,7 +24,7 @@ const FamilyAndRelationship = () => {
           />
         )}
         <div className="title">
-          <h3>Family members</h3>
+          <span className="bold-text">Family members</span>
         </div>
         {!addfamilyMember && (
           <IconTitle title={"Family members"} show={setAddfamilyMember} />

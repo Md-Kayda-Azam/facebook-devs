@@ -220,36 +220,36 @@ const AddHighSchool = ({ showHide, highSc, ymd }) => {
   // handle input submit
   const handleInputSubmit = (e) => {
     e.preventDefault();
-    // if (!input.schoolName) {
-    //   setCModal(true);
-    // } else {
-    dispatch(
-      profileUpdate(
-        {
-          edu: [
-            ...user.edu,
-            {
-              schoolName: input.schoolName,
-              dec: input.dec,
-              fromDateStart: {
-                fromYear: input.years,
-                fromMonth: input.months,
-                fromDay: input.days,
+    if (!input.schoolName) {
+      setCModal(true);
+    } else {
+      dispatch(
+        profileUpdate(
+          {
+            high_school: [
+              ...user.high_school,
+              {
+                schoolName: input.schoolName,
+                dec: input.dec,
+                fromDateStart: {
+                  fromYear: input.years,
+                  fromMonth: input.months,
+                  fromDay: input.days,
+                },
+                fromDateEnd: {
+                  fromYear: input.yeare,
+                  fromMonth: input.monthe,
+                  fromDay: input.daye,
+                },
               },
-              fromDateEnd: {
-                fromYear: input.yeare,
-                fromMonth: input.monthe,
-                fromDay: input.daye,
-              },
-            },
-          ],
-        },
-        user._id,
-        setInput
-      )
-    );
-    showHide(false);
-    // }
+            ],
+          },
+          user._id,
+          setInput
+        )
+      );
+      showHide(false);
+    }
   };
   return (
     <>

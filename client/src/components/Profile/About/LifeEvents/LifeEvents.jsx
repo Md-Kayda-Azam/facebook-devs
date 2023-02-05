@@ -8,7 +8,7 @@ const LifeEvents = () => {
     <>
       <Wraper>
         <div className="title">
-          <h3>Learn about blood donations</h3>
+          <span className="bold-text">Learn about blood donations</span>
         </div>
         <IconTitle title={"Add a life event"} />
         <ContactInfo

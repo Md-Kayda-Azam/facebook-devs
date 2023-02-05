@@ -14,9 +14,8 @@ body {
   height: 100%;
   width: 1250px;
 }
-.about-page {
+.about {
   flex: 3 1;
-  gap: 5px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -55,6 +54,11 @@ li.aci {
   font-size: 0.9375rem;
 }
 .about-page {
-  flex: 3;
+  flex: 3 1;
   gap: 5px;
+  border-left: 1px solid #ddd;
+}
+.wraper {
+  width: 100%;
+  margin-left: 10px;
 }

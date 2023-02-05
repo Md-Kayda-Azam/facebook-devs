@@ -1962,9 +1962,10 @@ button.personal-info-button:hover {
   text-decoration: underline;
 }
 .personal-info-details ul li span.bold-text {
-  font-weight: bold;
-  color: #000;
-  cursor: pointer;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #1e1e1e;
+  font-family: inherit;
 }
 .personal-info-details ul li span.bold-text:hover {
   text-decoration: underline;
@@ -2309,4 +2310,10 @@ span.del-btn {
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
+}
+.bold-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e1e1e;
+  font-family: inherit;
 }

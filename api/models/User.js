@@ -79,13 +79,17 @@ const userSchema = mongoose.Schema(
     },
     category: {
       type: String,
-      default: null,
+      default: "Digital creator",
     },
     work: {
       type: Array,
       default: [],
     },
-    edu: {
+    college_university: {
+      type: Array,
+      default: [],
+    },
+    high_school: {
       type: Array,
       default: [],
     },

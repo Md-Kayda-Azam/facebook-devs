@@ -12,7 +12,7 @@ const PrivacyAndLegalInfo = () => {
     <>
       <Wraper>
         <div className="title">
-          <h3>Privacy and Legal Info</h3>
+          <span className="bold-text">Privacy and Legal Info</span>
         </div>
         {!addPrivacyPolicyLink && (
           <IconTitle

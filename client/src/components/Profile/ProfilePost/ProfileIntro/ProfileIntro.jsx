@@ -208,7 +208,7 @@ const ProfileIntro = () => {
                   </span>
                 </li>
               ))}
-              {user.edu.map((data, index) => (
+              {user.college_university.map((data, index) => (
                 <li key={index}>
                   <img
                     src="https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/jV4o8nAgIEh.png"
@@ -216,6 +216,21 @@ const ProfileIntro = () => {
                   />
                   <span>
                     Studied at
+                    <span className="bold-text">
+                      {" "}
+                      {data.college_university}
+                    </span>
+                  </span>
+                </li>
+              ))}
+              {user.high_school.map((data, index) => (
+                <li key={index}>
+                  <img
+                    src="https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/jV4o8nAgIEh.png"
+                    alt=""
+                  />
+                  <span>
+                    Went to
                     <span className="bold-text"> {data.schoolName}</span>
                   </span>
                 </li>
