@@ -817,6 +817,7 @@ export const userProfileUpdate = async (req, res, next) => {
   try {
     const { id } = req.params;
     const data = req.body;
+
     const user = await User.findByIdAndUpdate(id, data, { new: true });
 
     if (user) {

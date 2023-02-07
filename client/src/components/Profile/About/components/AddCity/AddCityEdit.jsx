@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import usePopupClose from "../../../../../hooks/usePopupClose";
 import { profileUpdate } from "../../../../../redux/auth/authAction";
@@ -58,7 +58,7 @@ const year = Array.from(
   { length: 118 },
   (_, i) => new Date().getFullYear() - i
 );
-const AddCity = ({ showHide }) => {
+const AddCityEdit = ({ showHide, hideaddCityEdit, dataIndex }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -115,6 +115,13 @@ const AddCity = ({ showHide }) => {
     }));
   };
 
+  // console.log(dataIndex);
+
+  useEffect(() => {
+    const data = user.current_city.find((item, i) => i === dataIndex);
+    setInput({ ...data });
+  }, [user, dataIndex]);
+
   // handle work submit
   const handleWorkSubmit = (e) => {
     e.preventDefault();
@@ -122,6 +129,18 @@ const AddCity = ({ showHide }) => {
     if (!input.currentCity) {
       setCModal(true);
     } else {
+      const data = {
+        ...user.current_city,
+      };
+
+      data[dataIndex] = {
+        ...input,
+      };
+
+      // console.log(data[dataIndex]);
+      console.log(data);
+      // user.current_city = data;
+      // // console.log(user);
       dispatch(
         profileUpdate(
           {
@@ -142,17 +161,22 @@ const AddCity = ({ showHide }) => {
         )
       );
       showHide(false);
+      hideaddCityEdit(true);
     }
   };
-
+  // handle Cancel Form
+  const handleCancelForm = () => {
+    showHide(false);
+    hideaddCityEdit(true);
+  };
   return (
     <>
       <form onSubmit={handleWorkSubmit}>
         <input
           name="currentCity"
           type="text"
-          value={input.currentCity}
           placeholder="Current city"
+          value={input.currentCity}
           onChange={handleInputChange}
         />
         <div className="birth-day-box">
@@ -180,6 +204,7 @@ const AddCity = ({ showHide }) => {
               onClick={handleMonth}
               ref={yearMonthDay}
             >
+              <span>Month</span>
               <select
                 name="month"
                 id="month"
@@ -187,6 +212,7 @@ const AddCity = ({ showHide }) => {
                 ref={yearMonthDay}
                 onChange={handleInputChange}
               >
+                <option value="">Year</option>
                 {month.map((item, index) => (
                   <option value={item} key={index}>
                     {item}
@@ -205,6 +231,7 @@ const AddCity = ({ showHide }) => {
                 ref={yearMonthDay}
                 onChange={handleInputChange}
               >
+                <option value="">Year</option>
                 {day.map((item, index) => (
                   <option value={item} key={index}>
                     {item}
@@ -223,7 +250,7 @@ const AddCity = ({ showHide }) => {
             <span>Public</span>
           </button>
           <div className="cancel-save-btn">
-            <button onClick={() => showHide(false)}>
+            <button onClick={handleCancelForm}>
               <span>Cancel</span>
             </button>
             <button type="submit">Save</button>
@@ -246,4 +273,4 @@ const AddCity = ({ showHide }) => {
   );
 };
 
-export default AddCity;
+export default AddCityEdit;

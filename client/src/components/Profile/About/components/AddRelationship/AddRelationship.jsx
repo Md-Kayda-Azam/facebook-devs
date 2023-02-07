@@ -18,7 +18,7 @@ const relationshipStatus = [
   "Divorced",
   "Widowed",
 ];
-const AddRelationship = ({ showHide }) => {
+const AddRelationship = ({ showHide, hide }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -58,10 +58,17 @@ const AddRelationship = ({ showHide }) => {
         )
       );
       showHide(false);
+      hide(true);
     }
   };
 
   usePopupClose(status, setShow);
+
+  // handle cancel btn
+  const handleCancelBtn = () => {
+    showHide(false);
+    hide(true);
+  };
   return (
     <>
       <form onSubmit={handleWorkSubmit}>
@@ -92,7 +99,7 @@ const AddRelationship = ({ showHide }) => {
             <span>Public</span>
           </button>
           <div className="cancel-save-btn">
-            <button onClick={() => showHide(false)}>
+            <button onClick={handleCancelBtn}>
               <span>Cancel</span>
             </button>
             <button type="submit">Save</button>

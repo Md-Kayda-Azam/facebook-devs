@@ -1,0 +1,61 @@
+span.name-title-place {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+
+span.name-title {
+  font-size: 14px;
+  font-family: inherit;
+  color: #685a5a;
+}
+img.location-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.info-details {
+  position: absolute;
+  top: 61px;
+  background-color: #ffffff;
+  right: 19px;
+  width: 325px;
+  z-index: 99;
+  height: 132px;
+  border-radius: 10px;
+  box-shadow: -2px 7px 24px 4px rgb(0 0 0 / 35%);
+  height: auto;
+}
+.add-city-mod {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.button-add-city-delete-modal {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+button.del-AddCity-Modal {
+  width: 112px;
+  margin: 11px 10px 10px 10px;
+}
+button.del-AddCity-active {
+  width: 112px;
+  margin: 11px 10px 10px 10px;
+  background-color: #1b74e4;
+  color: #fff;
+}
+button.del-AddCity-active:hover {
+  width: 112px;
+  margin: 11px 10px 10px 10px;
+  background-color: #186fd8;
+  color: #fff;
+}
+.info-details ul {
+  display: flex;
+  align-items: baseline;
+  margin: 16px 15px 20px 8px;
+}

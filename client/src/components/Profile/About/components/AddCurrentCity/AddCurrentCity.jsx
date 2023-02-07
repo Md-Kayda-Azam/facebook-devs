@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { profileUpdate } from "../../../../../redux/auth/authAction";
 import FbModal from "../../../../FbModal/FbModal";
 import "./AddCurrentCity.css";
 
-const AddCurrentCity = ({ showHide }) => {
+const AddCurrentCity = ({ showHide, hidePopup, hide, hideModal }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
+  const [showHideData, setShowHideData] = useState(
+    user.living ? user.living : false
+  );
   /// modal control state
   const [cModal, setCModal] = useState(false);
   /// handle input add work place
@@ -21,7 +23,10 @@ const AddCurrentCity = ({ showHide }) => {
       [e.target.name]: e.target.value,
     }));
   };
-
+  // useEffect(() => {
+  //   const living = user.living;
+  //   setInput(living);
+  // }, [user]);
   // handle work submit
   const handleWorkSubmit = (e) => {
     e.preventDefault();
@@ -38,8 +43,25 @@ const AddCurrentCity = ({ showHide }) => {
           setInput
         )
       );
+      hide(true);
       showHide(false);
+      hideModal(false);
     }
+  };
+  // handle Cancel Form
+  const handleCancelForm = () => {
+    if (showHideData) {
+      hide(true);
+    } else {
+      hide(false);
+    }
+    if (!showHideData) {
+      hide(false);
+    } else {
+      hide(true);
+    }
+    showHide(false);
+    hidePopup(false);
   };
   return (
     <>
@@ -51,6 +73,7 @@ const AddCurrentCity = ({ showHide }) => {
           value={input.currentCity}
           onChange={handleInputChange}
         />
+
         <div className="public-save-cencel">
           <button>
             <img
@@ -60,7 +83,7 @@ const AddCurrentCity = ({ showHide }) => {
             <span>Public</span>
           </button>
           <div className="cancel-save-btn">
-            <button onClick={() => showHide(false)}>
+            <button onClick={handleCancelForm}>
               <span>Cancel</span>
             </button>
             <button type="submit">Save</button>

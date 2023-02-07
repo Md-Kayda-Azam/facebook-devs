@@ -99,6 +99,7 @@ const userSchema = mongoose.Schema(
     },
     living: {
       type: String,
+      default: null,
     },
     home_town: {
       type: String,

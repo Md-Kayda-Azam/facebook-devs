@@ -80,9 +80,14 @@
   text-decoration: underline;
 }
 .overView-info-details ul li img {
-  filter: invert(59%) sepia(11%) saturate(200%) saturate(135%)
+  filter: invert(45%) sepia(11%) saturate(200%) saturate(135%)
     hue-rotate(176deg) brightness(96%) contrast(94%);
+  cursor: pointer;
 }
+.overView-info-details ul li img.location-photo {
+  filter: invert(1%);
+}
+
 .info-start {
   display: flex;
   justify-content: center;
@@ -127,10 +132,7 @@ img.img-overView {
   cursor: pointer;
   color: #ddd;
 }
-img.img-overView {
-  filter: invert(0%) sepia(21%) saturate(200%) saturate(109.5%)
-    hue-rotate(174deg) brightness(94%) contrast(86%);
-}
+
 .overView-info-details .info-end button span {
   background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/y4/r/vis4Xv7bQHg.png");
   background-position: 0px -194px;
@@ -239,9 +241,8 @@ span.delete-life {
 }
 .select-audience .wraper-aucience .item-section .item-audience {
   display: flex;
-  width: 100%;
   justify-content: space-between;
-  padding: 10px 10px;
+  padding: 0px 20px;
   cursor: pointer;
   border-radius: 10px 10px;
 }
@@ -380,4 +381,39 @@ p.icon-img-option:hover {
   justify-content: center;
   align-items: center;
   /* gap: 9px; */
+}
+button.selCancel {
+  color: #1b74e4;
+}
+button.doneSel {
+  background-color: #1b74e4;
+  color: #fff;
+}
+.bold-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e1e1e;
+  font-family: inherit;
+}
+.bold-text-title {
+  font-size: 19px;
+  font-weight: 600;
+  color: #1e1e1e;
+  font-family: inherit;
+}
+button.relation-edit-delete-btn {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: #dddddd;
+}
+.relation-edit {
+  background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yC/r/VoiI6UAATA9.png");
+  background-position: 0px -505px;
+  background-size: auto;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  /* border-radius: 50%; */
 }

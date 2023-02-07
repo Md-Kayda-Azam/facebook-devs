@@ -3,9 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { profileUpdate } from "../../../../../redux/auth/authAction";
 import FbModal from "../../../../FbModal/FbModal";
 
-const Addhometown = ({ showHide }) => {
+const Addhometown = ({ showHide, hide, hideModal, hidePopup }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
+  const [showHideData, setShowHideData] = useState(
+    user.home_town ? user.home_town : false
+  );
 
   /// modal control state
   const [cModal, setCModal] = useState(false);
@@ -37,8 +41,26 @@ const Addhometown = ({ showHide }) => {
           setInput
         )
       );
+      hide(true);
       showHide(false);
+      hideModal(false);
     }
+  };
+
+  // handle Cancel Form
+  const handleCancelForm = () => {
+    if (showHideData) {
+      hide(true);
+    } else {
+      hide(false);
+    }
+    if (!showHideData) {
+      hide(false);
+    } else {
+      hide(true);
+    }
+    showHide(false);
+    hidePopup(false);
   };
   return (
     <>
@@ -59,7 +81,7 @@ const Addhometown = ({ showHide }) => {
             <span>Public</span>
           </button>
           <div className="cancel-save-btn">
-            <button onClick={() => showHide(false)}>
+            <button onClick={handleCancelForm}>
               <span>Cancel</span>
             </button>
             <button type="submit">Save</button>
