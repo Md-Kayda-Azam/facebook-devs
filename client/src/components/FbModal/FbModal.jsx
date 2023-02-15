@@ -3,13 +3,21 @@ import "./FbModal.css";
 import cross from "../../_assets/icons/cross.png";
 import { BiArrowBack } from "react-icons/bi";
 
-const FbModal = ({ children, title, closePopup, back, upbd }) => {
+const FbModal = ({
+  children,
+  title,
+  closePopup,
+  editFeaturedModal,
+  back,
+  dataEmty,
+}) => {
   const handleBackAndUploadPhotoDelete = () => {
     back(false);
-    upbd([]);
+    dataEmty([]);
   };
   const handleButtonDelete = () => {
     closePopup(false);
+    editFeaturedModal(false);
   };
 
   return (

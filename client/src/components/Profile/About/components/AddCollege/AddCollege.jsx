@@ -112,12 +112,13 @@ const yeare = Array.from(
   (_, i) => new Date().getFullYear() - i
 );
 
-const AddCollege = ({ showHide }) => {
+const AddCollege = ({ showHide, hide }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   /// modal control state
   const [cModal, setCModal] = useState(false);
+  const [saveBtn, setSaveBtn] = useState(true);
 
   const [birthYear, setBirthYear] = useState(false);
   const [birthMonth, setBirthMonth] = useState(false);
@@ -134,10 +135,12 @@ const AddCollege = ({ showHide }) => {
   const [showSchoolMonth, setShowSchoolMonth] = useState(false);
   const [showSchoolDay, setShowSchoolDay] = useState(false);
 
+  // checked show hide
+  const [check_Show_Hide, setCheck_Show_Hide] = useState(false);
   let date = new Date();
   /// handle input add work place
   const [input, setInput] = useState({
-    schoolName: "",
+    college_university: "",
     cenOne: "",
     cenTwo: "",
     cenThree: "",
@@ -206,13 +209,14 @@ const AddCollege = ({ showHide }) => {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+    setSaveBtn(false);
   };
 
   // handle work submit
   const handleWorkSubmit = (e) => {
     e.preventDefault();
 
-    if (!input.schoolName) {
+    if (!input.college_university) {
       setCModal(true);
     } else {
       dispatch(
@@ -221,7 +225,7 @@ const AddCollege = ({ showHide }) => {
             college_university: [
               ...user.college_university,
               {
-                college_university: input.schoolName,
+                college_university: input.college_university,
                 deg: input.deg,
                 cenOne: input.cenOne,
                 cenTwo: input.cenTwo,
@@ -245,13 +249,20 @@ const AddCollege = ({ showHide }) => {
         )
       );
       showHide(false);
+      hide(false);
     }
   };
+  //handleTrue
+  const handleTrue = () => {
+    setSaveBtn(!saveBtn);
+  };
+
+  const handleGraduteSchool = () => {};
   return (
     <>
       <form action="" onSubmit={handleWorkSubmit}>
         <input
-          name="schoolName"
+          name="college_university"
           type="text"
           placeholder="School"
           onChange={handleInputChange}
@@ -381,7 +392,12 @@ const AddCollege = ({ showHide }) => {
           )}
         </div>
         <div className="redio-box">
-          <input type="checkbox" name="" id="" />
+          {saveBtn && (
+            <input type="checkbox" checked onClick={handleTrue} name="" id="" />
+          )}
+          {!saveBtn && (
+            <input type="checkbox" onClick={handleTrue} name="" id="" />
+          )}
           <p>Graduated</p>
         </div>
         <textarea
@@ -414,11 +430,16 @@ const AddCollege = ({ showHide }) => {
         />
         <h4>Attended for</h4>
         <div className="redio-box">
-          <input type="radio" name="" id="" />
+          <input type="radio" name="college" value={"today_check"} id="" />
           <p>College</p>
         </div>
         <div className="redio-box">
-          <input type="radio" name="" id="" />
+          <input
+            type="radio"
+            name="graduate_School"
+            value={"today_check"}
+            id=""
+          />
           <p>Graduate School</p>
         </div>
         <input
@@ -439,7 +460,15 @@ const AddCollege = ({ showHide }) => {
             <button onClick={() => showHide(false)}>
               <span>Cancel</span>
             </button>
-            <button type="submit">Save</button>
+            <button
+              className={`add-city-saveBtn ${
+                !saveBtn && "add-city-saveBtn-Save"
+              }`}
+              disabled={saveBtn}
+              type="submit"
+            >
+              Save
+            </button>
           </div>
         </div>
         {cModal && (

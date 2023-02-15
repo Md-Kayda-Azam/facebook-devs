@@ -118,6 +118,7 @@ const AddHighSchool = ({ showHide, highSc, ymd }) => {
 
   /// modal control state
   const [cModal, setCModal] = useState(false);
+  const [saveBtn, setSaveBtn] = useState(true);
 
   const [birthYear, setBirthYear] = useState(false);
   const [birthMonth, setBirthMonth] = useState(false);
@@ -215,6 +216,7 @@ const AddHighSchool = ({ showHide, highSc, ymd }) => {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+    setSaveBtn(false);
   };
 
   // handle input submit
@@ -250,6 +252,10 @@ const AddHighSchool = ({ showHide, highSc, ymd }) => {
       );
       showHide(false);
     }
+  };
+  //handleTrue
+  const handleTrue = () => {
+    setSaveBtn(!saveBtn);
   };
   return (
     <>
@@ -387,7 +393,12 @@ const AddHighSchool = ({ showHide, highSc, ymd }) => {
         </div>
 
         <div className="redio-box">
-          <input type="checkbox" name="" id="" />
+          {saveBtn && (
+            <input type="checkbox" checked onClick={handleTrue} name="" id="" />
+          )}
+          {!saveBtn && (
+            <input type="checkbox" onClick={handleTrue} name="" id="" />
+          )}
           <p>Graduated</p>
         </div>
         <textarea
@@ -412,7 +423,15 @@ const AddHighSchool = ({ showHide, highSc, ymd }) => {
             <button onClick={() => showHide(false)}>
               <span>Cancel</span>
             </button>
-            <button type="submit">Save</button>
+            <button
+              className={`add-city-saveBtn ${
+                !saveBtn && "add-city-saveBtn-Save"
+              }`}
+              disabled={saveBtn}
+              type="submit"
+            >
+              Save
+            </button>
           </div>
         </div>
         {cModal && (

@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { featured } from "../../FakerAPI/Featured";
 import "./StorySlider.css";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
@@ -14,7 +13,8 @@ import { FiMoreHorizontal } from "react-icons/fi";
 import usePopupClose from "../../hooks/usePopupClose";
 import { useRef } from "react";
 
-const StorySlider = ({ hide }) => {
+const StorySlider = ({ hide, featured }) => {
+  // console.log(featured);
   const [sliderIndex, setSliderIndex] = useState(0);
   const [storyPhotosPausePlay, setStoryPhotosPausePlay] = useState(false);
   const [storyPhotosSoundMuteUnmute, setStoryPhotosSoundMuteUnmute] =
@@ -68,26 +68,28 @@ const StorySlider = ({ hide }) => {
         <div className="story-slider">
           <div
             style={{
-              backgroundImage: `url("${featured[sliderIndex].photo}")`,
+              backgroundImage: `url(/slider/${featured[sliderIndex]})`,
             }}
             className="slider-item"
           >
             <div className="slider-bars-wraper">
-              {featured.map((item, index) => (
-                <div
-                  className={`bars-item ${
-                    index === sliderIndex ? "active" : ""
-                  } ${index < sliderIndex ? "viewd" : ""}`}
-                  key={index}
-                >
-                  <div className="progress"></div>
-                </div>
-              ))}
+              {featured.map((item, index) => {
+                return (
+                  <div
+                    className={`bars-item ${
+                      index === sliderIndex ? "active" : ""
+                    } ${index < sliderIndex ? "viewd" : ""}`}
+                    key={index}
+                  >
+                    <div className="progress"></div>
+                  </div>
+                );
+              })}
             </div>
             <div className="story-details">
               <div className="profile-info">
                 <img
-                  src="https://scontent.fcgp17-1.fna.fbcdn.net/v/t39.30808-1/324560160_911640840192644_738258816472240901_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=105&ccb=1-7&_nc_sid=7206a8&_nc_ohc=rniM8FxytQYAX_Rg9-3&_nc_ht=scontent.fcgp17-1.fna&oh=00_AfCrrlMJwZ2LBl3C6zxNB5FJcXMfiMCBLjEYdY63HvfTdA&oe=63DC146A"
+                  src="https://i.pinimg.com/550x/76/75/b4/7675b498dcbe8ed610b63cccc16c8744.jpg"
                   alt=""
                 />
                 <span>Md Kayda...</span>

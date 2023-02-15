@@ -834,3 +834,42 @@ export const userProfileUpdate = async (req, res, next) => {
     return next(error);
   }
 };
+/**
+ * user profile update
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+export const userProfileFeaturedSilder = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name } = req.body;
+
+    const sliders = [];
+    req.files.forEach((item) => {
+      sliders.push(item.filename);
+    });
+
+    const { featured } = await User.findById(id);
+    const user = await User.findByIdAndUpdate(
+      id,
+      {
+        featured: [...featured, { name, sliders }],
+      },
+      { new: true }
+    );
+
+    if (user) {
+      res.status(200).json({
+        message: "Profile updated successfull",
+        user,
+      });
+    }
+
+    if (!user) {
+      return next(createError(400, "Profile updated failed"));
+    }
+  } catch (error) {
+    return next(error);
+  }
+};

@@ -62,12 +62,13 @@ const year = Array.from(
   (_, i) => new Date().getFullYear() - i
 );
 
-const AddAWorkPlace = ({ showHide }) => {
+const AddAWorkPlace = ({ showHide, hide, hideWorkDeleteModal, setWork }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   /// modal control state
   const [cModal, setCModal] = useState(false);
+  const [saveBtn, setSaveBtn] = useState(true);
 
   const [birthYear, setBirthYear] = useState(false);
   const [birthMonth, setBirthMonth] = useState(false);
@@ -88,11 +89,14 @@ const AddAWorkPlace = ({ showHide }) => {
   // handle checkbox
   const handleShowHidef = () => {
     setCheckShowHide(false);
+    setSaveBtn(!saveBtn);
     setStartYear(!startYear);
   };
   // handle checkbox
   const handleShowHidet = () => {
     setCheckShowHide(false);
+    setSaveBtn(!saveBtn);
+
     setStartYear(!startYear);
   };
 
@@ -165,6 +169,7 @@ const AddAWorkPlace = ({ showHide }) => {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+    setSaveBtn(false);
   };
 
   // handle work submit
@@ -202,9 +207,17 @@ const AddAWorkPlace = ({ showHide }) => {
         )
       );
       showHide(false);
+      hideWorkDeleteModal(false);
+      setWork([]);
+      hide(true);
     }
   };
 
+  //handleCancelWorkForm
+  const handleCancelWorkForm = () => {
+    setWork([]);
+    showHide(false);
+  };
   return (
     <>
       <form action="" onSubmit={handleWorkSubmit}>
@@ -381,10 +394,18 @@ const AddAWorkPlace = ({ showHide }) => {
             <span>Public</span>
           </button>
           <div className="cancel-save-btn">
-            <button onClick={() => showHide(false)}>
+            <button onClick={handleCancelWorkForm}>
               <span>Cancel</span>
             </button>
-            <button type="submit">Save</button>
+            <button
+              className={`add-city-saveBtn ${
+                !saveBtn && "add-city-saveBtn-Save"
+              }`}
+              disabled={saveBtn}
+              type="submit"
+            >
+              Save
+            </button>
           </div>
           {cModal && (
             <FbModal title={"Invalid Employer"} closePopup={setCModal}>

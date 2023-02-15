@@ -6,10 +6,12 @@ import userRoute from "./routes/users.js";
 import mongoDBcunnect from "./config/db.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import cookieParser from "cookie-parser";
-
+import path from "path";
 // init express
 const app = express();
 dotenv.config();
+
+const __dirname = path.resolve();
 
 // middleware
 app.use(express.json());
@@ -21,6 +23,7 @@ const PORT = process.env.SERVER_PORT || 8080;
 
 // routes
 app.use("/api/v1/user", userRoute);
+app.use(express.static(path.join(__dirname, "/api/public/")));
 
 // express error handler
 app.use(errorHandler);

@@ -44,3 +44,26 @@ option {
   background: #fff;
   border: none;
 }
+.cancel-save-btn button.active {
+  background-color: #e4e6eb;
+  color: #bcc0c4;
+  cursor: no-drop;
+}
+.cancel-save-btn button.active-saveBtn-save {
+  background-color: var(--blue-color);
+  color: #fff;
+}
+.add-city-saveBtn {
+  background-color: #e4e6eb;
+  color: #bcc0c4;
+  cursor: no-drop;
+}
+.add-city-saveBtn-Save {
+  background-color: var(--blue-color);
+  color: #fff;
+}
+.add-city-saveBtn-Save:hover {
+  background-color: var(--blue-color);
+  color: #fff;
+  cursor: pointer;
+}

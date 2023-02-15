@@ -58,12 +58,13 @@ const year = Array.from(
   { length: 118 },
   (_, i) => new Date().getFullYear() - i
 );
-const AddCity = ({ showHide }) => {
+const AddCity = ({ showHide, hide }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   /// modal control state
   const [cModal, setCModal] = useState(false);
+  const [saveBtn, setSaveBtn] = useState(true);
 
   const [birthYear, setBirthYear] = useState(false);
   const [birthMonth, setBirthMonth] = useState(false);
@@ -113,6 +114,7 @@ const AddCity = ({ showHide }) => {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+    setSaveBtn(false);
   };
 
   // handle work submit
@@ -142,6 +144,7 @@ const AddCity = ({ showHide }) => {
         )
       );
       showHide(false);
+      hide(false);
     }
   };
 
@@ -226,7 +229,15 @@ const AddCity = ({ showHide }) => {
             <button onClick={() => showHide(false)}>
               <span>Cancel</span>
             </button>
-            <button type="submit">Save</button>
+            <button
+              className={`add-city-saveBtn ${
+                !saveBtn && "add-city-saveBtn-Save"
+              }`}
+              type="submit"
+              disabled={saveBtn}
+            >
+              Save
+            </button>
           </div>
         </div>
         {cModal && (

@@ -33,7 +33,7 @@ const PlacesLived = () => {
 
   // delete data modal
   const [addCityModal, setAddCityModal] = useState(false);
-  const [addCurrentModal, setAddCurrentModal] = useState(false);
+  const [addCityDeleteModal, setAddCityDeleteModal] = useState(false);
   const [addHomeTownModal, setAddHomeTownModal] = useState(false);
 
   const close = useRef(null);
@@ -56,6 +56,10 @@ const PlacesLived = () => {
   );
 
   const [dataIndex, setDataIndex] = useState("");
+  // handleAddCityItemDelete
+  const handleAddCityItemDelete = () => {
+    setAddCityDeleteModal(true);
+  };
 
   const handleEditAndUpdate = () => {
     setAddCurrentCity(true);
@@ -69,11 +73,9 @@ const PlacesLived = () => {
   };
 
   const handleAddCityEditAndUpdate = (index) => {
-    // const data = user.current_city.find((item, i) => i === index);
     setDataIndex(index);
     setAddCityEdit(true);
     setAddCityInfo(false);
-    setSelectAudAddCity(false);
   };
 
   /// handle current city delete
@@ -121,7 +123,12 @@ const PlacesLived = () => {
             </div>
 
             {!addCity && <IconTitle title={"Add city"} show={setAddCity} />}
-            {addCity && <AddCity showHide={setAddCity} />}
+            {addCity && (
+              <AddCity
+                showHide={setAddCity}
+                hide={setAddCityInfo && setAddCityDeleteModal}
+              />
+            )}
 
             {living && (
               <li>
@@ -576,9 +583,9 @@ const PlacesLived = () => {
               />
             )}
 
-            {selectAudAddCity && (
-              <>
-                {user.current_city.map((data, index) => (
+            {user.current_city.map((data, index) => {
+              return (
+                <>
                   <li>
                     <div className="info-start" key={index}>
                       <img
@@ -757,26 +764,54 @@ const PlacesLived = () => {
                               <span className="edit-life"></span>
                               <span>Edit workPlace</span>
                             </li>
-                            <li onClick={() => handleAddCityDel(index)}>
+                            <li onClick={handleAddCityItemDelete}>
                               <span className="delete-life"></span>
                               <span>Delete workPlace</span>
                             </li>
                           </ul>
                         </div>
                       )}
+                      {addCityDeleteModal && (
+                        <FbModal
+                          title={"Are you sure?"}
+                          closePopup={setAddCityDeleteModal}
+                        >
+                          <div className="add-city-mod">
+                            <div className="dec">
+                              <p>
+                                Are you sure you want to remove this city from
+                                your profile?
+                              </p>
+                            </div>
+                            <div className="button-add-city-delete-modal">
+                              <button
+                                onClick={() => setAddCityDeleteModal(false)}
+                                className="del-AddCity-Modal"
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                onClick={() => handleAddCityDel(index)}
+                                className="del-AddCity-active"
+                              >
+                                Confirm
+                              </button>
+                            </div>
+                          </div>
+                        </FbModal>
+                      )}
                     </div>
                   </li>
-                ))}
-              </>
-            )}
-
-            {addCityEdit && (
-              <AddCityEdit
-                dataIndex={dataIndex}
-                hideaddCityEdit={setSelectAudAddCity}
-                showHide={setAddCityEdit}
-              />
-            )}
+                  {index === dataIndex && addCityEdit && (
+                    <AddCityEdit
+                      dataIndex={dataIndex}
+                      hideaddCityEdit={setSelectAudAddCity}
+                      showHide={setAddCityEdit}
+                    />
+                  )}
+                </>
+              );
+            })}
           </ul>
         </div>
       </Wraper>

@@ -4,6 +4,7 @@ import {
   LOGIN_USER_FAILED,
   LOGIN_USER_REQUREST,
   LOGIN_USER_SUCCESS,
+  PROFILE_FEATURED_SAUCCESS,
   PROFILE_UPDATE_SAUCCESS,
   REAGISTER_FAILED,
   REAGISTER_SUCCESS,
@@ -266,6 +267,13 @@ export const userLogout = () => (dispatch) => {
   });
 };
 
+/**
+ * Profiel update
+ * @param {*} data
+ * @param {*} id
+ * @param {*} setBioshow
+ * @returns
+ */
 export const profileUpdate = (data, id, setBioshow) => async (dispatch) => {
   try {
     await axios
@@ -276,6 +284,23 @@ export const profileUpdate = (data, id, setBioshow) => async (dispatch) => {
           payload: res.data.user,
         });
         setBioshow(false);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const profileFeaturedUpdate = (id, data) => async (dispatch) => {
+  try {
+    await axios
+      .post(`/api/v1/user/freatured-slider/${id}`, data)
+      .then((res) => {
+        dispatch({
+          type: PROFILE_FEATURED_SAUCCESS,
+          payload: res.data.user,
+        });
       })
       .catch((error) => {
         console.log(error.message);

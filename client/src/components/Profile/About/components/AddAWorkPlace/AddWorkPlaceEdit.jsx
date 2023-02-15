@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -62,12 +62,13 @@ const year = Array.from(
   (_, i) => new Date().getFullYear() - i
 );
 
-const AddWorkPlaceEdit = ({ showHide, hide, showEdit, hideEdit }) => {
+const AddWorkPlaceEdit = ({ hideForm, showEdit, hideEdit, dataIndex }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   /// modal control state
   const [cModal, setCModal] = useState(false);
+  const [saveBtn, setSaveBtn] = useState(true);
 
   const [birthYear, setBirthYear] = useState(false);
   const [birthMonth, setBirthMonth] = useState(false);
@@ -89,11 +90,13 @@ const AddWorkPlaceEdit = ({ showHide, hide, showEdit, hideEdit }) => {
   const handleShowHidef = () => {
     setCheckShowHide(false);
     setStartYear(!startYear);
+    setSaveBtn(!saveBtn);
   };
   // handle checkbox
   const handleShowHidet = () => {
     setCheckShowHide(false);
     setStartYear(!startYear);
+    setSaveBtn(!saveBtn);
   };
 
   let date = new Date();
@@ -165,8 +168,12 @@ const AddWorkPlaceEdit = ({ showHide, hide, showEdit, hideEdit }) => {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+    setSaveBtn(false);
   };
-
+  useEffect(() => {
+    const data = user.work.find((item, i) => i === dataIndex);
+    setInput({ ...data });
+  }, [user, dataIndex]);
   // handle work submit
   const handleWorkSubmit = (e) => {
     e.preventDefault();
@@ -174,41 +181,31 @@ const AddWorkPlaceEdit = ({ showHide, hide, showEdit, hideEdit }) => {
     if (!input.companyName) {
       setCModal(true);
     } else {
+      const data = [...user.work];
+
+      data[dataIndex] = {
+        ...input,
+      };
+
       dispatch(
         profileUpdate(
           {
-            work: [
-              ...user.work,
-              {
-                companyName: input.companyName,
-                position: input.position,
-                cityTown: input.cityTown,
-                dec: input.cityTown,
-                fromDateStart: {
-                  fromYear: input.years,
-                  fromMonth: input.months,
-                  fromDay: input.days,
-                },
-                fromDateEnd: {
-                  fromYear: input.yeare,
-                  fromMonth: input.monthe,
-                  fromDay: input.daye,
-                },
-              },
-            ],
+            work: [...data],
           },
+
           user._id,
           setInput
         )
       );
-      showHide(false);
+      hideForm(false);
     }
   };
 
   /// handle cancel edit form
   const handleCancelEditForm = () => {
-    hide(false);
     hideEdit(false);
+    hideForm(false);
+
     showEdit(true);
   };
   return (
@@ -390,7 +387,15 @@ const AddWorkPlaceEdit = ({ showHide, hide, showEdit, hideEdit }) => {
             <button onClick={handleCancelEditForm}>
               <span>Cancel</span>
             </button>
-            <button type="submit">Save</button>
+            <button
+              className={`add-city-saveBtn ${
+                !saveBtn && "add-city-saveBtn-Save"
+              }`}
+              disabled={saveBtn}
+              type="submit"
+            >
+              Save
+            </button>
           </div>
           {cModal && (
             <FbModal title={"Invalid Employer"} closePopup={setCModal}>

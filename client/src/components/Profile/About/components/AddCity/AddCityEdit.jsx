@@ -64,6 +64,7 @@ const AddCityEdit = ({ showHide, hideaddCityEdit, dataIndex }) => {
 
   /// modal control state
   const [cModal, setCModal] = useState(false);
+  const [saveBtn, setSaveBtn] = useState(false);
 
   const [birthYear, setBirthYear] = useState(false);
   const [birthMonth, setBirthMonth] = useState(false);
@@ -113,6 +114,7 @@ const AddCityEdit = ({ showHide, hideaddCityEdit, dataIndex }) => {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+    setSaveBtn(false);
   };
 
   // console.log(dataIndex);
@@ -129,32 +131,16 @@ const AddCityEdit = ({ showHide, hideaddCityEdit, dataIndex }) => {
     if (!input.currentCity) {
       setCModal(true);
     } else {
-      const data = {
-        ...user.current_city,
-      };
+      const data = [...user.current_city];
 
       data[dataIndex] = {
         ...input,
       };
 
-      // console.log(data[dataIndex]);
-      console.log(data);
-      // user.current_city = data;
-      // // console.log(user);
       dispatch(
         profileUpdate(
           {
-            current_city: [
-              ...user.current_city,
-              {
-                currentCity: input.currentCity,
-                fromDateStart: {
-                  fromYear: input.year,
-                  fromMonth: input.month,
-                  fromDay: input.day,
-                },
-              },
-            ],
+            current_city: [...data],
           },
           user._id,
           setInput
@@ -253,7 +239,13 @@ const AddCityEdit = ({ showHide, hideaddCityEdit, dataIndex }) => {
             <button onClick={handleCancelForm}>
               <span>Cancel</span>
             </button>
-            <button type="submit">Save</button>
+            <button
+              type="submit"
+              className={`"active" ${!saveBtn && "active-saveBtn-save"}`}
+              disabled={saveBtn}
+            >
+              Save
+            </button>
           </div>
         </div>
         {cModal && (

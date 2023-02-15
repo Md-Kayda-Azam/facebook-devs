@@ -12,6 +12,8 @@ const AddCurrentCity = ({ showHide, hidePopup, hide, hideModal }) => {
   );
   /// modal control state
   const [cModal, setCModal] = useState(false);
+  const [saveBtn, setSaveBtn] = useState(true);
+
   /// handle input add work place
   const [input, setInput] = useState({
     currentCity: "",
@@ -22,11 +24,12 @@ const AddCurrentCity = ({ showHide, hidePopup, hide, hideModal }) => {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+    setSaveBtn(false);
   };
-  // useEffect(() => {
-  //   const living = user.living;
-  //   setInput(living);
-  // }, [user]);
+  useEffect(() => {
+    const data = user.living;
+    setInput({ ...data });
+  }, [user]);
   // handle work submit
   const handleWorkSubmit = (e) => {
     e.preventDefault();
@@ -86,7 +89,15 @@ const AddCurrentCity = ({ showHide, hidePopup, hide, hideModal }) => {
             <button onClick={handleCancelForm}>
               <span>Cancel</span>
             </button>
-            <button type="submit">Save</button>
+            <button
+              className={`add-city-saveBtn ${
+                !saveBtn && "add-city-saveBtn-Save"
+              }`}
+              type="submit"
+              disabled={saveBtn}
+            >
+              Save
+            </button>
           </div>
         </div>
         {cModal && (

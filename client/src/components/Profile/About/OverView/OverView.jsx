@@ -5,9 +5,12 @@ import usePopupClose from "../../../../hooks/usePopupClose";
 import { profileUpdate } from "../../../../redux/auth/authAction";
 import FbModal from "../../../FbModal/FbModal";
 import AddAWorkPlace from "../components/AddAWorkPlace/AddAWorkPlace";
+import AddWorkPlaceEdit from "../components/AddAWorkPlace/AddWorkPlaceEdit";
 import AddCollege from "../components/AddCollege/AddCollege";
+import AddCollegeEdit from "../components/AddCollege/AddCollegeEdit";
 import AddCurrentCity from "../components/AddCurrentCity/AddCurrentCity";
 import AddHighSchool from "../components/AddHighSchool/AddHighSchool";
+import AddHighSchoolEdit from "../components/AddHighSchool/AddHighSchoolEdit";
 import Addhometown from "../components/Addhometown/Addhometown";
 import AddRelationship from "../components/AddRelationship/AddRelationship";
 import ContactInfo from "../components/ContactInfo/ContactInfo";
@@ -44,8 +47,19 @@ const OverView = () => {
   // delete modal all state
   const [homeTownModal, setHomeTownModal] = useState(false);
   const [livingModal, setLivingModal] = useState(false);
-
+  const [addWorkModal, setAddWorkModal] = useState(false);
   const [relationshipInfo, setRelationshipInfo] = useState(false);
+  const [addCollegeUniversityModal, setAddCollegeUniversityModal] =
+    useState(false);
+  const [addHighSchoolDelModal, setAddHighSchoolDelModal] = useState(false);
+
+  /// edit form show hide all state
+  const [work_Show_Hide, setWork_Show_Hide] = useState(false);
+  const [college_UniversityEditModalShow, setCollege_UniversityEditModalShow] =
+    useState(false);
+  const [highSchoolEditForm, setHighSchoolEditForm] = useState(false);
+
+  const [dataIndex, setDataIndex] = useState(null);
 
   const close = useRef(null);
 
@@ -62,38 +76,42 @@ const OverView = () => {
   usePopupClose(close, setSelectAudHomeTown);
   usePopupClose(close, setSelectAudRelationship);
 
+  const [work, setWork] = useState(user.work ? user.work : []);
   const [living, setLiving] = useState(user.living ? user.living : false);
 
+  console.log(work);
   const [relationship, setRelationship] = useState(
     user.relationship ? user.relationship : false
   );
-  // state school college University work add option show hide
-  const [work_place, setWork_place] = useState(user.work ? user.work : false);
-  const [collegeUniversity, setCollegeUniversity] = useState(
-    user.college_university ? user.college_university : false
-  );
-  const [high_School, setHigh_School] = useState(
-    user.high_school ? user.high_school : false
-  );
-
-  const [wrokHide, setWorkHide] = useState(true);
-  const [wrokShow, setWorkShow] = useState(wrokHide ? false : true);
 
   const [homeTown, setHomeTown] = useState(
     user.home_town ? user.home_town : false
   );
 
-  const [college_univercity, setCollege_univercity] = useState(
-    user.college_univercity ? user.college_univercity : false
-  );
-  const [high_school, setHigh_school] = useState(
-    user.high_school ? user.high_school : false
-  );
+  /// handle work info show hide
+  const handleWorkInfoShowHide = (index) => {
+    setWorkInfo(index);
+  };
 
-  /// handle work delete
-  const handleWorkDel = (living) => {
-    const filterWork = user.living.filter((data) => data.living !== living);
-    dispatch(profileUpdate({ living: filterWork }, user._id));
+  // handle work edit
+  const handleWorkEdit = (index) => {
+    setDataIndex(index);
+    setWork_Show_Hide(true);
+    setWorkInfo(false);
+  };
+  // handle work delete
+  const handleWorkDelete = () => {
+    setAddWorkModal(true);
+  };
+  // handle work delete
+  const handleWorkDelModal = (companyName) => {
+    const filterWork = user.work.filter(
+      (data) => data.companyName !== companyName
+    );
+    dispatch(profileUpdate({ work: filterWork }, user._id));
+
+    setAddWorkModal(false);
+    setWork(false);
   };
 
   // handle relationship edit
@@ -129,578 +147,767 @@ const OverView = () => {
     setLivingModal(false);
     setLiving(false);
   };
+
+  //handle current and living city update
+  const handleCurrentAndLivingCityEdit = () => {
+    setLiving(false);
+    setCurrentCityInfo(false);
+    setAddCurrentCity(true);
+  };
+
+  //handle CollegeUniversity Del Modal
+  const handleCollegeUniversityDelModal = (index) => {
+    const filterData = user.college_university.filter((item, i) => i !== index);
+
+    dispatch(profileUpdate({ college_university: filterData }, user._id));
+
+    setAddCollegeUniversityModal(false);
+  };
+
+  // handle College University Edit ModalShow
+  const handleCollegeUniversityEditModalShow = (index) => {
+    setDataIndex(index);
+    setCollege_UniversityEditModalShow(true);
+  };
+
+  //handle Hgih School Delete Modal
+  const handleHgihSchoolDelModal = (index) => {
+    const filterData = user.high_school.filter((item, i) => i !== index);
+
+    dispatch(profileUpdate({ high_school: filterData }, user._id));
+
+    setAddHighSchoolDelModal(false);
+  };
+
+  // handle High School Edit
+  const handleHighSchoolEdit = (index) => {
+    setDataIndex(index);
+    setHighSchoolEditForm(true);
+    setHighSchoolInfo(false);
+  };
   return (
     <>
       <Wraper>
         <div className="overView-info-details">
           <ul>
-            {user.work.map((data, index) => (
-              <li key={index}>
-                <div className="info-start">
-                  <img
-                    src="https://static.xx.fbcdn.net/rsrc.php/v3/yp/r/Q9Qu4uLgzdm.png"
-                    alt=""
-                  />
-                  <span>
-                    Works at
-                    <span className="bold-text"> {data.companyName}</span>
-                  </span>
-                </div>
-                <div className="info-end">
-                  <img
-                    onClick={() => setSelectAudWork(true)}
-                    src="https://static.xx.fbcdn.net/rsrc.php/v3/yI/r/-ejNZQxb3ZR.png"
-                    alt=""
-                  />
-
-                  {selectAudWork && (
-                    <FbModal
-                      title={"Select audience"}
-                      closePopup={setSelectAudWork}
-                    >
-                      <div className="select-audience" ref={close}>
-                        <div className="wraper-aucience">
-                          <div className="item-section">
-                            <div className="item-audience active-select-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-icon"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>Public</span>
-                                  <p>Anyone on or off Facebook</p>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                            <div className="item-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-friends"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>Friends</span>
-                                  <p>Your friends on Facebook</p>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                            <div className="item-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-friends-except"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>Friends except...</span>
-                                  <p>Don't show to same friends</p>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                            <div className="item-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-friends-specific"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>Specific friends</span>
-                                  <p>Only show to same friends</p>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                            <div className="item-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-friends-Only-me"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>Only me</span>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                            <div className="item-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-friends-custom"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>custom</span>
-                                  <p>Include and exclude friends and lists</p>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="footer-select-audience">
-                            <button
-                              onClick={() => setSelectAudWork(false)}
-                              className="selCancel"
-                            >
-                              Cancel
-                            </button>
-                            <button className="doneSel">Done</button>
-                          </div>
-                        </div>
-                      </div>
-                    </FbModal>
-                  )}
-
-                  <div className="public-option">Public</div>
-                  <button
-                    className="btn-overView"
-                    onClick={() => setWorkInfo(!workInfo)}
-                  >
-                    <span></span>
-                  </button>
-
-                  {workInfo && (
-                    <div className="info-details" ref={close}>
-                      <span className="trangle"></span>
-                      <ul>
-                        <li>
-                          <span className="see-life"></span>
-                          <span>See life event</span>
-                        </li>
-                        <li>
-                          <span className="edit-life"></span>
-                          <span>Edit workPlace</span>
-                        </li>
-                        <li>
-                          <span className="delete-life"></span>
-                          <span>Delete workPlace</span>
-                        </li>
-                      </ul>
+            {user.work.map((data, index) => {
+              return (
+                <>
+                  <li>
+                    <div className="info-start" key={index}>
+                      <img
+                        src="https://static.xx.fbcdn.net/rsrc.php/v3/yp/r/Q9Qu4uLgzdm.png"
+                        alt=""
+                      />
+                      <span>
+                        Works at
+                        <span className="bold-text"> {data.companyName}</span>
+                      </span>
                     </div>
-                  )}
-                </div>
-              </li>
-            ))}
+                    <div className="info-end">
+                      <img
+                        onClick={() => setSelectAudWork(true)}
+                        src="https://static.xx.fbcdn.net/rsrc.php/v3/yI/r/-ejNZQxb3ZR.png"
+                        alt=""
+                      />
 
-            {!addWorkPlace && (
-              <IconTitle title={"Add a workplace"} show={setAddWorkPlace} />
+                      {selectAudWork && (
+                        <FbModal
+                          title={"Select audience"}
+                          closePopup={setSelectAudWork}
+                        >
+                          <div className="select-audience" ref={close}>
+                            <div className="wraper-aucience">
+                              <div className="item-section">
+                                <div className="item-audience active-select-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-icon"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>Public</span>
+                                      <p>Anyone on or off Facebook</p>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                                <div className="item-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-friends"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>Friends</span>
+                                      <p>Your friends on Facebook</p>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                                <div className="item-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-friends-except"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>Friends except...</span>
+                                      <p>Don't show to same friends</p>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                                <div className="item-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-friends-specific"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>Specific friends</span>
+                                      <p>Only show to same friends</p>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                                <div className="item-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-friends-Only-me"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>Only me</span>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                                <div className="item-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-friends-custom"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>custom</span>
+                                      <p>
+                                        Include and exclude friends and lists
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="footer-select-audience">
+                                <button
+                                  onClick={() => setSelectAudWork(false)}
+                                  className="selCancel"
+                                >
+                                  Cancel
+                                </button>
+                                <button className="doneSel">Done</button>
+                              </div>
+                            </div>
+                          </div>
+                        </FbModal>
+                      )}
+
+                      <div className="public-option">Public</div>
+                      <button
+                        className="btn-overView"
+                        onClick={() => handleWorkInfoShowHide(index)}
+                      >
+                        <span></span>
+                      </button>
+
+                      {workInfo === index && (
+                        <div className="info-details" ref={close}>
+                          <span className="trangle"></span>
+                          <ul>
+                            <li>
+                              <span className="see-life"></span>
+                              <span>See life event</span>
+                            </li>
+                            <li onClick={() => handleWorkEdit(index)}>
+                              <span className="edit-life"></span>
+                              <span>Edit workPlace</span>
+                            </li>
+                            <li onClick={handleWorkDelete}>
+                              <span className="delete-life"></span>
+                              <span>Delete workPlace</span>
+                            </li>
+                          </ul>
+                        </div>
+                      )}
+                      {addWorkModal && (
+                        <FbModal
+                          title={"Are you sure?"}
+                          closePopup={setAddWorkModal}
+                        >
+                          <div className="add-city-mod">
+                            <div className="dec">
+                              <p>
+                                Are you sure you want to remove this city from
+                                your profile?
+                              </p>
+                            </div>
+                            <div className="button-add-city-delete-modal">
+                              <button
+                                onClick={() => setAddWorkModal(false)}
+                                className="del-AddCity-Modal"
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                onClick={() =>
+                                  handleWorkDelModal(data.companyName)
+                                }
+                                className="del-AddCity-active"
+                              >
+                                Confirm
+                              </button>
+                            </div>
+                          </div>
+                        </FbModal>
+                      )}
+                    </div>
+                  </li>
+                  {index === dataIndex && work_Show_Hide && (
+                    <AddWorkPlaceEdit
+                      hideForm={setWork_Show_Hide}
+                      hideEdit={setWorkInfo}
+                      dataIndex={dataIndex}
+                    />
+                  )}
+                </>
+              );
+            })}
+
+            {work.length === 0 && (
+              <>
+                {!addWorkPlace && (
+                  <IconTitle title={"Add a workplace"} show={setAddWorkPlace} />
+                )}
+              </>
             )}
 
-            {addWorkPlace && <AddAWorkPlace showHide={setAddWorkPlace} />}
+            {addWorkPlace && (
+              <AddAWorkPlace
+                hide={setWork}
+                setWork={setWork}
+                showHide={setAddWorkPlace}
+              />
+            )}
 
-            {user.college_university.map((data, index) => (
-              <li key={index}>
-                <div className="info-start">
-                  <img
-                    src="https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/jV4o8nAgIEh.png"
-                    alt=""
-                  />
-                  <span>
-                    Studied at
-                    <span className="bold-text">
-                      {" "}
-                      {data.college_university}
-                    </span>
-                  </span>
-                </div>
-                <div className="info-end">
-                  <img
-                    onClick={() => setSelectAudStudyCollege(true)}
-                    className="img-overView"
-                    src="https://static.xx.fbcdn.net/rsrc.php/v3/yI/r/-ejNZQxb3ZR.png"
-                    alt=""
-                  />
-                  {selectAudStudyCollege && (
-                    <FbModal
-                      title={"Select audience"}
-                      closePopup={setSelectAudStudyCollege}
-                    >
-                      <div className="select-audience" ref={close}>
-                        <div className="wraper-aucience">
-                          <div className="item-section">
-                            <div className="item-audience active-select-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-icon"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>Public</span>
-                                  <p>Anyone on or off Facebook</p>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                            <div className="item-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-friends"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>Friends</span>
-                                  <p>Your friends on Facebook</p>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                            <div className="item-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-friends-except"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>Friends except...</span>
-                                  <p>Don't show to same friends</p>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                            <div className="item-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-friends-specific"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>Specific friends</span>
-                                  <p>Only show to same friends</p>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                            <div className="item-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-friends-Only-me"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>Only me</span>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                            <div className="item-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-friends-custom"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>custom</span>
-                                  <p>Include and exclude friends and lists</p>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="footer-select-audience">
-                            <button
-                              onClick={() => setSelectAudStudyCollege(false)}
-                              className="selCancel"
-                            >
-                              Cancel
-                            </button>
-                            <button className="doneSel">Done</button>
-                          </div>
-                        </div>
-                      </div>
-                    </FbModal>
-                  )}
-                  <button
-                    className="btn-overView"
-                    onClick={() => setStudyInfo(!studyInfo)}
-                  >
-                    <span></span>
-                  </button>
-
-                  {studyInfo && (
-                    <div className="info-details" ref={close}>
-                      <span className="trangle"></span>
-                      <ul>
-                        <li>
-                          <span className="see-life"></span>
-                          <span>See life event</span>
-                        </li>
-                        <li>
-                          <span className="edit-life"></span>
-                          <span>Edit workPlace</span>
-                        </li>
-                        <li>
-                          <span className="delete-life"></span>
-                          <span>Delete workPlace</span>
-                        </li>
-                      </ul>
+            {user.college_university.map((data, index) => {
+              return (
+                <>
+                  <li>
+                    <div className="info-start" key={index}>
+                      <img
+                        src="https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/jV4o8nAgIEh.png"
+                        alt=""
+                      />
+                      <span>
+                        Studied at
+                        <span className="bold-text">
+                          {" "}
+                          {data.college_university}
+                        </span>
+                      </span>
                     </div>
+                    <div className="info-end">
+                      <img
+                        onClick={() => setSelectAudStudyCollege(true)}
+                        className="img-overView"
+                        src="https://static.xx.fbcdn.net/rsrc.php/v3/yI/r/-ejNZQxb3ZR.png"
+                        alt=""
+                      />
+                      {selectAudStudyCollege && (
+                        <FbModal
+                          title={"Select audience"}
+                          closePopup={setSelectAudStudyCollege}
+                        >
+                          <div className="select-audience" ref={close}>
+                            <div className="wraper-aucience">
+                              <div className="item-section">
+                                <div className="item-audience active-select-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-icon"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>Public</span>
+                                      <p>Anyone on or off Facebook</p>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                                <div className="item-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-friends"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>Friends</span>
+                                      <p>Your friends on Facebook</p>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                                <div className="item-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-friends-except"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>Friends except...</span>
+                                      <p>Don't show to same friends</p>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                                <div className="item-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-friends-specific"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>Specific friends</span>
+                                      <p>Only show to same friends</p>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                                <div className="item-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-friends-Only-me"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>Only me</span>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                                <div className="item-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-friends-custom"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>custom</span>
+                                      <p>
+                                        Include and exclude friends and lists
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="footer-select-audience">
+                                <button
+                                  onClick={() =>
+                                    setSelectAudStudyCollege(false)
+                                  }
+                                  className="selCancel"
+                                >
+                                  Cancel
+                                </button>
+                                <button className="doneSel">Done</button>
+                              </div>
+                            </div>
+                          </div>
+                        </FbModal>
+                      )}
+                      <button
+                        className="btn-overView"
+                        onClick={() => setStudyInfo(index)}
+                      >
+                        <span></span>
+                      </button>
+
+                      {index === studyInfo && (
+                        <div className="info-details" ref={close}>
+                          <span className="trangle"></span>
+                          <ul>
+                            <li>
+                              <span className="see-life"></span>
+                              <span>See life event</span>
+                            </li>
+                            <li
+                              onClick={() =>
+                                handleCollegeUniversityEditModalShow(index)
+                              }
+                            >
+                              <span className="edit-life"></span>
+                              <span>Edit workPlace</span>
+                            </li>
+                            <li
+                              onClick={() =>
+                                setAddCollegeUniversityModal(index)
+                              }
+                            >
+                              <span className="delete-life"></span>
+                              <span>Delete workPlace</span>
+                            </li>
+                          </ul>
+                        </div>
+                      )}
+                      {index === addCollegeUniversityModal && (
+                        <FbModal
+                          title={"Are you sure?"}
+                          closePopup={setAddCollegeUniversityModal}
+                        >
+                          <div className="add-city-mod">
+                            <div className="dec">
+                              <p>
+                                Are you sure you want to remove this city from
+                                your profile?
+                              </p>
+                            </div>
+                            <div className="button-add-city-delete-modal">
+                              <button
+                                onClick={() =>
+                                  setAddCollegeUniversityModal(false)
+                                }
+                                className="del-AddCity-Modal"
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                onClick={() =>
+                                  handleCollegeUniversityDelModal(index)
+                                }
+                                className="del-AddCity-active"
+                              >
+                                Confirm
+                              </button>
+                            </div>
+                          </div>
+                        </FbModal>
+                      )}
+                    </div>
+                  </li>
+                  {index === dataIndex && college_UniversityEditModalShow && (
+                    <AddCollegeEdit
+                      dataIndex={index}
+                      showHide={setCollege_UniversityEditModalShow}
+                      hide={setStudyInfo}
+                    />
                   )}
-                </div>
-              </li>
-            ))}
+                </>
+              );
+            })}
             {!addCollege && (
               <IconTitle title={"Add college"} show={setAddCollege} />
             )}
             {addCollege && (
               <AddCollege showHide={setAddCollege} addColl={setAddCollege} />
             )}
-            {user.high_school.map((data, index) => (
-              <li key={index}>
-                <div className="info-start">
-                  <img
-                    src="https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/jV4o8nAgIEh.png"
-                    alt=""
-                  />
-                  <span>
-                    Went to
-                    <span className="bold-text"> {data.schoolName}</span>
-                  </span>
-                </div>
-
-                <div className="info-end">
-                  <img
-                    onClick={() => setSelectAudHighSchool(true)}
-                    className="img-overView"
-                    src="https://static.xx.fbcdn.net/rsrc.php/v3/yI/r/-ejNZQxb3ZR.png"
-                    alt=""
-                  />
-                  {selectAudHighSchool && (
-                    <FbModal
-                      title={"Select audience"}
-                      closePopup={setSelectAudStudyCollege}
-                    >
-                      <div className="select-audience" ref={close}>
-                        <div className="wraper-aucience">
-                          <div className="item-section">
-                            <div className="item-audience active-select-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-icon"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>Public</span>
-                                  <p>Anyone on or off Facebook</p>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                            <div className="item-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-friends"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>Friends</span>
-                                  <p>Your friends on Facebook</p>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                            <div className="item-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-friends-except"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>Friends except...</span>
-                                  <p>Don't show to same friends</p>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                            <div className="item-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-friends-specific"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>Specific friends</span>
-                                  <p>Only show to same friends</p>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                            <div className="item-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-friends-Only-me"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>Only me</span>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                            <div className="item-audience">
-                              <div className="icon-option">
-                                <p className="icon-img-option">
-                                  <span className="background-img-friends-custom"></span>
-                                </p>
-                                <div className="dec-title">
-                                  <span>custom</span>
-                                  <p>Include and exclude friends and lists</p>
-                                </div>
-                              </div>
-                              <div className="checkbox-showhide">
-                                <input
-                                  type="checkbox"
-                                  className="rounded-checkbox"
-                                  name=""
-                                  id=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="footer-select-audience">
-                            <button
-                              onClick={() => setSelectAudHighSchool(false)}
-                              className="selCancel"
-                            >
-                              Cancel
-                            </button>
-                            <button className="doneSel">Done</button>
-                          </div>
-                        </div>
-                      </div>
-                    </FbModal>
-                  )}
-                  <button
-                    className="btn-overView"
-                    onClick={() => setHighSchoolInfo(!highSchoolInfo)}
-                  >
-                    <span></span>
-                  </button>
-                  {highSchoolInfo && (
-                    <div className="info-details" ref={close}>
-                      <span className="trangle"></span>
-                      <ul>
-                        <li>
-                          <span className="see-life"></span>
-                          <span>See life event</span>
-                        </li>
-                        <li>
-                          <span className="edit-life"></span>
-                          <span>Edit workPlace</span>
-                        </li>
-                        <li>
-                          <span className="delete-life"></span>
-                          <span>Delete workPlace</span>
-                        </li>
-                      </ul>
+            {user.high_school.map((data, index) => {
+              return (
+                <>
+                  <li key={index}>
+                    <div className="info-start">
+                      <img
+                        src="https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/jV4o8nAgIEh.png"
+                        alt=""
+                      />
+                      <span>
+                        Went to
+                        <span className="bold-text"> {data.schoolName}</span>
+                      </span>
                     </div>
+
+                    <div className="info-end">
+                      <img
+                        onClick={() => setSelectAudHighSchool(true)}
+                        className="img-overView"
+                        src="https://static.xx.fbcdn.net/rsrc.php/v3/yI/r/-ejNZQxb3ZR.png"
+                        alt=""
+                      />
+                      {selectAudHighSchool && (
+                        <FbModal
+                          title={"Select audience"}
+                          closePopup={setSelectAudStudyCollege}
+                        >
+                          <div className="select-audience" ref={close}>
+                            <div className="wraper-aucience">
+                              <div className="item-section">
+                                <div className="item-audience active-select-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-icon"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>Public</span>
+                                      <p>Anyone on or off Facebook</p>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                                <div className="item-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-friends"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>Friends</span>
+                                      <p>Your friends on Facebook</p>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                                <div className="item-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-friends-except"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>Friends except...</span>
+                                      <p>Don't show to same friends</p>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                                <div className="item-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-friends-specific"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>Specific friends</span>
+                                      <p>Only show to same friends</p>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                                <div className="item-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-friends-Only-me"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>Only me</span>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                                <div className="item-audience">
+                                  <div className="icon-option">
+                                    <p className="icon-img-option">
+                                      <span className="background-img-friends-custom"></span>
+                                    </p>
+                                    <div className="dec-title">
+                                      <span>custom</span>
+                                      <p>
+                                        Include and exclude friends and lists
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div className="checkbox-showhide">
+                                    <input
+                                      type="checkbox"
+                                      className="rounded-checkbox"
+                                      name=""
+                                      id=""
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="footer-select-audience">
+                                <button
+                                  onClick={() => setSelectAudHighSchool(false)}
+                                  className="selCancel"
+                                >
+                                  Cancel
+                                </button>
+                                <button className="doneSel">Done</button>
+                              </div>
+                            </div>
+                          </div>
+                        </FbModal>
+                      )}
+                      <button
+                        className="btn-overView"
+                        onClick={() => setHighSchoolInfo(index)}
+                      >
+                        <span></span>
+                      </button>
+                      {index === highSchoolInfo && (
+                        <div className="info-details" ref={close}>
+                          <span className="trangle"></span>
+                          <ul>
+                            <li>
+                              <span className="see-life"></span>
+                              <span>See life event</span>
+                            </li>
+                            <li onClick={() => handleHighSchoolEdit(index)}>
+                              <span className="edit-life"></span>
+                              <span>Edit workPlace</span>
+                            </li>
+                            <li onClick={() => setAddHighSchoolDelModal(index)}>
+                              <span className="delete-life"></span>
+                              <span>Delete workPlace</span>
+                            </li>
+                          </ul>
+                        </div>
+                      )}
+                      {index === addHighSchoolDelModal && (
+                        <FbModal
+                          title={"Are you sure?"}
+                          closePopup={setAddHighSchoolDelModal}
+                        >
+                          <div className="add-city-mod">
+                            <div className="dec">
+                              <p>
+                                Are you sure you want to remove this city from
+                                your profile?
+                              </p>
+                            </div>
+                            <div className="button-add-city-delete-modal">
+                              <button
+                                onClick={() => setAddHighSchoolDelModal(false)}
+                                className="del-AddCity-Modal"
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                onClick={() => handleHgihSchoolDelModal(index)}
+                                className="del-AddCity-active"
+                              >
+                                Confirm
+                              </button>
+                            </div>
+                          </div>
+                        </FbModal>
+                      )}
+                    </div>
+                  </li>
+                  {index === dataIndex && highSchoolEditForm && (
+                    <AddHighSchoolEdit
+                      showHide={setHighSchoolEditForm}
+                      dataIndex={dataIndex}
+                    />
                   )}
-                </div>
-              </li>
-            ))}
+                </>
+              );
+            })}
 
             {!addHighSchool && (
               <IconTitle title={"Add a high school"} show={setAddHighSchool} />
@@ -875,7 +1082,7 @@ const OverView = () => {
                           <span className="see-life"></span>
                           <span>See life event</span>
                         </li>
-                        <li>
+                        <li onClick={handleCurrentAndLivingCityEdit}>
                           <span className="edit-life"></span>
                           <span>Edit workPlace</span>
                         </li>

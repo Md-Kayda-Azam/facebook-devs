@@ -111,6 +111,10 @@ const userSchema = mongoose.Schema(
       type: Array,
       default: [],
     },
+    featured: {
+      type: Array,
+      default: [],
+    },
     about_you: {
       type: String,
     },

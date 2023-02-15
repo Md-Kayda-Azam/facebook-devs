@@ -1,0 +1,67 @@
+.edit-freatured-items-photos-upload {
+  width: 675px;
+  overflow: auto;
+  scroll-behavior: smooth;
+  height: 200px;
+}
+.edit-featured-all-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.edit-feature-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+}
+.edit-feature-item:hover {
+  filter: brightness(0.9);
+}
+.edit-feature-item .item-img {
+}
+.edit-feature-item .item-img img {
+  width: 122px;
+  object-fit: cover;
+  height: 200px;
+  border-radius: 10px;
+}
+/* .edit-feature-item .item-img img:hover {
+  filter: brightness(0.9);
+} */
+.edit-feature-item .item-info {
+  padding: 10px;
+}
+.edit-feature-item .item-info span {
+  font-size: 15px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.edit-feature-item .item-info p {
+  font-size: 14px;
+  color: #65676b;
+}
+.item-edit-icon {
+  margin-left: 17px;
+}
+.edit-feature-item .item-edit-icon span.icon-edit-featured {
+  background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yQ/r/SyKgNW4aY0X.png");
+  background-position: 0px -42px;
+  background-size: auto;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+
+.edit-feature-button button.edit-featured-btn {
+  background-color: #e7f3ff;
+  color: #1877f2;
+}
+.edit-feature-button button.edit-featured-btn:hover {
+  background-color: #d3e3f5;
+}
+.edit-feature-button {
+  margin-top: 10px;
+}
