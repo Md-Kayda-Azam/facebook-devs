@@ -2,6 +2,7 @@ import {
   LOGIN_USER_FAILED,
   LOGIN_USER_SUCCESS,
   PROFILE_FEATURED_SAUCCESS,
+  PROFILE_PHOTO_SAUCCESS,
   PROFILE_UPDATE_SAUCCESS,
   REAGISTER_FAILED,
   REAGISTER_REQUREST,
@@ -9,6 +10,8 @@ import {
   TOKEN_USER_FAILED,
   TOKEN_USER_SUCCESS,
   USER_LOGOUT,
+  COVER_PHOTO_SAUCCESS,
+  GET_ALL_USERS,
 } from "./actionType.js";
 import initialState from "./initialState.js";
 
@@ -78,7 +81,23 @@ const authReducer = (state = initialState, { type, payload }) => {
     case PROFILE_FEATURED_SAUCCESS:
       return {
         ...state,
-        user: payload,
+        user: {
+          ...state.user,
+          ...payload,
+        },
+      };
+    case COVER_PHOTO_SAUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...payload,
+        },
+      };
+    case GET_ALL_USERS:
+      return {
+        ...state,
+        users: payload,
       };
 
     default:

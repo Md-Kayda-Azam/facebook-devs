@@ -10,7 +10,7 @@ const Sidebar = () => {
       <div className="fb-home-body-sidebar">
         <ul>
           <li>
-            <Link to="/profile">
+            <Link to={`/${user.username}`}>
               <div className="body-icon">
                 <Avatar />
               </div>

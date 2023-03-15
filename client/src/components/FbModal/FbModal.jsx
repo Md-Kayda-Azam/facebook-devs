@@ -10,6 +10,7 @@ const FbModal = ({
   editFeaturedModal,
   back,
   dataEmty,
+  close,
 }) => {
   const handleBackAndUploadPhotoDelete = () => {
     back(false);
@@ -24,7 +25,7 @@ const FbModal = ({
     <>
       <div className="blur-box">
         <div className="fb-modal-wraper">
-          <div className="fb-modal-popup">
+          <div className="fb-modal-popup" ref={close}>
             <div className="fb-modal-header">
               <span className="title">{title}</span>
               {back && (

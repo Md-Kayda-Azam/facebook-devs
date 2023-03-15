@@ -1,6 +1,6 @@
 import React from "react";
 
-const Photo = () => {
+const Photos = () => {
   return (
     <>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
@@ -18,4 +18,4 @@ const Photo = () => {
   );
 };
 
-export default Photo;
+export default Photos;

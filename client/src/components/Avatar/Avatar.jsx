@@ -9,8 +9,8 @@ const Avatar = () => {
       <img
         src={
           user.profile_photo
-            ? user.profile_photo
-            : "https://media.istockphoto.com/id/1327592449/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?b=1&s=170667a&w=0&k=20&c=GHn-aw4tVt8wpe8PyFBp4PRYNMO473UVUIYtAMxT5l0="
+            ? `/profile/${user.profile_photo}`
+            : "https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png"
         }
         alt=""
       />

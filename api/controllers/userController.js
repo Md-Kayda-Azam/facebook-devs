@@ -68,10 +68,18 @@ export const register = async (req, res, next) => {
       activationcode = getRandom(100000, 999999);
     }
 
+    // username slug
+    const makeSlug = (data) => {
+      let arr = data.split(" ");
+      return arr.join("-").toLowerCase();
+    };
+
+    let username = makeSlug(first_name + " " + sur_name);
     // Create User
     const user = await User.create({
       first_name,
       sur_name,
+      username,
       mobile: mobileData,
       email: emailData,
       password: hashPassword(password),
@@ -869,6 +877,186 @@ export const userProfileFeaturedSilder = async (req, res, next) => {
     if (!user) {
       return next(createError(400, "Profile updated failed"));
     }
+  } catch (error) {
+    return next(error);
+  }
+};
+/**
+ * user profile update
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+export const userProfilePhotoUpdate = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findByIdAndUpdate(id, {
+      profile_photo: req.file.filename,
+    });
+
+    if (user) {
+      res.status(200).json({
+        message: "Profile updated successfull",
+        filename: req.file.filename,
+        user,
+      });
+    }
+
+    if (!user) {
+      return next(createError(400, "Profile updated failed"));
+    }
+  } catch (error) {
+    return next(error);
+  }
+};
+/**
+ * user profile update
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+export const userCoverPhotoUpdate = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findByIdAndUpdate(id, {
+      cover_photo: req.file.filename,
+    });
+
+    if (user) {
+      res.status(200).json({
+        message: "Profile updated successfull",
+        filename: req.file.filename,
+        user,
+      });
+    }
+
+    if (!user) {
+      return next(createError(400, "Profile updated failed"));
+    }
+  } catch (error) {
+    return next(error);
+  }
+};
+/**
+ * user profile update
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+export const getAllUsers = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const users = await User.find().select("-password").where("_id").ne(id);
+
+    if (users) {
+      res.status(200).json({
+        users,
+      });
+    }
+    if (!users) {
+      return next(createError(400, "Profile updated failed"));
+    }
+  } catch (error) {
+    return next(error);
+  }
+};
+/**
+ * send Friend Request
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+export const sendFriendRequest = async (req, res, next) => {
+  try {
+    const { receiver, sender } = req.params;
+
+    const send = await User.findById(sender);
+    const receive = await User.findById(receiver);
+
+    await receive.updateOne({
+      $push: { request: sender },
+    });
+    await receive.updateOne({
+      $push: { followers: sender },
+    });
+    await send.updateOne({
+      $push: { following: receiver },
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+/**
+ * send Friend Request Cancel
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+export const sendFriendRequestCancel = async (req, res, next) => {
+  try {
+    const { receiver, sender } = req.params;
+
+    const send = await User.findById(sender);
+    const receive = await User.findById(receiver);
+
+    await receive.updateOne({
+      $pull: { request: sender },
+    });
+    await receive.updateOne({
+      $pull: { followers: sender },
+    });
+    await send.updateOne({
+      $pull: { following: receiver },
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+/**
+ * send Friend Request Confirm
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+export const sendFriendRequestConfirm = async (req, res, next) => {
+  try {
+    const { receiver, sender } = req.params;
+
+    const send = await User.findById(sender);
+    const receive = await User.findById(receiver);
+
+    await receive.updateOne({
+      $push: { friends: sender },
+    });
+    await receive.updateOne({
+      $pull: { request: sender },
+    });
+    await send.updateOne({
+      $pull: { friends: receiver },
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+/**
+ * send Friend Request Delete
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+export const sendFriendRequestDelete = async (req, res, next) => {
+  try {
+    const { receiver, sender } = req.params;
+
+    const send = await User.findById(sender);
+    const receive = await User.findById(receiver);
+
+    await receive.updateOne({
+      $pull: { request: sender },
+    });
   } catch (error) {
     return next(error);
   }

@@ -49,5 +49,10 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5050/"
+  "proxy": "http://localhost:5050/",
+  "devDependencies": {
+    "sass": "^1.58.3",
+    "sass-loader": "^13.2.0",
+    "webpack": "^5.75.0"
+  }
 }

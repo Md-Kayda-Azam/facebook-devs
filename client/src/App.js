@@ -23,6 +23,27 @@ import AuthRedject from "./privateRoute/AuthRedject";
 import LoggedInRoute from "./privateRoute/LoggedInRoute";
 import LogOutRoute from "./privateRoute/LogOutRoute";
 import MainHome from "./page/Home/MainHome";
+import ProfileHeader from "./components/Profile/ProfilePost/ProfileHeader/ProfileHeader";
+import About from "./components/Profile/About/About";
+import Followers from "./components/Profile/Follwers/Followers";
+import Photos from "./components/Profile/Photos/Photos";
+import Groups from "./components/Profile/Groups/Groups";
+import Videos from "./components/Profile/Videos/Videos";
+import More from "./components/Profile/More/More";
+import Posts from "./components/Profile/Posts/Posts";
+import OverView from "./components/Profile/About/OverView/OverView";
+import WorkAndEducation from "./components/Profile/About/WorkAndEducation/WorkAndEducation";
+import PlacesLived from "./components/Profile/About/PlacesLived/PlacesLived";
+import ContactAndBasicInfo from "./components/Profile/About/ContactAndBasicInfo/ContactAndBasicInfo";
+import PrivacyAndLegalInfo from "./components/Profile/About/PrivacyAndLegalInfo/PrivacyAndLegalInfo";
+import ProfileTransparency from "./components/Profile/About/ProfileTransparency/ProfileTransparency";
+import FamilyAndRelationship from "./components/Profile/About/FamilyAndRelationship/FamilyAndRelationship";
+import DetailsAboutYou from "./components/Profile/About/DetailsAboutYou/DetailsAboutYou";
+import LifeEvents from "./components/Profile/About/LifeEvents/LifeEvents";
+import FriendsMenu from "./components/FriendsComponents/FriendsMenu/FriendsMenu";
+import FriendRequests from "./components/FriendsComponents/FriendRequests/FriendRequests";
+import Suggections from "./components/FriendsComponents/Suggections/Suggections";
+import AllFriends from "./components/FriendsComponents/AllFriends/AllFriends";
 
 function App() {
   const loader = useSelector((state) => state.loader);
@@ -63,8 +84,43 @@ function App() {
         </Route>
         <Route element={<LoggedInRoute />}>
           <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/friends" element={<Friends />} />
+          <Route path="/:username" element={<Profile />}>
+            <Route path="/:username" element={<Posts />} />
+            <Route path="about_" element={<About />}>
+              <Route index element={<OverView />} />
+              <Route path="work_and_education" element={<WorkAndEducation />} />
+              <Route path="places" element={<PlacesLived />} />
+              <Route
+                path="contact_and_basic_info"
+                element={<ContactAndBasicInfo />}
+              />
+              <Route
+                path="privacy_and_legal_info"
+                element={<PrivacyAndLegalInfo />}
+              />
+              <Route
+                path="profile_transparency"
+                element={<ProfileTransparency />}
+              />
+              <Route
+                path="family_and_relationships"
+                element={<FamilyAndRelationship />}
+              />
+              <Route path="details" element={<DetailsAboutYou />} />
+              <Route path="life_events" element={<LifeEvents />} />
+            </Route>
+            <Route path="followers" element={<Followers />} />
+            <Route path="photos" element={<Photos />} />
+            <Route path="videos" element={<Groups />} />
+            <Route path="groups" element={<Videos />} />
+            <Route path="more" element={<More />} />
+          </Route>
+          <Route path="/friends" element={<Friends />}>
+            <Route path="" element={<FriendsMenu />} />
+            <Route path="requests" element={<FriendRequests />} />
+            <Route path="suggections" element={<Suggections />} />
+            <Route path="list" element={<AllFriends />} />
+          </Route>
         </Route>
         <Route path="/activation/:type" element={<Activation />} />
         <Route path="/forgot-password" element={<FindUserAccount />} />

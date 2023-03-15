@@ -76,7 +76,7 @@ const UserMenu = () => {
             <div className="user-menu-dropdown" ref={dropMenu}>
               <div className="user-menu-box">
                 <div className="user-data-box">
-                  <Link to="/profile" className="user-data-box-item">
+                  <Link to={`/${user.username}`} className="user-data-box-item">
                     <Avatar />
                     <a href="#">{user.first_name + " " + user.sur_name}</a>
                   </Link>

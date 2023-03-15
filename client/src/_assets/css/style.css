@@ -154,6 +154,15 @@ ul {
 Components
 */
 
+.blue-btn {
+  background-color: #1b74e4;
+  color: #fff;
+}
+.blue-btn:hover {
+  background-color: #186cd1;
+  color: #fff;
+}
+
 .divider {
   height: 1px;
   background-color: var(--bg-tertiary);
@@ -660,6 +669,7 @@ span.icon {
   align-items: center;
   width: 680px;
   gap: 10px;
+  transform: translate(-10px, -1px);
 }
 
 .fb-home-menu ul li {
@@ -731,20 +741,32 @@ span.icon {
   display: flex;
   align-items: center;
   gap: 10px;
+  transform: translate(-4px, 2px);
 }
+path.xe3v8dz {
+  fill: #ffff;
+}
+
 .search-box {
   width: 240px;
   height: 40px;
   position: relative;
+  transform: translate(0px, -3px);
 }
-
+.search-box svg.x1lliihq {
+  fill: #65676b;
+}
+input[type="search"] {
+  font-size: 0.9375rem;
+  color: #050505;
+}
 .search-box input {
   width: 100%;
   height: 40px;
   background-color: #f0f2f5;
   border: 1px solid #f0f2f5;
   border-radius: 100px;
-  padding: 0px 20px 0px 35px;
+  padding: 0px 20px 0px 33px;
   font-family: inherit;
 }
 
@@ -1699,7 +1721,8 @@ span.icon {
 
 .fb-profile-header .fb-cover-photo img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   position: absolute;
   top: 0px;
   bottom: 0px;
@@ -1853,41 +1876,6 @@ button.blue {
   background-color: #f0f2f5;
   z-index: -111;
   padding: 20px 0px;
-}
-
-.fb-profile-menu {
-  width: 1200px;
-  margin: auto;
-  border-top: 1px solid #ccced2;
-}
-.fb-profile-menu li.api {
-  color: var(--blue-color);
-  border-radius: 4px;
-  position: relative;
-}
-.fb-profile-menu li.api span.bp {
-  position: absolute;
-  width: 100%;
-  height: 3px;
-  background-color: var(--blue-color);
-  left: 0px;
-  top: 56px;
-  bottom: 0px;
-}
-.fb-profile-menu ul {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 5px;
-  color: #65676b;
-}
-
-.fb-profile-menu ul li a {
-  padding: 20px 20px;
-  display: block;
-  font-size: 0.9375rem;
-  font-family: inherit;
-  font-weight: 600;
 }
 
 .fb-body-wraper {
@@ -2202,7 +2190,7 @@ button.personal-info-button:hover {
 .profile-intro {
   height: 400px;
   overflow: auto;
-  padding: 0px 25px;
+  padding: 0px 0px 0px 33px;
 }
 
 .profile-intro .profile-intro-item {
@@ -2210,13 +2198,14 @@ button.personal-info-button:hover {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  width: 90%;
+  width: 98%;
 }
 
 .profile-intro .profile-intro-item .intro-title {
   font-size: 18px;
   font-weight: 900;
   font-size: 17px;
+  color: black !important;
 }
 .profile-intro .profile-intro-item a {
   display: flex;
@@ -2293,6 +2282,7 @@ button.edit-icons {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+  background-color: #fff;
 }
 button.edit-icons span {
   width: 23px;

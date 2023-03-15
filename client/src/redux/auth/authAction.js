@@ -1,10 +1,12 @@
 import createToast from "../../utility/toast";
 import axios from "axios";
 import {
+  GET_ALL_USERS,
   LOGIN_USER_FAILED,
   LOGIN_USER_REQUREST,
   LOGIN_USER_SUCCESS,
   PROFILE_FEATURED_SAUCCESS,
+  PROFILE_PHOTO_SAUCCESS,
   PROFILE_UPDATE_SAUCCESS,
   REAGISTER_FAILED,
   REAGISTER_SUCCESS,
@@ -292,14 +294,106 @@ export const profileUpdate = (data, id, setBioshow) => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+/**
+ * profileFeaturedUpdate
+ * @param {*} id
+ * @param {*} data
+ * @returns
+ */
 export const profileFeaturedUpdate = (id, data) => async (dispatch) => {
   try {
     await axios
-      .post(`/api/v1/user/freatured-slider/${id}`, data)
+      .post(`/api/v1/user/featured-slider/${id}`, data)
       .then((res) => {
         dispatch({
           type: PROFILE_FEATURED_SAUCCESS,
           payload: res.data.user,
+        });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+/**
+ *
+ * @param {*} _id
+ * @param {*} formData
+ * @param {*} setUpdateProPhoModal
+ * @param {*} setImage
+ * @returns
+ */
+export const profilePhotoUpdate =
+  (_id, formData, setUpdateProPhoModal, setImage) => async (dispatch) => {
+    try {
+      await axios
+        .put(`/api/v1/user/profile-photo-update/${_id}`, formData)
+        .then((res) => {
+          dispatch({
+            type: "PROFILE_UPDATE_SAUCCESS",
+            payload: {
+              profile_photo: res.data.filename,
+            },
+          });
+          setUpdateProPhoModal(false);
+          setImage(null);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+/**
+ *
+ * @param {*} _id
+ * @param {*} formData
+ * @param {*} setUpdateProPhoModal
+ * @param {*} setImage
+ * @returns
+ */
+export const coverPhotoUpdate =
+  (_id, formData, setUpdateProPhoModal, setImage) => async (dispatch) => {
+    try {
+      await axios
+        .put(`/api/v1/user/cover-photo-update/${_id}`, formData)
+        .then((res) => {
+          dispatch({
+            type: "COVER_PHOTO_SAUCCESS",
+            payload: {
+              cover_photo: res.data.filename,
+            },
+          });
+          setUpdateProPhoModal(false);
+          setImage(null);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+/**
+ *
+ * @param {*} _id
+ * @param {*} data
+ * @returns
+ */
+export const getAllUsers = (id) => async (dispatch) => {
+  try {
+    await axios
+      .get(`/api/v1/user/users/${id}`)
+      .then((res) => {
+        dispatch({
+          type: GET_ALL_USERS,
+          payload: res.data.users,
         });
       })
       .catch((error) => {

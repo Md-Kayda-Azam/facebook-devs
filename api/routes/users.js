@@ -14,6 +14,13 @@ import {
   passwordReset,
   userProfileUpdate,
   userProfileFeaturedSilder,
+  userProfilePhotoUpdate,
+  userCoverPhotoUpdate,
+  getAllUsers,
+  sendFriendRequest,
+  sendFriendRequestCancel,
+  sendFriendRequestConfirm,
+  sendFriendRequestDelete,
 } from "../controllers/userController.js";
 import multer from "multer";
 import path from "path";
@@ -29,18 +36,38 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + "_" + file.originalname);
   },
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "/api/public/slider"));
+    if (file.fieldname === "slider") {
+      cb(null, path.join(__dirname, "/api/public/slider"));
+    } else if (file.fieldname === "profile") {
+      cb(null, path.join(__dirname, "/api/public/profile"));
+    } else if (file.fieldname === "cover") {
+      cb(null, path.join(__dirname, "/api/public/cover"));
+    }
   },
 });
 
 const sliderFeatured = multer({ storage }).array("slider", 20);
+const profilePhoto = multer({ storage }).single("profile");
+const coverPhoto = multer({ storage }).single("cover");
 
 // user auth router
 router.post("/login", login);
 router.post("/register", register);
 router.get("/me", loggedInUser);
+router.get("/users/:id", getAllUsers);
+
+router.get("/add-friend/:receiver/:sender", sendFriendRequest);
+router.get("/add-friend-cancel/:receiver/:sender", sendFriendRequestCancel);
+router.get("/add-friend-confirm/:receiver/:sender", sendFriendRequestConfirm);
+router.get(
+  "/add-friend-request-delete/:receiver/:sender",
+  sendFriendRequestDelete
+);
+
 router.put("/profile-update/:id", userProfileUpdate);
-router.post("/freatured-slider/:id", sliderFeatured, userProfileFeaturedSilder);
+router.put("/profile-photo-update/:id", profilePhoto, userProfilePhotoUpdate);
+router.put("/cover-photo-update/:id", coverPhoto, userCoverPhotoUpdate);
+router.post("/featured-slider/:id", sliderFeatured, userProfileFeaturedSilder);
 router.get("/activate/:token", activateAccount);
 router.post("/code-activate/", activateAccountByCode);
 router.post("/resend-activate/", resendActivation);

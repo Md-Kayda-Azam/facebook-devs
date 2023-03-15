@@ -1,0 +1,129 @@
+.sec-area-wraper {
+  width: 100%;
+  height: 100vh;
+  background-color: #f0f2f5;
+  padding: 27px 30px 20px 37px;
+  .header-friends-requests {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 1px;
+    span {
+      font-size: 20px;
+      font-weight: 700;
+      font-family: system-ui;
+    }
+    button {
+      width: 63px;
+      height: 36px;
+      border: none;
+      background-color: #fff;
+      font-size: 17px;
+      font-weight: 400;
+      color: #2184e3;
+      font-family: system-ui;
+      transform: translate(-1px, -2px);
+      &:hover {
+        background-color: #e4e6eb;
+      }
+    }
+  }
+  hr {
+    border-top: 1px solid #ddd;
+  }
+  .second-header {
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+  }
+
+  .friends-requests-sec {
+    width: 100%;
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    .friends-request-pro {
+      width: 226px;
+      height: 376px;
+      background-color: #fff;
+      border-radius: 10px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+
+      border-radius: 10px;
+      img {
+        width: 222px;
+        height: 222px;
+        object-fit: cover;
+        border-radius: 8px 8px 0px 0px;
+      }
+      .req-pro-info {
+        padding: 0px 12px;
+        a {
+          font-size: 18px;
+          font-family: "Circular-Loom";
+          font-weight: 600;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        .pro-info {
+          display: flex;
+          width: 100%;
+          .info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            .img {
+              img {
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+              }
+              img.jamaela {
+                transform: translate(5px, 1px);
+              }
+            }
+
+            p {
+              color: #65676b;
+            }
+          }
+        }
+        .gap-PDs {
+          width: 100%;
+          height: 47px;
+          cursor: auto;
+        }
+        button.request-accepted {
+          color: #bdbdbd;
+          cursor: no-drop;
+          background-color: #e4e6eb;
+        }
+        p {
+          font-size: 15px;
+          color: #5e5e5e;
+        }
+        button {
+          margin: 4px 0px;
+          font-family: "Circular-Loom";
+          font-weight: 500;
+        }
+        button.add-firned-btn {
+          background-color: #e7f3ff;
+          color: #1877f2;
+          font-weight: 500;
+          font-family: "Circular-Loom";
+
+          &:hover {
+            background-color: #dbe7f2;
+            color: #1877f2;
+          }
+        }
+      }
+    }
+  }
+}

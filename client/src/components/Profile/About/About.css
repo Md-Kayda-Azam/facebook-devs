@@ -7,7 +7,6 @@ body {
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .info-wraper {
@@ -18,7 +17,6 @@ body {
   flex: 3 1;
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
   margin: 10px 10px;
 }
 .about-title {
@@ -30,28 +28,32 @@ body {
   font-weight: bold;
   font-weight: 900;
 }
-.about-title ul {
+.about-title .about-item {
   margin-right: 5px;
   color: #65676b;
 }
-li.aci {
-  background-color: #e7f3ff;
-  color: #267ef3;
-}
-.about-title ul li {
+
+.about-title .about-item a {
   display: flex;
   gap: 5px;
   border-radius: 9px;
   margin: 10px 0px;
   cursor: pointer;
-}
-.about-title ul li a {
   padding: 10px 0px;
   margin-left: 10px;
   font-family: inherit;
   font-weight: 600;
-  list-style: none;
   font-size: 0.9375rem;
+  width: 100%;
+}
+.about-title .about-item span {
+  font-size: 16px;
+  width: 100%;
+  padding: 0px 10px;
+}
+.about-title .about-item a.active {
+  background-color: #e7f3ff;
+  color: #267ef3;
 }
 .about-page {
   flex: 3 1;
